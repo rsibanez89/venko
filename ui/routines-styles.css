@@ -1,0 +1,61 @@
+body {
+  background-color: #f5f5f5;
+}
+
+.card {
+  margin-top: 20px;
+}
+
+.modal-body {
+  position:relative;
+  padding:0px;
+}
+.close {
+  position:absolute;
+  right:-30px;
+  top:0;
+  z-index:999;
+  font-size:2rem;
+  font-weight: normal;
+  color:#fff;
+  opacity:1;
+}
+
+/* Flip animation */
+#venko-spiner {
+  -webkit-animation-name: spinner; 
+  -webkit-animation-timing-function: linear; 
+  -webkit-animation-iteration-count: infinite; 
+  -webkit-animation-duration: 2s; 
+  animation-name: spinner; 
+  animation-timing-function: linear; 
+  animation-iteration-count: infinite; 
+  animation-duration: 2s; 
+  -webkit-transform-style: preserve-3d; 
+  -moz-transform-style: preserve-3d; 
+  -ms-transform-style: preserve-3d; 
+  transform-style: preserve-3d;
+  opacity: 0.5;
+}
+
+/* WebKit and Opera browsers */
+@-webkit-keyframes spinner { 
+ from { 
+   -webkit-transform: rotateY(0deg); 
+ } 
+ to { 
+    -webkit-transform: rotateY(-360deg); 
+ } 
+} /* all other browsers */ 
+@keyframes spinner { 
+  from { 
+    -moz-transform: rotateY(0deg); 
+    -ms-transform: rotateY(0deg); 
+    transform: rotateY(0deg); 
+  } 
+ to { 
+    -moz-transform: rotateY(-360deg); 
+    -ms-transform: rotateY(-360deg); 
+    transform: rotateY(-360deg); 
+  } 
+}
