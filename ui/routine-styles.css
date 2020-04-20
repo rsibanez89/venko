@@ -42,6 +42,7 @@ nav {
   -ms-transform-style: preserve-3d; 
   transform-style: preserve-3d;
   opacity: 0.5;
+  margin: 20px;
 }
 
 /* WebKit and Opera browsers */
