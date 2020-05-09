@@ -1,0 +1,215 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Venko API Gateway and Lambda cloudformation.
+Parameters:
+  HostedZoneId:
+    Type: AWS::Route53::HostedZone::Id
+    Default: 'Z0797731QUSXS69CLICZ'
+  Certificate:
+    Type: String
+    # Update with the certificate ARN from Certificate Manager, which must exist in the same region.
+    Default: 'arn:aws:acm:us-east-1:072908428852:certificate/8b911d13-2b8d-4ab8-82cb-e083080faed4'
+
+Resources:
+  VenkoLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: venko-lambda-role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+      Policies:
+        - PolicyName: AllowLambdaToReadWriteOnS3
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - s3:*
+                Resource:
+                  - 'arn:aws:s3:::venko' # Permission to the bucket
+                  - 'arn:aws:s3:::venko/*' # Permission to the objects inside the bucket
+
+  VenkoLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: venko-lambda
+      CodeUri: ./dist
+      Handler: lambda.handler
+      MemorySize: 256
+      Timeout: 120 # 2 minutes
+      Runtime: nodejs12.x
+      Role: !GetAtt VenkoLambdaRole.Arn
+      Events:
+        ProxyApiRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref VenkoApi
+            Path: /
+            Method: ANY
+        ProxyApiGreedy:
+          Type: Api
+          Properties:
+            RestApiId: !Ref VenkoApi
+            Path: /{proxy+}
+            Method: ANY
+        KeepWarm:
+          Type: Schedule
+          Properties:
+            Schedule: rate(10 minutes)
+  
+  VenkoApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: venko-api
+      StageName: venko-stage
+      DefinitionBody:
+        swagger: 2.0
+        info:
+          title: Venko
+        basePath: "/"
+        schemes:
+          - https
+        paths:
+          /:
+            x-amazon-apigateway-any-method:
+              produces:
+                - application/json
+              responses:
+                "200":
+                  description: 200 response
+                  schema:
+                    $ref: "#/definitions/Empty"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: 200
+                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${VenkoLambdaFunction.Arn}/invocations
+                passthroughBehavior: when_no_match
+                httpMethod: POST
+                type: aws_proxy
+            options:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              responses:
+                "200":
+                  description: 200 response
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: string
+                    Access-Control-Allow-Methods:
+                      type: string
+                    Access-Control-Allow-Headers:
+                      type: string
+              x-amazon-apigateway-integration:
+                contentHandling: CONVERT_TO_TEXT
+                responses:
+                  default:
+                    statusCode: 200
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: when_no_match
+                requestTemplates:
+                  application/json: '{"statusCode": 200}'
+                type: mock
+          /{proxy+}:
+            x-amazon-apigateway-any-method:
+              produces:
+                - application/json
+              parameters:
+                - name: proxy
+                  in: path
+                  required: true
+                  type: string
+              responses: {}
+              x-amazon-apigateway-integration:
+                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${VenkoLambdaFunction.Arn}/invocations
+                httpMethod: POST
+                type: aws_proxy
+            options:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              responses:
+                "200":
+                  description: 200 response
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: string
+                    Access-Control-Allow-Methods:
+                      type: string
+                    Access-Control-Allow-Headers:
+                      type: string
+              x-amazon-apigateway-integration:
+                contentHandling: CONVERT_TO_TEXT
+                responses:
+                  default:
+                    statusCode: 200
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: when_no_match
+                requestTemplates:
+                  application/json: '{"statusCode": 200}'
+                type: mock
+        x-amazon-apigateway-binary-media-types:
+          - "*/*"
+        definitions:
+          Empty:
+            type: object
+            title: Empty Schema
+  
+  ApiDomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      CertificateArn: !Ref Certificate
+      DomainName: api.venko.training
+
+  ApiBasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !Ref ApiDomainName
+      RestApiId: !Ref VenkoApi
+      Stage: venko-stage
+  
+  RecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: api.venko.training
+      Type: A
+      AliasTarget:
+        HostedZoneId: !GetAtt ApiDomainName.DistributionHostedZoneId
+        DNSName: !GetAtt ApiDomainName.DistributionDomainName
+
+  LambdaApiGatewayExecutionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt VenkoLambdaFunction.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${VenkoApi}/*/*
+
+Outputs:
+  LambdaFunctionConsoleUrl:
+    Description: Console URL for the Lambda Function.
+    Value: !Sub https://${AWS::Region}.console.aws.amazon.com/lambda/home?region=${AWS::Region}#/functions/${VenkoLambdaFunction}
+
+  ApiGatewayConsoleUrl:
+    Description: Console URL for the API Gateway API's Stage.
+    Value: !Sub https://${AWS::Region}.console.aws.amazon.com/apigateway/home?region=${AWS::Region}#/apis/${VenkoApi}/stages/venko-stage

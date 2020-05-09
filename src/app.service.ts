@@ -39,27 +39,33 @@ export class AppService {
         },
       }).toPromise();
 
-    return await response.data.map(routine => 
-      {
-        var fileName = this.sanitizeFileName(routine.fields.video);
-        this.s3Service.ensureObjectExists(routine.fields.video, fileName);
-        return {
-          fields: {
-            tags: routine.fields.tags,
-            youtubeUrl: routine.fields.url_youtube,
-            video: fileName,
-            group: routine.fields.grupo,
-            subgroup: routine.fields.subgrupo,
-            name: routine.fields.nombre,
-            difficulty: routine.fields.dificultad
-          },
-          model: routine.model,
-          pk: routine.pk
-        };
+    let routines: Routine[] = [];
+    for(var i = 0; i < response.data.length; i++) {
+      var routine = response.data[i];
+      var fileName = this.sanitizeFileName(routine.fields.video);
+      await this.s3Service.ensureObjectExists(routine.fields.video, fileName);
+      routines.push({
+        fields: {
+          tags: routine.fields.tags,
+          youtubeUrl: routine.fields.url_youtube,
+          video: fileName,
+          group: routine.fields.grupo,
+          subgroup: routine.fields.subgrupo,
+          name: routine.fields.nombre,
+          difficulty: routine.fields.dificultad
+        },
+        model: routine.model,
+        pk: routine.pk
       });
+    }
+    return routines;
   }
 
   sanitizeFileName(fineName: string): string {
     return fineName.replace("ñ", "n");
+  }
+
+  listBuckets() {
+    return this.s3Service.listBuckets();
   }
 }

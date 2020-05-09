@@ -36,5 +36,13 @@ window.onload = async () => {
   if(userId) {
     window.location.replace("routines.html");
   }
+
+  document.getElementById("userId")
+    .addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        signIn();
+      }
+  });
 };
 

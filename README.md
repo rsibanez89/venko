@@ -42,5 +42,8 @@ make build
 make run
 
 # Publish to ECR and Deploy
-make publishAndDeploy ImageTag=$(date +%Y%m%d%H%M%S)
+make publishAndDeployECS ImageTag=$(date +%Y%m%d%H%M%S)
+
+# Deploy using serverless
+make packageAndDeployServerless
 ```

@@ -495,6 +495,20 @@
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
   integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
 
+"@types/aws-lambda@*", "@types/aws-lambda@^8.10.51":
+  version "8.10.51"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.51.tgz#7ad774507a3cf1d2e949ca305380c23b5af635a0"
+  integrity sha512-XK7RerpXj4r+IO0r7qIeNqUSU6L4qhPMwNhISxozJJiUX/jdXj9WYzTShRVisEcUQHXgJ4TTBqTArM8f9Mjb8g==
+
+"@types/aws-serverless-express@^3.3.3":
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/@types/aws-serverless-express/-/aws-serverless-express-3.3.3.tgz#8af184bf16e1ba0269de318ac7b7fd638c7df70c"
+  integrity sha512-gIPinyiEsda2Z6Dx6GdQs47/GXaBGEGOMkYWtmqFDsVSDHzWtnIKBBBVQKyMdcK/0ZXa31zzlT+CobFnwNbsTQ==
+  dependencies:
+    "@types/aws-lambda" "*"
+    "@types/express" "*"
+    "@types/node" "*"
+
 "@types/babel__core@^7.1.0":
   version "7.1.7"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.7.tgz#1dacad8840364a57c98d0dd4855c6dd3752c6b89"
@@ -566,7 +580,7 @@
     "@types/node" "*"
     "@types/range-parser" "*"
 
-"@types/express@^4.17.2":
+"@types/express@*", "@types/express@^4.17.2":
   version "4.17.6"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.6.tgz#6bce49e49570507b86ea1b07b806f04697fac45e"
   integrity sha512-n/mr9tZI83kd4azlPG5y997C/M4DNABK9yErhFM6hKdym4kkmd9j0vtsJyjFIwfRBxtrxZtAfGZCNRIBMFLK5w==
@@ -1187,6 +1201,31 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+aws-lambda@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/aws-lambda/-/aws-lambda-1.0.6.tgz#ba562478264646b51e9dc817d7d25ea468ed011b"
+  integrity sha512-Z9lmZBiDYejzjMWuQSDXuZWAqAun6vGt7WApB1r0f8tLNf0IlTGsH30qENfP1kXeTbbMgPpt1bPEeMZjYDTXxQ==
+  dependencies:
+    aws-sdk "*"
+    commander "^3.0.2"
+    js-yaml "^3.13.1"
+    watchpack "^2.0.0-beta.10"
+
+aws-sdk@*:
+  version "2.673.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.673.0.tgz#5848900c90cfd8939602019df16fdc38d2a1cdbf"
+  integrity sha512-OoEPqTLmA5+4uSFf/k4ZLb8cEdx+CwlzovqGf6/gKvb8VrUxe5B5/d2RGlGM777Ke9TmuFhJtTIDugpgc2jo/Q==
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
+
 aws-sdk@^2.656.0:
   version "2.656.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.656.0.tgz#0d74664ddbf30701073be9f9913ee7266afef3b4"
@@ -1201,6 +1240,14 @@ aws-sdk@^2.656.0:
     url "0.10.3"
     uuid "3.3.2"
     xml2js "0.4.19"
+
+aws-serverless-express@^3.3.8:
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/aws-serverless-express/-/aws-serverless-express-3.3.8.tgz#8c05e0ce3651fc277725c6d2e1b8f8a36dbe4f4b"
+  integrity sha512-2TQdF5EhxnAtGeEi+wSi2M3xCfpiemuImnpU7HKih3onH0izJ/G2tkM+gwcGHZEsW/gLWFl/JjQAYGa3fILfvw==
+  dependencies:
+    binary-case "^1.0.0"
+    type-is "^1.6.16"
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -1300,6 +1347,11 @@ big.js@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
   integrity sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==
+
+binary-case@^1.0.0:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/binary-case/-/binary-case-1.1.4.tgz#d687104d59e38f2b9e658d3a58936963c59ab931"
+  integrity sha512-9Kq8m6NZTAgy05Ryuh7U3Qc4/ujLQU1AZ5vMw4cr3igTdi5itZC6kCNrRr2X8NzPiDn2oUIFTfa71DKMnue/Zg==
 
 binary-extensions@^1.0.0:
   version "1.13.1"
@@ -1803,6 +1855,11 @@ commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+
+commander@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-3.0.2.tgz#6837c3fb677ad9933d1cfba42dd14d5117d6b39e"
+  integrity sha512-Gar0ASD4BDyKC4hl4DwHqDrmvjoxWKZigVnAbn5H1owvm4CxCPdb0HQDehwNYMJpla5+M2tPmPARzhtYuwpHow==
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -3009,6 +3066,11 @@ glob-parent@^5.0.0:
   integrity sha512-FnI+VGOpnlGHWZxthPGR+QhR78fuiK0sNLkHQv+bL9fQi57lNNdquIbna/WrfROrolq8GK5Ek6BiMwqL/voRYQ==
   dependencies:
     is-glob "^4.0.1"
+
+glob-to-regexp@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.4.1.tgz#c75297087c851b9a578bd217dd59a92f59fe546e"
+  integrity sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==
 
 glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
   version "7.1.6"
@@ -6418,7 +6480,7 @@ type-fest@^0.8.1:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
-type-is@^1.6.4, type-is@~1.6.17, type-is@~1.6.18:
+type-is@^1.6.16, type-is@^1.6.4, type-is@~1.6.17, type-is@~1.6.18:
   version "1.6.18"
   resolved "https://registry.yarnpkg.com/type-is/-/type-is-1.6.18.tgz#4e552cd05df09467dcbc4ef739de89f2cf37c131"
   integrity sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==
@@ -6629,6 +6691,14 @@ watchpack@^1.6.0:
     chokidar "^2.1.8"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+
+watchpack@^2.0.0-beta.10:
+  version "2.0.0-beta.13"
+  resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-2.0.0-beta.13.tgz#9d9b0c094b8402139333e04eb6194643c8384f55"
+  integrity sha512-ZEFq2mx/k5qgQwgi6NOm+2ImICb8ngAkA/rZ6oyXZ7SgPn3pncf+nfhYTCrs3lmHwOxnPtGLTOuFLfpSMh1VMA==
+  dependencies:
+    glob-to-regexp "^0.4.1"
+    graceful-fs "^4.1.2"
 
 wcwidth@^1.0.1:
   version "1.0.1"
