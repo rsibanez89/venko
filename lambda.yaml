@@ -42,7 +42,7 @@ Resources:
       CodeUri: ./dist
       Handler: lambda.handler
       MemorySize: 256
-      Timeout: 120 # 2 minutes
+      Timeout: 300 # 5 minutes
       Runtime: nodejs12.x
       Role: !GetAtt VenkoLambdaRole.Arn
       Events:
@@ -61,6 +61,7 @@ Resources:
         KeepWarm:
           Type: Schedule
           Properties:
+            Input: '{"action": "update"}'
             Schedule: rate(10 minutes)
   
   VenkoApi:

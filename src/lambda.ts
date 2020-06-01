@@ -29,7 +29,43 @@ async function bootstrap() {
   return serverlessExpress.createServer(expressServer);
 }
 
+const updateEvent = {
+	"resource": "/{proxy+}",
+	"path": "/update",
+	"httpMethod": "GET",
+	"headers": {
+		"Accept": "*/*"
+	},
+	"multiValueHeaders": {
+		"Accept": [
+			"*/*"
+		]
+	},
+	"queryStringParameters": null,
+	"multiValueQueryStringParameters": null,
+	"pathParameters": {
+		"proxy": "update"
+	},
+	"stageVariables": null,
+	"requestContext": {
+		"resourceId": "gn68d5",
+		"resourcePath": "/{proxy+}",
+		"httpMethod": "GET",
+		"path": "/update",
+		"accountId": "072908428852",
+		"protocol": "HTTP/1.1",
+		"stage": "venko-stage",
+		"domainPrefix": "api"
+	},
+	"body": null,
+	"isBase64Encoded": false
+};
+
 export const handler = (event: any, context: Context) => {
+  if(event.action === 'update')
+  {
+    event = updateEvent;
+  }
   if (!lambdaProxy) {
     bootstrap().then(server => {
       lambdaProxy = server;
