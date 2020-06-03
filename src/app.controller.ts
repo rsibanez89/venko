@@ -1,5 +1,6 @@
 import { Controller, Get, Param, CacheTTL, UseInterceptors, CacheInterceptor, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
+import { KnownMissingRoutines } from './missing-routines.model';
 
 @UseInterceptors(CacheInterceptor)
 @Controller()
@@ -16,10 +17,13 @@ export class AppController {
   async Update(): Promise<string> {
     Logger.log('GET update');
     for(let routineId = 5; routineId < 1000; routineId++) {
-      try {
-        await this.appService.getRoutine(routineId.toString()); 
-      } catch (error) {
-        Logger.log(`Routine ${routineId} not found!`);
+      if(!KnownMissingRoutines.find(r => r == routineId))
+      {
+        try {
+          await this.appService.getRoutine(routineId.toString()); 
+        } catch (error) {
+          Logger.log(`Routine ${routineId} not found!`);
+        }
       }
     }
     return 'Ok';

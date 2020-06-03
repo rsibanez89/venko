@@ -13,6 +13,18 @@ run:
 	@echo "running..."
 	docker run -d -p 3000:3000 venko:${ImageTag}
 
+# -------- Dynamo Database --------
+_deployDatabase:
+	@echo "deploying dynamo database"
+	aws cloudformation deploy                                                         \
+		--template-file ddb.yaml                                                        \
+		--stack-name venko-database                                                     \
+		--region ${Region}                                                              \
+		--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM                              \
+		--parameter-overrides DDBTableName=venko-users-registry                         \
+		--tags stack="venko-database"
+# -------- -------------- --------
+
 # -------- ECS Infraestructure --------
 _tagImage:
 	@echo "tagging latest built image..."

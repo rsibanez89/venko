@@ -13,6 +13,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(3000);
+  await app.listen(3000, () => {
+    console.log(`Server started at http://localhost:3000 with debug enabled!`);
+  });
 }
 bootstrap();
