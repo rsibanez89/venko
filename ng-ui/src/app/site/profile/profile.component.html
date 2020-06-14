@@ -1,4 +1,50 @@
-<p>profile works!</p>
-<pre *ngIf="auth.userProfile$ | async as profile">
-<code>{{ profile | json }}</code>
-</pre>
+<ng-container *ngIf="auth.userProfile$ | async as profile">
+  <div class="container" >
+    <h3>Profile</h3>
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="userId">Venko userId</label>
+      <input type="text" class="form-control" id="userId" formControlName="userId">
+      <div class="invalid-feedback">Please provide a valid Venko userId.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First name</label>
+      <input type="text" class="form-control" id="firstName" formControlName="firstName">
+      <div class="invalid-feedback">Please provide a valid first name.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last name</label>
+      <input type="text" class="form-control" id="lastName" formControlName="lastName">
+      <div class="invalid-feedback">Please provide a valid last name.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="nickName">Nick name</label>
+      <input type="text" class="form-control" id="nickName" formControlName="nickName">
+      <div class="invalid-feedback">Please provide a valid nick name.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" id="email" formControlName="email">
+      <div class="invalid-feedback">Please provide a valid email.</div>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-primary float-right"
+      (click)="onOkUpdateProfile()"
+      [disabled]="!form.valid">
+        Update profile!
+    </button>
+  </form>
+
+  <pre *ngIf="!environment.production" >
+    <code>{{ profile | json }}</code>
+    <code>{{ form.getRawValue() | json }}</code>
+  </pre>
+</div>
+</ng-container>
+

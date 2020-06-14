@@ -49,7 +49,7 @@ export class UsersService {
       })
       .promise();
 
-    if (!response.Items) {
+    if (!response.Items || response.Items.length == 0) {
       return null;
     }
     return this.toUser(response.Items[0]);

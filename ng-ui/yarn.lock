@@ -1062,6 +1062,16 @@
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-6.1.0.tgz#fce7550a095aeac42108f76ac1ebd63caf8304e9"
   integrity sha512-2GzkNJBKdeHkaUqaCAqSILPft0IzzHjMfAlAuGY6/ZLlVQ0glt5MTbIXtIhSbjR+OvlrljoXFLrvzs1LGdmE+A==
 
+"@ngrx/effects@^9.2.0":
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-9.2.0.tgz#155bfcfd528aa993fd19f60f9536385984a80910"
+  integrity sha512-8V09zDIPehGpzgfcgyczelovsVYJvDQhN9wHt37K5A+YCG0CI8nj8FmKokHATwv/S62YqFrOVnr/TZacxpDhBw==
+
+"@ngrx/store@^9.2.0":
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-9.2.0.tgz#39f663f98b5332b33c8d197be3ab08bafd85bc88"
+  integrity sha512-V8AI3mxbMztVpbZpALkLZYlGkofKcu9GaOCY5e+sZ1VcJ90oxhFjBpnmd6MuVdmhep1XAHALb1B8ZbBFn+xsgQ==
+
 "@ngtools/webpack@9.1.7":
   version "9.1.7"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-9.1.7.tgz#4322757b029e1175a3361183c06b31d0576538d8"

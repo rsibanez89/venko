@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    ProfileComponent,
-  ],
+  declarations: [HomeComponent, ProfileComponent],
   imports: [
+    NgbModule,
+    FontAwesomeModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
-  providers: [
-  ]
+  providers: [],
 })
-export class SiteModule { }
+export class SiteModule {}
