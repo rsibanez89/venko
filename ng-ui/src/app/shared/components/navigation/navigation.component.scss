@@ -1,0 +1,11 @@
+.nav-link.dropdown-toggle {
+  font-size: 1.25rem;
+
+  img {
+    margin-right: 3px;
+  }
+
+  &::after {
+    vertical-align: middle;
+  }
+}

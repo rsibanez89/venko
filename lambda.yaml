@@ -180,6 +180,7 @@ Resources:
     Properties:
       CertificateArn: !Ref Certificate
       DomainName: api.venko.training
+      SecurityPolicy: TLS_1_2
 
   ApiBasePathMapping:
     Type: AWS::ApiGateway::BasePathMapping
