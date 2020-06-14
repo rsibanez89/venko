@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { AppModule } from './app.module';
+import config from './config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,8 +15,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(3000, () => {
-    console.log(`Server started at http://localhost:3000 with debug enabled!`);
+  await app.listen(config.port, () => {
+    Logger.log(`Swagger started at http://localhost:${config.port}/swagger`, "Bootstrap");
   });
 }
 bootstrap();

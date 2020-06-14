@@ -1,12 +1,10 @@
 export class User {
-  userId: string;
+  userId: string; // Venko userId
   fullName: string;
   firstName: string;
   lastName: string;
   avatarUrl: string;
-  email: string;
-  password: string;
+  nickName: string;
   userType: string;
-  googleId: string;
-  googleIdToken: string;
+  email: string;
 }

@@ -2,6 +2,7 @@
 /dist
 /node_modules
 packaged-lambda.yaml
+.env
 
 # Logs
 logs
