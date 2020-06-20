@@ -12,7 +12,7 @@
         <a class="nav-link" href="#">Home<span class="sr-only">\</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/" *ngIf="auth.loggedIn">Routines</a>
+        <a class="nav-link" routerLink="/routines" *ngIf="usersService.isVenkoUser$ | async">Routines</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Disabled</a>

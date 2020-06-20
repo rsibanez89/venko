@@ -5,12 +5,19 @@ import { ProfileComponent } from './site/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './shared/services/internceptor.service';
+import { RoutinesComponent } from './site/routines/routines.component';
+import { VenkoUserGuard } from './shared/guards/venko-user.guard';
 
 const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'routines',
+    component: RoutinesComponent,
+    canActivate: [AuthGuard, VenkoUserGuard]
   },
   {
     path: '',

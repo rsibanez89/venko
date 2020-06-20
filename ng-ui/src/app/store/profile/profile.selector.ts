@@ -13,3 +13,8 @@ export const getProfile = createSelector(
   getProfileState,
   (state: ProfileState) => state
 );
+
+export const getProfileIsVenkoUser = createSelector(
+  getProfileState,
+  (state: ProfileState) => state.userId != null
+);

@@ -14,14 +14,14 @@ export interface ProfileState extends Profile {
 }
 
 export const initialState: ProfileState = {
-  userId: '',
-  fullName: '',
-  firstName: '',
-  lastName: '',
-  avatarUrl: '',
-  nickName: '',
-  userType: '',
-  email: '',
+  userId: null,
+  fullName: null,
+  firstName: null,
+  lastName: null,
+  avatarUrl: null,
+  nickName: null,
+  userType: null,
+  email: null,
   isLoading: false,
 };
 

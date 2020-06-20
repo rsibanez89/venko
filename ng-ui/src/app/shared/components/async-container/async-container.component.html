@@ -1,0 +1,4 @@
+<div class="container text-center" *ngIf="isLoading">
+  <img class="img-fluid" id="venko-spinner" src="/assets/images/logo-small.png" width="80" height="80">
+</div>
+<ng-content *ngIf="!isLoading"></ng-content>

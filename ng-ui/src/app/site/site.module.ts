@@ -6,15 +6,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SharedModule } from '../shared/shared.module';
+import { RoutinesComponent } from './routines/routines.component';
 
 @NgModule({
-  declarations: [HomeComponent, ProfileComponent],
+  declarations: [HomeComponent, ProfileComponent, RoutinesComponent],
   imports: [
     NgbModule,
     FontAwesomeModule,
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   providers: [],
 })

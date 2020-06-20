@@ -3,13 +3,14 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/app/app.reducer';
 import {
-  getProfileByEmail,
   saveProfile,
 } from 'src/app/store/profile/profile.actions';
-import { getProfile } from 'src/app/store/profile/profile.selector';
+import { getProfile, getProfileIsLoading } from 'src/app/store/profile/profile.selector';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { filter } from 'rxjs/internal/operators/filter';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+import { UsersService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'venko-profile',
@@ -19,10 +20,12 @@ import { environment } from '../../../environments/environment';
 export class ProfileComponent implements OnInit {
   public form: FormGroup;
   public environment = environment;
+  public profileIsLoading$: Observable<boolean>;
 
   constructor(
     private fb: FormBuilder,
     public auth: AuthService,
+    public usersService: UsersService,
     private store: Store<AppState>,
   ) {}
 
@@ -40,9 +43,8 @@ export class ProfileComponent implements OnInit {
 
     this.auth.userProfile$.subscribe(profile => {
       if (profile) {
-        this.store.dispatch(getProfileByEmail({ email: profile.email }));
         this.form.setValue({
-          userId: '',
+          userId: null,
           fullName: profile.name,
           firstName: profile.given_name,
           lastName: profile.family_name,
@@ -54,10 +56,12 @@ export class ProfileComponent implements OnInit {
       }
     });
 
+    this.profileIsLoading$ = this.store.pipe(select(getProfileIsLoading));
+
     this.store
       .pipe(
         select(getProfile),
-        filter(venkoProfile => venkoProfile?.userId !== ''),
+        filter(venkoProfile => venkoProfile.userId != null),
       )
       .subscribe(venkoProfile => {
         this.form.get('userId').setValue(venkoProfile.userId);
