@@ -23,7 +23,8 @@ export class ProfileEffects {
     this.action$.pipe(
       ofType(getProfileByEmail),
       exhaustMap(param =>
-        this.http.get(`${environment.api}/users/email/${param.email}`).pipe(
+        this.http.post(`${environment.api}/users/email`, { email: param.email })
+        .pipe(
           map((data: Profile) => {
             return getProfileSucceded({ data });
           }),

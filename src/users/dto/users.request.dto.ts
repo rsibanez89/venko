@@ -49,3 +49,11 @@ export class UserRequest {
   })
   email: string;
 }
+
+export class UserByEmailRequest {
+  @ApiProperty({
+    description: "Email",
+    example: "rodrigo@mail.com",
+  })
+  email: string;
+}

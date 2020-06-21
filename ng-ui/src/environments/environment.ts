@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://api.venko.training',
+  api: 'http://localhost:3000',
   host: 'https://venko.training',
 };
 

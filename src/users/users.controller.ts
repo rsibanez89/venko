@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { User } from './dto/users.dto';
 import { UsersService } from './users.service';
-import { UserRequest } from './dto/users.request.dto';
+import { UserRequest, UserByEmailRequest } from './dto/users.request.dto';
 
 @Controller('users')
 export class UsersController {
@@ -28,9 +28,9 @@ export class UsersController {
     return user;
   }
 
-  @Get('email/:email')
-  async getByEmail(@Param('email') email: string): Promise<User> {
-    const user = await this.usersService.getUserByEmail(email);
+  @Post('email')
+  async getByEmail(@Body() request: UserByEmailRequest): Promise<User> {
+    const user = await this.usersService.getUserByEmail(request.email);
     if (user == null) {
       throw new NotFoundException();
     }
