@@ -54,6 +54,7 @@ Resources:
               - 'dynamodb:UpdateItem'
             Resource:
               - !GetAtt DDBTable.Arn
+              - !Sub ${DDBTable.Arn}/*
 
   DDBTableScalingRole:
     Type: AWS::IAM::Role
