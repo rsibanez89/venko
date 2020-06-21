@@ -1,5 +1,8 @@
 ## Venko
-Venko training provides personalized routines and exercises that are updated every month. 
+https://venko.training/
+
+Venko training provides personalized routines and exercises that are updated every month.
+
 Users have different routines depending on their goals and physical capabilities.
 
 ### Examples of routines are:
@@ -18,16 +21,19 @@ Improve your equilibrium and agility.
 ![Venko running](./ng-ui/src/assets/images/venko-running.jpg)
 Specially created for runners.
 
-
-https://venko.training/
+---
 
 ## Installation
 
 ```bash
+# backend in node
 $ yarn install
+
+# frontend in angular
+$ cd ng-ui && yarn install
 ```
 
-## Running the app
+## Running the bakend app
 
 ```bash
 # development
@@ -38,6 +44,13 @@ $ yarn start:dev
 
 # production mode
 $ yarn start:prod
+```
+
+## Running the frontend app
+
+```bash
+# change environment.ts if you want to run with local backend
+$ cd ng-ui && yarn start
 ```
 
 ## Test
@@ -61,8 +74,11 @@ make build
 # run
 make run
 
-# Publish to ECR and Deploy
-make publishAndDeployECS ImageTag=$(date +%Y%m%d%H%M%S)
+# Publish to ECR and Deploy (Retired)
+# make publishAndDeployECS ImageTag=$(date +%Y%m%d%H%M%S)
+
+# Deploy database
+make _deployDatabase
 
 # Deploy using serverless
 make packageAndDeployServerless

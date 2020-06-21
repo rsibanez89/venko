@@ -18,8 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "deploy-be": "make publishAndDeploy ImageTag=$(date +%Y%m%d%H%M%S)",
+    "deploy-be": "make packageAndDeployServerless",
     "deploy-ui": "aws s3 cp ./ui s3://venko --recursive --exclude images/*",
+    "deploy-ng-ui": "cd ng-ui && ng build --prod && aws s3 cp ./dist/ng-ui s3://venko --recursive",
     "refresh-ui": "aws cloudfront create-invalidation --distribution-id E22YZ4R6C72E8K --paths \"/*\"",
     "build-dependency": "cp package.json ./dist && cd dist && npm install --production"
   },
