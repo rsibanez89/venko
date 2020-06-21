@@ -16,7 +16,6 @@ import { getProfileByEmail } from '../../store/profile/profile.actions';
 export class UsersService {
   public isVenkoUser$: Observable<boolean>;
   public currentUser$: Observable<Profile>;
-  public currentUser: Profile;
 
   constructor(public auth: AuthService, private store: Store<AppState>) {
     // Load user profile when user signs in
@@ -25,9 +24,7 @@ export class UsersService {
         this.store.dispatch(getProfileByEmail({ email: profile.email }));
       }
     });
-    this.currentUser = null;
     this.isVenkoUser$ = this.store.pipe(select(getProfileIsVenkoUser));
     this.currentUser$ = this.store.pipe(select(getProfile));
-    this.currentUser$.subscribe(profile => (this.currentUser = profile));
   }
 }

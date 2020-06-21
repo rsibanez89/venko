@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  host: 'https://api.venko.training'
+  api: 'https://api.venko.training',
+  host: 'https://venko.training',
 };

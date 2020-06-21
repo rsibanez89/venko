@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UsersService } from '../services/users.service';
-import { tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -21,24 +21,13 @@ export class VenkoUserGuard implements CanActivate {
   ): Observable<boolean> | boolean {
     return this.usersService.currentUser$.pipe(
       map(profile => {
-        console.log("GUARD", profile);
-        if (profile.userId) {
+        if (profile.userId != null) {
           return true;
         }
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/']);
         return false;
       }),
     );
-
-    // const currentUser = this.usersService.currentUser;
-    // if (currentUser?.userId != null) {
-    //   // authorised so return true
-    //   return true;
-    // }
-
-
-
-    // return false;
   }
 }

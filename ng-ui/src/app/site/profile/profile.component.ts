@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/store/app/app.reducer';
+import { AppState } from '../../store/app/app.reducer';
+import { saveProfile } from '../../store/profile/profile.actions';
 import {
-  saveProfile,
-} from 'src/app/store/profile/profile.actions';
-import { getProfile, getProfileIsLoading } from 'src/app/store/profile/profile.selector';
+  getProfile,
+  getProfileIsLoading,
+} from '../../store/profile/profile.selector';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { filter } from 'rxjs/internal/operators/filter';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { UsersService } from 'src/app/shared/services/users.service';
+import { UsersService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'venko-profile',

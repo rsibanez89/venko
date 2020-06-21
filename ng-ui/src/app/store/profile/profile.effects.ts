@@ -23,7 +23,7 @@ export class ProfileEffects {
     this.action$.pipe(
       ofType(getProfileByEmail),
       exhaustMap(param =>
-        this.http.get(`${environment.host}/users/email/${param.email}`).pipe(
+        this.http.get(`${environment.api}/users/email/${param.email}`).pipe(
           map((data: Profile) => {
             return getProfileSucceded({ data });
           }),
@@ -40,7 +40,7 @@ export class ProfileEffects {
       ofType(saveProfile),
       mergeMap(action =>
         this.http
-          .post(`${environment.host}/users`, action.data, {
+          .post(`${environment.api}/users`, action.data, {
             headers: { 'Content-Type': 'application/json' },
           })
           .pipe(
