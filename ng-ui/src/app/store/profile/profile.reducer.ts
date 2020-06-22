@@ -40,8 +40,8 @@ const _profileReducer = createReducer(
   on(saveProfile, state => {
     return { ...state, isLoading: true };
   }),
-  on(saveProfileSucceded, state => {
-    return { ...state, isLoading: false };
+  on(saveProfileSucceded, (state, action) => {
+    return { ...action.data, isLoading: false };
   }),
   on(saveProfileFailed, state => {
     return { ...state, isLoading: false };

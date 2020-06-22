@@ -1,0 +1,22 @@
+<div class="container">
+  <venko-async-container [isLoading]="usersIsLoading$ | async">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">User Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users$ | async">
+          <th scope="row">{{ user.userId }}</th>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.userType }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </venko-async-container>
+</div>

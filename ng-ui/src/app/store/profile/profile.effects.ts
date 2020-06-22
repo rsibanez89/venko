@@ -23,15 +23,16 @@ export class ProfileEffects {
     this.action$.pipe(
       ofType(getProfileByEmail),
       exhaustMap(param =>
-        this.http.post(`${environment.api}/users/email`, { email: param.email })
-        .pipe(
-          map((data: Profile) => {
-            return getProfileSucceded({ data });
-          }),
-          catchError((err) => {
-            return of(getProfileFailed({ error: err,  }));
-          }),
-        ),
+        this.http
+          .post(`${environment.api}/users/email`, { email: param.email })
+          .pipe(
+            map((data: Profile) => {
+              return getProfileSucceded({ data });
+            }),
+            catchError(err => {
+              return of(getProfileFailed({ error: err }));
+            }),
+          ),
       ),
     ),
   );
@@ -45,8 +46,8 @@ export class ProfileEffects {
             headers: { 'Content-Type': 'application/json' },
           })
           .pipe(
-            map(() => {
-              return saveProfileSucceded();
+            map((data: Profile) => {
+              return saveProfileSucceded(data);
             }),
             catchError((error: HttpErrorResponse) => {
               return of(saveProfileFailed({ error }));

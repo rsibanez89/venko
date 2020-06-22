@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import config from '../config';
 import DynamoDB from 'aws-sdk/clients/dynamodb';
 import { User } from './dto/users.dto';
@@ -55,6 +55,19 @@ export class UsersService {
     return this.toUser(response.Items[0]);
   }
 
+  async getUsers(): Promise<User[] | null> {
+    const response = await this.dynamodbClient
+      .scan({
+        TableName: this.tableName
+      })
+      .promise();
+
+    if (!response.Items || response.Items.length == 0) {
+      return null;
+    }
+    return response.Items.map(item => this.toUser(item));
+  }
+
   private toUser(item: DynamoDB.AttributeMap): User {
     return {
       userId: item.userId.S || '',
@@ -100,12 +113,15 @@ export class UsersService {
           N: Date.now().toString(),
         },
       },
+      //ConditionExpression:"attribute_not_exists(userId)" UserId = 10 is Test.
     };
-    const response = await this.dynamodbClient.putItem(request).promise();
-
-    if (!response.$response) return false;
-    if (response.$response.error) return false;
-
+    try {
+      await this.dynamodbClient.putItem(request).promise();
+    } catch (error) {
+      Logger.log(error, "UserService");
+      return false;
+    }
+    
     return true;
   }
 }

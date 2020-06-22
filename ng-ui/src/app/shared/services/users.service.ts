@@ -1,30 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { AppState } from '../../store/app/app.reducer';
 import {
   getProfileIsVenkoUser,
   getProfile,
+  getProfileIsAdmin,
 } from '../../store/profile/profile.selector';
 import { Profile } from '../../store/profile/profile.dto';
 import { AuthService } from './auth.service';
-import { getProfileByEmail } from '../../store/profile/profile.actions';
+import {
+  getProfileByEmail,
+  getProfileFailed,
+  saveProfile,
+  saveProfileSucceded,
+} from '../../store/profile/profile.actions';
+import { Actions, ofType } from '@ngrx/effects';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
   public isVenkoUser$: Observable<boolean>;
+  public isAdmin$: Observable<boolean>;
   public currentUser$: Observable<Profile>;
 
-  constructor(public auth: AuthService, private store: Store<AppState>) {
+  constructor(
+    public auth: AuthService,
+    private store: Store<AppState>,
+    private actions$: Actions,
+  ) {
     // Load user profile when user signs in
     this.auth.userProfile$.subscribe(profile => {
       if (profile) {
         this.store.dispatch(getProfileByEmail({ email: profile.email }));
       }
     });
+
+    combineLatest([
+      this.auth.userProfile$,
+      this.actions$.pipe(ofType(getProfileFailed)),
+    ]).pipe(take(1))
+    .subscribe(([profile]) => {
+      const venkoProfile: Profile = {
+        userId: '10',
+        fullName: profile.name,
+        firstName: profile.given_name,
+        lastName: profile.family_name,
+        avatarUrl: profile.picture,
+        nickName: profile.nickname,
+        userType: 'User',
+        email: profile.email,
+      };
+      this.store.dispatch(saveProfile({ data: venkoProfile }));
+    });
+
     this.isVenkoUser$ = this.store.pipe(select(getProfileIsVenkoUser));
+    this.isAdmin$ = this.store.pipe(select(getProfileIsAdmin));
     this.currentUser$ = this.store.pipe(select(getProfile));
   }
 }

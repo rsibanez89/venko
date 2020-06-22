@@ -7,5 +7,5 @@ export const getProfileSucceded = createAction('[Profile] Get profile succeded',
 export const getProfileFailed = createAction('[Profile] Get profile failed', props<{ error: Error }>());
 
 export const saveProfile = createAction('[Profile] Save profile', props<{ data: Profile }>());
-export const saveProfileSucceded = createAction('[Profile] Save profile succeded');
+export const saveProfileSucceded = createAction('[Profile] Save profile succeded', props<{ data: Profile }>());
 export const saveProfileFailed = createAction('[Profile] Save profile failed', props<{ error: HttpErrorResponse }>());

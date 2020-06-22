@@ -10,9 +10,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from '../shared/shared.module';
 import { RoutinesComponent } from './routines/routines.component';
 import { RoutineComponent } from './routine/routine.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
-  declarations: [HomeComponent, ProfileComponent, RoutinesComponent, RoutineComponent],
+  declarations: [HomeComponent, ProfileComponent, RoutinesComponent, RoutineComponent, UsersComponent],
   imports: [
     NgbModule,
     FontAwesomeModule,

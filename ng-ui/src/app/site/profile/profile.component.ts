@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../store/app/app.reducer';
-import { saveProfile } from '../../store/profile/profile.actions';
+import {
+  saveProfile,
+  saveProfileFailed,
+} from '../../store/profile/profile.actions';
 import {
   getProfile,
   getProfileIsLoading,
@@ -12,6 +15,8 @@ import { filter } from 'rxjs/internal/operators/filter';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { UsersService } from '../../shared/services/users.service';
+import { Actions, ofType } from '@ngrx/effects';
+import { error } from 'protractor';
 
 @Component({
   selector: 'venko-profile',
@@ -28,11 +33,12 @@ export class ProfileComponent implements OnInit {
     public auth: AuthService,
     public usersService: UsersService,
     private store: Store<AppState>,
+    private actions$: Actions,
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      userId: ['', [Validators.required]],
+      userId: [{ value: '', disabled: true }, [Validators.required]],
       fullName: [{ value: '', disabled: true }, [Validators.required]],
       firstName: [{ value: '', disabled: true }, [Validators.required]],
       lastName: [{ value: '', disabled: true }, [Validators.required]],
@@ -67,6 +73,12 @@ export class ProfileComponent implements OnInit {
       .subscribe(venkoProfile => {
         this.form.get('userId').setValue(venkoProfile.userId);
       });
+
+    this.actions$.pipe(ofType(saveProfileFailed)).subscribe(() =>
+      this.form.get('userId').setErrors({
+        notUnique: true,
+      }),
+    );
   }
 
   public onOkUpdateProfile(): void {

@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { User } from './dto/users.dto';
 import { UsersService } from './users.service';
@@ -16,7 +17,11 @@ export class UsersController {
 
   @Post('')
   async add(@Body() user: UserRequest): Promise<boolean> {
-    return this.usersService.addUser(user);
+    const success = await this.usersService.addUser(user);
+    if (!success) {
+      throw new BadRequestException('Invalid userId, please contact Venko support.');
+    }
+    return success;
   }
 
   @Get(':userId')
@@ -38,9 +43,11 @@ export class UsersController {
   }
 
   @Get('')
-  async getUsers(@Body() user: User): Promise<string> {
-    console.log(user);
-
-    return 'Ok';
+  async getUsers(): Promise<User[]> {
+    const users = await this.usersService.getUsers();
+    if (users == null) {
+      throw new NotFoundException();
+    }
+    return users;
   }
 }

@@ -8,3 +8,7 @@ export class Profile {
   userType: string;
   email: string;
 }
+
+export class Users {
+  users: Profile[];
+}
