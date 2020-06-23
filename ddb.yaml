@@ -11,17 +11,17 @@ Resources:
     Properties:
       TableName: !Ref DDBTableName
       AttributeDefinitions:
-        - AttributeName: userId
-          AttributeType: S
         - AttributeName: email
           AttributeType: S
-      KeySchema:
         - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
           KeyType: HASH
       GlobalSecondaryIndexes:
-        - IndexName: 'IX_email'
+        - IndexName: 'ix_userId'
           KeySchema:
-            - AttributeName: 'email'
+            - AttributeName: 'userId'
               KeyType: 'HASH'
           Projection:
             ProjectionType: 'ALL'

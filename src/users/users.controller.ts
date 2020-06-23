@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   NotFoundException,
-  BadRequestException,
+  Delete,
 } from '@nestjs/common';
 import { User } from './dto/users.dto';
 import { UsersService } from './users.service';
@@ -16,17 +16,17 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('')
-  async add(@Body() user: UserRequest): Promise<boolean> {
-    const success = await this.usersService.addUser(user);
-    if (!success) {
-      throw new BadRequestException('Invalid userId, please contact Venko support.');
+  async add(@Body() request: UserRequest): Promise<User> {
+    const user = await this.usersService.getUserByEmail(request.email);
+    if (user != null) {
+      return user;
     }
-    return success;
+    return this.usersService.addUser(request);
   }
 
   @Get(':userId')
   async get(@Param('userId') userId: string): Promise<User> {
-    const user = await this.usersService.getUserById(userId);
+    const user = await this.usersService.getUserByUserId(userId);
     if (user == null) {
       throw new NotFoundException();
     }
@@ -49,5 +49,15 @@ export class UsersController {
       throw new NotFoundException();
     }
     return users;
+  }
+
+  @Delete(':userId')
+  async deleteUser(@Param('userId') userId: string): Promise<User> {
+    const user = await this.usersService.getUserByUserId(userId);
+    if (user == null) {
+      throw new NotFoundException();
+    }
+    await this.usersService.deleteUser(user.email);
+    return user;
   }
 }

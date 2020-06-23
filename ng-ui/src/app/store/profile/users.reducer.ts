@@ -3,6 +3,9 @@ import {
   getAllUsers,
   getAllUsersSucceded,
   getAllUsersFailed,
+  deleteUser,
+  deleteUserSucceded,
+  deleteUserFailed,
 } from './users.actions';
 import { Users } from './profile.dto';
 
@@ -24,6 +27,16 @@ const _usersReducer = createReducer(
     return { users: action.data, isLoading: false };
   }),
   on(getAllUsersFailed, state => {
+    return { ...state, isLoading: false };
+  }),
+
+  on(deleteUser, state => {
+    return { ...state, isLoading: true };
+  }),
+  on(deleteUserSucceded, (state, action) => {
+    return { users: state.users.filter(u => u.email !== action.data.email), isLoading: false };
+  }),
+  on(deleteUserFailed, state => {
     return { ...state, isLoading: false };
   }),
 );

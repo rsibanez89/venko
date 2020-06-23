@@ -12,8 +12,8 @@ import { AuthService } from './auth.service';
 import {
   getProfileByEmail,
   getProfileFailed,
-  saveProfile,
-  saveProfileSucceded,
+  getOrCreateProfile,
+  getOrCreateProfileSucceded,
 } from '../../store/profile/profile.actions';
 import { Actions, ofType } from '@ngrx/effects';
 import { take } from 'rxjs/operators';
@@ -34,26 +34,18 @@ export class UsersService {
     // Load user profile when user signs in
     this.auth.userProfile$.subscribe(profile => {
       if (profile) {
-        this.store.dispatch(getProfileByEmail({ email: profile.email }));
+        const venkoProfile: Profile = {
+          userId: '10',
+          fullName: profile.name,
+          firstName: profile.given_name,
+          lastName: profile.family_name,
+          avatarUrl: profile.picture,
+          nickName: profile.nickname,
+          userType: 'User',
+          email: profile.email,
+        };
+        this.store.dispatch(getOrCreateProfile({ data: venkoProfile }));
       }
-    });
-
-    combineLatest([
-      this.auth.userProfile$,
-      this.actions$.pipe(ofType(getProfileFailed)),
-    ]).pipe(take(1))
-    .subscribe(([profile]) => {
-      const venkoProfile: Profile = {
-        userId: '10',
-        fullName: profile.name,
-        firstName: profile.given_name,
-        lastName: profile.family_name,
-        avatarUrl: profile.picture,
-        nickName: profile.nickname,
-        userType: 'User',
-        email: profile.email,
-      };
-      this.store.dispatch(saveProfile({ data: venkoProfile }));
     });
 
     this.isVenkoUser$ = this.store.pipe(select(getProfileIsVenkoUser));

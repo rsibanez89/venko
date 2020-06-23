@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../store/app/app.reducer';
-import { getAllUsers } from 'src/app/store/profile/users.actions';
+import { getAllUsers, deleteUser } from 'src/app/store/profile/users.actions';
 import { getUsersIsLoading, getUsers } from 'src/app/store/profile/users.selector';
 import { Profile } from 'src/app/store/profile/profile.dto';
 
@@ -24,5 +24,9 @@ export class UsersComponent implements OnInit {
 
     this.usersIsLoading$ = this.store.pipe(select(getUsersIsLoading));
     this.users$ = this.store.pipe(select(getUsers));
+  }
+
+  deleteUser(user: Profile) {
+    this.store.dispatch(deleteUser({ data: user }));
   }
 }

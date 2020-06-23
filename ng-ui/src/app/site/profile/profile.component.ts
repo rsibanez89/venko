@@ -3,8 +3,8 @@ import { AuthService } from '../../shared/services/auth.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../store/app/app.reducer';
 import {
-  saveProfile,
-  saveProfileFailed,
+  getOrCreateProfile,
+  getOrCreateProfileFailed,
 } from '../../store/profile/profile.actions';
 import {
   getProfile,
@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
         this.form.get('userId').setValue(venkoProfile.userId);
       });
 
-    this.actions$.pipe(ofType(saveProfileFailed)).subscribe(() =>
+    this.actions$.pipe(ofType(getOrCreateProfileFailed)).subscribe(() =>
       this.form.get('userId').setErrors({
         notUnique: true,
       }),
@@ -82,6 +82,6 @@ export class ProfileComponent implements OnInit {
   }
 
   public onOkUpdateProfile(): void {
-    this.store.dispatch(saveProfile({ data: this.form.getRawValue() }));
+    this.store.dispatch(getOrCreateProfile({ data: this.form.getRawValue() }));
   }
 }

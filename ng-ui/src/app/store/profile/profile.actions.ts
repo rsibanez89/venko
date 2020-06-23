@@ -6,6 +6,6 @@ export const getProfileByEmail = createAction('[Profile] Get profile by email', 
 export const getProfileSucceded = createAction('[Profile] Get profile succeded', props<{ data: Profile }>());
 export const getProfileFailed = createAction('[Profile] Get profile failed', props<{ error: Error }>());
 
-export const saveProfile = createAction('[Profile] Save profile', props<{ data: Profile }>());
-export const saveProfileSucceded = createAction('[Profile] Save profile succeded', props<{ data: Profile }>());
-export const saveProfileFailed = createAction('[Profile] Save profile failed', props<{ error: HttpErrorResponse }>());
+export const getOrCreateProfile = createAction('[Profile] Get or create profile', props<{ data: Profile }>());
+export const getOrCreateProfileSucceded = createAction('[Profile] Get or create profile succeded', props<{ data: Profile }>());
+export const getOrCreateProfileFailed = createAction('[Profile] Get or create profile failed', props<{ error: HttpErrorResponse }>());

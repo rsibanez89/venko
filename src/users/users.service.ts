@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import config from '../config';
 import DynamoDB from 'aws-sdk/clients/dynamodb';
 import { User } from './dto/users.dto';
@@ -16,13 +16,13 @@ export class UsersService {
     });
   }
 
-  async getUserById(userId: string): Promise<User | null> {
+  async getUserByEmail(email: string): Promise<User | null> {
     const response = await this.dynamodbClient
       .getItem({
         TableName: this.tableName,
         Key: {
-          userId: {
-            S: userId,
+          email: {
+            S: email,
           },
         },
       })
@@ -34,17 +34,17 @@ export class UsersService {
     return this.toUser(response.Item);
   }
 
-  async getUserByEmail(email: string): Promise<User | null> {
+  async getUserByUserId(userId: string): Promise<User | null> {
     const response = await this.dynamodbClient
       .query({
         TableName: this.tableName,
-        IndexName: 'IX_email',
-        KeyConditionExpression: '#email = :email',
+        IndexName: 'ix_userId',
+        KeyConditionExpression: '#userId = :userId',
         ExpressionAttributeNames: {
-          '#email': 'email',
+          '#userId': 'userId',
         },
         ExpressionAttributeValues: {
-          ':email': { S: email },
+          ':userId': { S: userId },
         },
       })
       .promise();
@@ -81,10 +81,13 @@ export class UsersService {
     };
   }
 
-  async addUser(user: UserRequest): Promise<boolean> {
+  async addUser(user: UserRequest): Promise<User> {
     const request: DynamoDB.PutItemInput = {
       TableName: this.tableName,
       Item: {
+        email: {
+          S: user.email,
+        },
         userId: {
           S: user.userId,
         },
@@ -106,22 +109,32 @@ export class UsersService {
         userType: {
           S: user.userType,
         },
-        email: {
-          S: user.email,
-        },
         createdDateTime: {
           N: Date.now().toString(),
         },
       },
       //ConditionExpression:"attribute_not_exists(userId)" UserId = 10 is Test.
     };
-    try {
-      await this.dynamodbClient.putItem(request).promise();
-    } catch (error) {
-      Logger.log(error, "UserService");
+    await this.dynamodbClient.putItem(request).promise();
+    
+    return user;
+  }
+
+  async deleteUser(email: string): Promise<boolean> {
+    const response = await this.dynamodbClient
+      .deleteItem({
+        TableName: this.tableName,
+        Key: {
+          email: {
+            S: email,
+          },
+        },
+      })
+      .promise();
+
+    if (response.$response.error) {
       return false;
     }
-    
     return true;
   }
 }

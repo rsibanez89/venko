@@ -13,10 +13,7 @@ import { getProfileIsVenkoUser, getProfile } from 'src/app/store/profile/profile
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  responseJson: string;
-
   constructor(
-    private http: HttpClient,
     public auth: AuthService,
     private store: Store<AppState>,
   ) {}
@@ -29,20 +26,5 @@ export class HomeComponent implements OnInit {
       .subscribe(isVenkoUser => {
         console.log(isVenkoUser);
       });
-    this.store
-      .pipe(
-        select(getProfile),
-      )
-      .subscribe(isVenkoUser => {
-        console.log(isVenkoUser);
-      });
-  }
-
-  pingApi() {
-    this.ping$().subscribe(res => (this.responseJson = res));
-  }
-
-  ping$(): Observable<any> {
-    return this.http.get('http://localhost:3000/users');
   }
 }

@@ -10,6 +10,9 @@ import {
   getAllUsers,
   getAllUsersSucceded,
   getAllUsersFailed,
+  deleteUser,
+  deleteUserFailed,
+  deleteUserSucceded,
 } from './users.actions';
 
 @Injectable()
@@ -22,11 +25,26 @@ export class UsersEffects {
       exhaustMap(() =>
         this.http.get(`${environment.api}/users`).pipe(
           map((data: Profile[]) => {
-            console.log(data);
             return getAllUsersSucceded({ data });
           }),
           catchError(err => {
             return of(getAllUsersFailed({ error: err }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  deleteUser$: Observable<Action> = createEffect(() =>
+    this.action$.pipe(
+      ofType(deleteUser),
+      exhaustMap((param) =>
+        this.http.delete(`${environment.api}/users/${param.data.userId}`).pipe(
+          map((data: Profile) => {
+            return deleteUserSucceded({ data });
+          }),
+          catchError(err => {
+            return of(deleteUserFailed({ error: err }));
           }),
         ),
       ),

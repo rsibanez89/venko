@@ -8,9 +8,9 @@ import {
   getProfileByEmail,
   getProfileSucceded,
   getProfileFailed,
-  saveProfile,
-  saveProfileSucceded,
-  saveProfileFailed,
+  getOrCreateProfile,
+  getOrCreateProfileSucceded,
+  getOrCreateProfileFailed,
 } from './profile.actions';
 import { Profile } from './profile.dto';
 import { environment } from '../../../environments/environment';
@@ -37,9 +37,9 @@ export class ProfileEffects {
     ),
   );
 
-  saveProfile$: Observable<Action> = createEffect(() =>
+  getOrCreateProfile$: Observable<Action> = createEffect(() =>
     this.action$.pipe(
-      ofType(saveProfile),
+      ofType(getOrCreateProfile),
       mergeMap(action =>
         this.http
           .post(`${environment.api}/users`, action.data, {
@@ -47,10 +47,11 @@ export class ProfileEffects {
           })
           .pipe(
             map((data: Profile) => {
-              return saveProfileSucceded(data);
+              console.log(data);
+              return getOrCreateProfileSucceded({ data });
             }),
             catchError((error: HttpErrorResponse) => {
-              return of(saveProfileFailed({ error }));
+              return of(getOrCreateProfileFailed({ error }));
             }),
           ),
       ),

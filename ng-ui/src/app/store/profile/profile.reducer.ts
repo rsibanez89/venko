@@ -3,9 +3,9 @@ import {
   getProfileByEmail,
   getProfileSucceded,
   getProfileFailed,
-  saveProfile,
-  saveProfileSucceded,
-  saveProfileFailed,
+  getOrCreateProfile,
+  getOrCreateProfileSucceded,
+  getOrCreateProfileFailed,
 } from './profile.actions';
 import { Profile } from './profile.dto';
 
@@ -37,13 +37,13 @@ const _profileReducer = createReducer(
     return { ...state, isLoading: false };
   }),
 
-  on(saveProfile, state => {
+  on(getOrCreateProfile, state => {
     return { ...state, isLoading: true };
   }),
-  on(saveProfileSucceded, (state, action) => {
+  on(getOrCreateProfileSucceded, (state, action) => {
     return { ...action.data, isLoading: false };
   }),
-  on(saveProfileFailed, state => {
+  on(getOrCreateProfileFailed, state => {
     return { ...state, isLoading: false };
   }),
 );
