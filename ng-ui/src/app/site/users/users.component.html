@@ -1,31 +1,50 @@
 <div class="container">
   <venko-async-container [isLoading]="usersIsLoading$ | async">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Full Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">User Type</th>
-          <th scope="col">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users$ | async">
-          <th scope="row">{{ user.userId }}</th>
-          <td>{{ user.fullName }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.userType }}</td>
-          <td>
-            <button
-              type="button"
-              class="btn btn-outline-danger btn-sm"
-              (click)="deleteUser(user)"
-            >Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <form [formGroup]="tableForm">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">User Type</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container
+            formArrayName="usersListForm"
+            *ngFor="let userControl of usersListForm.controls; let i = index"
+          >
+            <tr [formGroupName]="i">
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="userId"
+                />
+              </td>
+              <td>{{ userControl.get('fullName').value }}</td>
+              <td>{{ userControl.get('email').value }}</td>
+              <td>{{ userControl.get('userType').value }}</td>
+              <td>
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="updateUser(i)">
+                  Update
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteUser(i)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </form>
   </venko-async-container>
 </div>
+<pre *ngIf="!environment.production">
+  <code>{{ usersListForm.getRawValue() | json }}</code>
+</pre>

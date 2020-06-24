@@ -13,6 +13,9 @@ import {
   deleteUser,
   deleteUserFailed,
   deleteUserSucceded,
+  updateUser,
+  updateUserSucceded,
+  updateUserFailed,
 } from './users.actions';
 
 @Injectable()
@@ -38,8 +41,8 @@ export class UsersEffects {
   deleteUser$: Observable<Action> = createEffect(() =>
     this.action$.pipe(
       ofType(deleteUser),
-      exhaustMap((param) =>
-        this.http.delete(`${environment.api}/users/${param.data.userId}`).pipe(
+      exhaustMap(action =>
+        this.http.delete(`${environment.api}/users/${action.data.userId}`).pipe(
           map((data: Profile) => {
             return deleteUserSucceded({ data });
           }),
@@ -47,6 +50,26 @@ export class UsersEffects {
             return of(deleteUserFailed({ error: err }));
           }),
         ),
+      ),
+    ),
+  );
+
+  updateUser$: Observable<Action> = createEffect(() =>
+    this.action$.pipe(
+      ofType(updateUser),
+      exhaustMap(action =>
+        this.http
+          .put(`${environment.api}/users/${action.data.userId}`, action.data, {
+            headers: { 'Content-Type': 'application/json' },
+          })
+          .pipe(
+            map((data: Profile) => {
+              return updateUserSucceded({ data });
+            }),
+            catchError(err => {
+              return of(updateUserFailed({ error: err }));
+            }),
+          ),
       ),
     ),
   );

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,15 +13,22 @@ import { RoutineComponent } from './routine/routine.component';
 import { UsersComponent } from './users/users.component';
 
 @NgModule({
-  declarations: [HomeComponent, ProfileComponent, RoutinesComponent, RoutineComponent, UsersComponent],
+  declarations: [
+    HomeComponent,
+    ProfileComponent,
+    RoutinesComponent,
+    RoutineComponent,
+    UsersComponent,
+  ],
   imports: [
     NgbModule,
     FontAwesomeModule,
     CommonModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [],
 })

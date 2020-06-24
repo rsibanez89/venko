@@ -16,7 +16,6 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { UsersService } from '../../shared/services/users.service';
 import { Actions, ofType } from '@ngrx/effects';
-import { error } from 'protractor';
 
 @Component({
   selector: 'venko-profile',

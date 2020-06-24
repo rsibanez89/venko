@@ -6,6 +6,7 @@ import {
   Param,
   NotFoundException,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { User } from './dto/users.dto';
 import { UsersService } from './users.service';
@@ -49,6 +50,11 @@ export class UsersController {
       throw new NotFoundException();
     }
     return users;
+  }
+
+  @Put(':userId')
+  async updateUser(@Body() request: UserRequest): Promise<User> {
+    return this.usersService.addUser(request);
   }
 
   @Delete(':userId')
