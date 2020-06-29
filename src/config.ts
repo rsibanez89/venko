@@ -9,7 +9,7 @@ const configSchema = Joi.object({
   PORT: Joi.number().default(3000),
   AWS_REGION: Joi.string().default('sa-east-1'),
   AUTH0_DOMAIN: Joi.string().default('https://venko.auth0.com/'),
-  AUTH0_AUDIENCE: Joi.string().default('https://venko.auth0.com/api/v2/'),
+  AUTH0_AUDIENCE: Joi.string().default('https://api.venko.training/'),
   JWT_SECRET: Joi.string().default('secretKey'),
   DYNAMODB_USERS_TABLE_NAME: Joi.string().default('venko-users-registry'),
 })

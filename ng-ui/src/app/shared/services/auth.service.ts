@@ -22,7 +22,7 @@ export class AuthService {
       domain: 'venko.auth0.com',
       client_id: 'widi5kSkwUYlXAOFvXiqmLlisTcMAp43',
       redirect_uri: `${window.location.origin}`,
-      audience: 'https://venko.auth0.com/api/v2/'
+      audience: 'https://api.venko.training/',
     }),
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
