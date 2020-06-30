@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-md navbar-light bg-venko fixed-top">
   <a class="navbar-brand" href="#">
     <img src="./assets/images/logo.png" height="30" alt="" />
   </a>
@@ -9,10 +9,10 @@
   <div class="collapse navbar-collapse" [ngClass]="{ show: isOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <a class="nav-link" routerLink="/">Home</a>
+        <a class="nav-link" routerLink="/" (click)="toggleMenu()">Home</a>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <a class="nav-link" routerLink="/routines" *ngIf="usersService.isVenkoUser$ | async">Routines</a>
+        <a class="nav-link" routerLink="/routines" *ngIf="usersService.isVenkoUser$ | async" (click)="toggleMenu()">Routines</a>
       </li>
     </ul>
 
@@ -46,6 +46,7 @@
             [routerLink]="['/profile']"
             class="dropdown-item dropdown-profile"
             *ngIf="profile"
+            (click)="toggleMenu()"
           >
             <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
           </a>
@@ -53,6 +54,7 @@
             [routerLink]="['/users']"
             class="dropdown-item dropdown-profile"
             *ngIf="usersService.isAdmin$ | async"
+            (click)="toggleMenu()"
           >
             <fa-icon [icon]="faUsers" class="mr-3"></fa-icon> Users
           </a>
