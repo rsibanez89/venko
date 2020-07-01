@@ -72,7 +72,7 @@ function showRoutines(routines) {
   document.querySelector("#routines").innerHTML = `
     ${routines.map((routine) =>
       `<div class="card">
-        <img class="card-img-top" src="./${routine.photo}">
+        <img class="card-img-top" src="https://venko.training/${routine.photo}">
         <div class="card-body">
           <h5 class="card-title">${routine.name}</h5>
           <button type="button" class="btn btn-primary" onclick="oepnRoutine(${routine.id})">Go</button>

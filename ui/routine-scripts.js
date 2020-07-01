@@ -73,7 +73,7 @@ function showRoutine(routine) {
       <div class="carousel-inner">
         ${routine.map((exercise, index) => 
           `<div class="carousel-item ${index == 0 ? 'active' : ''}">
-              <img src="./${exercise.fields.video}" class="d-block w-100">
+              <img src="https://venko.training/${exercise.fields.video}" class="d-block w-100">
               ${exercise.fields.youtubeUrl === undefined || exercise.fields.youtubeUrl === ''
                   ? '' 
                   : '<button type="button" class="btn btn-primary video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/' + exercise.fields.youtubeUrl + '" data-target="#myModal">Video</button>'}
