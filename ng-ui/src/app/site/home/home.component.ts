@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app/app.reducer';
-import { filter } from 'rxjs/operators';
-import { getProfileIsVenkoUser, getProfile } from 'src/app/store/profile/profile.selector';
 
 @Component({
   selector: 'venko-home',
@@ -13,18 +9,9 @@ import { getProfileIsVenkoUser, getProfile } from 'src/app/store/profile/profile
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    public auth: AuthService,
-    private store: Store<AppState>,
-  ) {}
+  constructor(public auth: AuthService, private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store
-      .pipe(
-        select(getProfileIsVenkoUser),
-      )
-      .subscribe(isVenkoUser => {
-        console.log(isVenkoUser);
-      });
+    // TODO: check if the user is already logged in and display the profile picture instead of login button.
   }
 }

@@ -10,8 +10,13 @@ import { VenkoUserGuard } from './shared/guards/venko-user.guard';
 import { RoutinesComponent } from './site/routines/routines.component';
 import { RoutineComponent } from './site/routine/routine.component';
 import { UsersComponent } from './site/users/users.component';
+import { ShowcaseComponent } from './site/showcase/showcase.component';
 
 const routes: Routes = [
+  {
+    path: 'showcase',
+    component: ShowcaseComponent,
+  },
   {
     path: 'profile',
     component: ProfileComponent,

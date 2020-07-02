@@ -1,3 +1,18 @@
 .container {
   margin-top: 20px;
+
+  .slide-container {
+    position: relative;
+
+    venko-timer {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+    }
+  }
+
+  .form-inline {
+    margin-top: 10px;
+    justify-content: center;
+  }
 }

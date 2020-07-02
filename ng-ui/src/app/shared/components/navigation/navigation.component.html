@@ -9,10 +9,10 @@
   <div class="collapse navbar-collapse" [ngClass]="{ show: isOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <a class="nav-link" routerLink="/" (click)="toggleMenu()">Home</a>
+        <a class="nav-link" routerLink="/" (click)="isOpen = false">Home</a>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <a class="nav-link" routerLink="/routines" *ngIf="usersService.isVenkoUser$ | async" (click)="toggleMenu()">Routines</a>
+        <a class="nav-link" routerLink="/routines" *ngIf="usersService.isVenkoUser$ | async" (click)="isOpen = false">Routines</a>
       </li>
     </ul>
 
@@ -46,7 +46,7 @@
             [routerLink]="['/profile']"
             class="dropdown-item dropdown-profile"
             *ngIf="profile"
-            (click)="toggleMenu()"
+            (click)="isOpen = false"
           >
             <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
           </a>
@@ -54,7 +54,7 @@
             [routerLink]="['/users']"
             class="dropdown-item dropdown-profile"
             *ngIf="usersService.isAdmin$ | async"
-            (click)="toggleMenu()"
+            (click)="isOpen = false"
           >
             <fa-icon [icon]="faUsers" class="mr-3"></fa-icon> Users
           </a>

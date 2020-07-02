@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RoutinesComponent } from './routines/routines.component';
 import { RoutineComponent } from './routine/routine.component';
 import { UsersComponent } from './users/users.component';
+import { ShowcaseComponent } from './showcase/showcase.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { UsersComponent } from './users/users.component';
     RoutinesComponent,
     RoutineComponent,
     UsersComponent,
+    ShowcaseComponent,
   ],
   imports: [
     NgbModule,

@@ -25,7 +25,6 @@ export class RoutinesEffects {
       exhaustMap(param =>
         this.http.get(`${environment.api}/${param.userId}/routines`).pipe(
           map((data: RoutineSummary[]) => {
-            console.log(data);
             return getRoutinesSucceded({ data });
           }),
           catchError(err => {

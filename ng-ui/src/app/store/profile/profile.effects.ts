@@ -47,7 +47,6 @@ export class ProfileEffects {
           })
           .pipe(
             map((data: Profile) => {
-              console.log(data);
               return getOrCreateProfileSucceded({ data });
             }),
             catchError((error: HttpErrorResponse) => {

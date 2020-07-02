@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { AppState } from '../../store/app/app.reducer';
 import { getRoutineById } from '../../store/routines/routines.actions';
 import { Observable } from 'rxjs';
@@ -11,22 +11,26 @@ import {
 } from '../../store/routines/routines.selector';
 import { environment } from '../../../environments/environment';
 import { Exercise } from '../../store/routines/routines.dto';
-
+import { TimerComponent } from '../../shared/components/timer/timer.component';
 
 @Component({
   selector: 'venko-routine',
   templateUrl: './routine.component.html',
   styleUrls: ['./routine.component.scss'],
-  providers: [NgbCarouselConfig]
+  providers: [],
 })
-export class RoutineComponent implements OnInit {
+export class RoutineComponent implements OnInit, AfterViewInit {
   public environment = environment;
   public routineIsLoading$: Observable<boolean>;
   public exercises$: Observable<Exercise[]>;
+  public isTimerVisible = false;
+  private isResting = false;
+  public restTime = 30;
+  public trainingTime = 30;
+  @ViewChild(TimerComponent) timer: TimerComponent;
+  @ViewChild(NgbCarousel) carousel: NgbCarousel;
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>, config: NgbCarouselConfig) {
-    config.interval = 1000 * 30; // 30 seconds interval.
-  }
+  constructor(private route: ActivatedRoute, private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(p =>
@@ -35,5 +39,26 @@ export class RoutineComponent implements OnInit {
 
     this.routineIsLoading$ = this.store.pipe(select(getRoutinesIsLoading));
     this.exercises$ = this.store.pipe(select(getSelectedRoutine));
+  }
+
+  ngAfterViewInit(): void {
+    this.carousel.pause();
+  }
+
+  public initTimer() {
+    this.isTimerVisible = true;
+    this.timer.startTimer(this.trainingTime);
+  }
+
+  public whenTimerEnded() {
+    this.isResting = !this.isResting;
+    if (this.isResting) {
+      this.carousel.next();
+      this.timer.startTimer(this.restTime);
+      this.timer.setDarkMode(false);
+    } else {
+      this.timer.startTimer(this.trainingTime);
+      this.timer.setDarkMode(true);
+    }
   }
 }
