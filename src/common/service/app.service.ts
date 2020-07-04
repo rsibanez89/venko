@@ -1,8 +1,8 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { S3Service } from './s3service';
+import { S3Service } from './s3.service';
 
 @Injectable()
-export class AppService {
+export class VenkoService {
   private Host = "http://64.225.9.210";
 
   constructor(
@@ -20,7 +20,7 @@ export class AppService {
     
     return await response.data.items.map(routine => 
       {
-        var fileName = this.sanitizeFileName(routine.foto);
+        const fileName = this.sanitizeFileName(routine.foto);
         this.s3Service.ensureObjectExists(routine.foto, fileName);
         return ({
           id: routine.id,
@@ -39,10 +39,10 @@ export class AppService {
         },
       }).toPromise();
 
-    let routines: Routine[] = [];
-    for(var i = 0; i < response.data.length; i++) {
-      var routine = response.data[i];
-      var fileName = this.sanitizeFileName(routine.fields.video);
+    const routines: Routine[] = [];
+    for(let i = 0; i < response.data.length; i++) {
+      const routine = response.data[i];
+      const fileName = this.sanitizeFileName(routine.fields.video);
       await this.s3Service.ensureObjectExists(routine.fields.video, fileName);
       routines.push({
         fields: {

@@ -8,6 +8,8 @@ import {
   Delete,
   Put,
   UseGuards,
+  CacheInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { User } from './dto/users.dto';
 import { UsersService } from './users.service';
@@ -17,6 +19,7 @@ import { VenkoAuthGuard } from '../common/auth/venko-auth.guard';
 import { Permissions } from '../common/auth/permissions.decorator'
 
 @Controller('users')
+@UseInterceptors(CacheInterceptor)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

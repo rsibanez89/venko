@@ -1,10 +1,10 @@
 import { Module, HttpModule, CacheModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { S3Service } from './s3service';
 import { UsersModule } from './users/users.module';
+import { RoutinesModule } from './routines/routines.module';
 import { CommonModule } from './common/common.module';
+import { ServiceModule } from './common/service/service.module';
 import config from './config';
 
 @Module({
@@ -16,9 +16,11 @@ import config from './config';
       max: 1000, // maximum number of items in cache
     }),
     UsersModule,
+    RoutinesModule,
     CommonModule,
+    ServiceModule,
   ],
   controllers: [AppController],
-  providers: [AppService, S3Service],
+  providers: [],
 })
 export class AppModule {}

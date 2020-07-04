@@ -63,8 +63,12 @@ Resources:
         KeepWarm:
           Type: Schedule
           Properties:
-            Input: '{"action": "update"}'
             Schedule: rate(10 minutes)
+        UpdateRoutines:
+          Type: Schedule
+          Properties:
+            Input: '{"action": "update"}'
+            Schedule: rate(1 hour)
   
   VenkoApi:
     Type: AWS::Serverless::Api
