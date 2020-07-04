@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { interval, Observable } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -9,6 +9,7 @@ import { take } from 'rxjs/operators';
 })
 export class TimerComponent implements OnInit {
   private splitTime: number[];
+  private subscription: Subscription;
   public isDark = true;
   public time: string;
   private numbers: Observable<number>;
@@ -27,13 +28,18 @@ export class TimerComponent implements OnInit {
 
   public startTimer(limit: number) {
     this.resetTimer();
-    this.numbers.pipe(take(limit)).subscribe(x => {
+    this.subscription = this.numbers.pipe(take(limit)).subscribe(x => {
       this.addSecond();
       this.formatTimer();
       if (x === limit - 1) {
         this.timerEnded.emit(true);
       }
     });
+  }
+
+  public stopTimer() {
+    this.subscription.unsubscribe();
+    this.resetTimer();
   }
 
   public addSecond() {

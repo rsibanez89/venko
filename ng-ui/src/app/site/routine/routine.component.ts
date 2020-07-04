@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+import { faWindowMaximize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import { AppState } from '../../store/app/app.reducer';
 import { getRoutineById } from '../../store/routines/routines.actions';
 import { Observable } from 'rxjs';
@@ -21,6 +22,8 @@ import { TimerComponent } from '../../shared/components/timer/timer.component';
 })
 export class RoutineComponent implements OnInit, AfterViewInit {
   public environment = environment;
+  public faWindowMaximize = faWindowMaximize;
+  public faWindowRestore = faWindowRestore;
   public routineIsLoading$: Observable<boolean>;
   public exercises$: Observable<Exercise[]>;
   public isTimerVisible = false;
@@ -29,6 +32,7 @@ export class RoutineComponent implements OnInit, AfterViewInit {
   public trainingTime = 30;
   @ViewChild(TimerComponent) timer: TimerComponent;
   @ViewChild(NgbCarousel) carousel: NgbCarousel;
+  public isfullscreen = false;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {}
 
@@ -46,8 +50,14 @@ export class RoutineComponent implements OnInit, AfterViewInit {
   }
 
   public initTimer() {
+    this.openfullscreen();
     this.isTimerVisible = true;
     this.timer.startTimer(this.trainingTime);
+  }
+
+  public stopTimer() {
+    this.isTimerVisible = false;
+    this.timer.stopTimer();
   }
 
   public whenTimerEnded() {
@@ -60,5 +70,43 @@ export class RoutineComponent implements OnInit, AfterViewInit {
       this.timer.startTimer(this.trainingTime);
       this.timer.setDarkMode(true);
     }
+  }
+
+  openfullscreen() {
+    // Trigger fullscreen
+    const elem = document.documentElement as HTMLElement & {
+      mozRequestFullScreen(): Promise<void>;
+      webkitRequestFullscreen(): Promise<void>;
+      msRequestFullscreen(): Promise<void>;
+    };
+
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+      elem.msRequestFullscreen();
+    }
+    this.isfullscreen = true;
+  }
+
+  closefullscreen(){
+    const doc = document as Document & {
+      mozCancelFullScreen(): Promise<void>;
+      webkitExitFullscreen(): Promise<void>;
+      msExitFullscreen(): Promise<void>;
+    };
+    if (doc.exitFullscreen) {
+      doc.exitFullscreen();
+    } else if (doc.mozCancelFullScreen) { /* Firefox */
+      doc.mozCancelFullScreen();
+    } else if (doc.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+      doc.webkitExitFullscreen();
+    } else if (doc.msExitFullscreen) { /* IE/Edge */
+      doc.msExitFullscreen();
+    }
+    this.isfullscreen = false;
   }
 }

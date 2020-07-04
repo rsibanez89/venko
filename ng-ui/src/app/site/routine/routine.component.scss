@@ -4,10 +4,29 @@
   .slide-container {
     position: relative;
 
+    &.full-screen{
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1031;
+      width: 100%;
+
+      venko-timer {
+        z-index: 1032;
+      }
+    }
+
     venko-timer {
       position: absolute;
       bottom: 0px;
       left: 0px;
+    }
+
+    button.maximize {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      z-index: 1032;
     }
   }
 
