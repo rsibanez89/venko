@@ -4,7 +4,7 @@ import { HomeComponent } from './site/home/home.component';
 import { ProfileComponent } from './site/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './shared/services/internceptor.service';
+import { InterceptorService } from './shared/services/interceptor.service';
 import { VenkoAdminGuard } from './shared/guards/venko-admin.guard';
 import { VenkoUserGuard } from './shared/guards/venko-user.guard';
 import { RoutinesComponent } from './site/routines/routines.component';
@@ -30,12 +30,12 @@ const routes: Routes = [
   {
     path: 'routines',
     component: RoutinesComponent,
-    canActivate: [AuthGuard, VenkoUserGuard]
+    canActivate: [AuthGuard, VenkoUserGuard],
   },
   {
     path: 'routines/:routineId',
     component: RoutineComponent,
-    canActivate: [AuthGuard, VenkoUserGuard]
+    canActivate: [AuthGuard, VenkoUserGuard],
   },
   {
     path: '',
@@ -46,10 +46,12 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: InterceptorService,
-    multi: true
-  }]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+  ],
 })
 export class AppRoutingModule {}

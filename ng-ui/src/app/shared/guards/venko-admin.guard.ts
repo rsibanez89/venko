@@ -8,17 +8,25 @@ import {
 import { Observable } from 'rxjs';
 import { UsersService } from '../services/users.service';
 import { map } from 'rxjs/operators';
+import { PublicRoutesService } from './public-routes.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VenkoAdminGuard implements CanActivate {
-  constructor(private router: Router, private usersService: UsersService) {}
+  constructor(
+    private router: Router,
+    private usersService: UsersService,
+    private publicRoutesService: PublicRoutesService,
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> | boolean {
+    if (this.publicRoutesService.isPublicRoute(next)) {
+      return true;
+    }
     return this.usersService.isAdmin$.pipe(
       map(isAdmin => {
         if (isAdmin) {

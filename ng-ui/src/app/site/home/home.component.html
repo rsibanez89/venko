@@ -10,25 +10,43 @@
 </div>
 
 <div class="container">
-  <h6>Some of our best targeted routines are:</h6>
+  <p>Log in to access your personalized routines:</p>
+  <button
+      class="btn btn-outline-success my-2 my-sm-0"
+      (click)="auth.login()"
+      *ngIf="!auth.loggedIn"
+    >
+      Log In
+    </button>
+  <p>Or try some of our best targeted routines:</p>
   <figure class="figure">
-    <img src="/assets/images/venko-strong-new.jpg" class="figure-img img-fluid rounded">
-    <figcaption class="figure-caption">Improve your strength week by week.</figcaption>
+    <a routerLink="/routines/270" class="zoom">
+      <img src="/assets/images/venko-strong-new.jpg" class="figure-img img-fluid rounded transition">
+      <figcaption class="figure-caption">Improve your strength week by week.</figcaption>
+    </a>
   </figure>
   <figure class="figure">
-    <img src="/assets/images/venko-burn-new.jpg" class="figure-img img-fluid rounded">
-    <figcaption class="figure-caption">Burn calories, increase your heart rate and improve your resistance.</figcaption>
+    <a routerLink="/routines/275" class="zoom">
+      <img src="/assets/images/venko-burn-new.jpg" class="figure-img img-fluid rounded transition">
+      <figcaption class="figure-caption">Burn calories, increase your heart rate and improve your resistance.</figcaption>
+    </a>
   </figure>
   <figure class="figure">
-    <img src="/assets/images/venko-mobility-new.jpg" class="figure-img img-fluid rounded">
-    <figcaption class="figure-caption">Improve your flexibility and keep healthy joints.</figcaption>
+    <a routerLink="/routines/275" class="zoom">
+      <img src="/assets/images/venko-mobility-new.jpg" class="figure-img img-fluid rounded transition">
+      <figcaption class="figure-caption">Improve your flexibility and keep healthy joints.</figcaption>
+    </a>
   </figure>
   <figure class="figure">
-    <img src="/assets/images/venko-special-new.jpg" class="figure-img img-fluid rounded">
-    <figcaption class="figure-caption">Improve your equilibrium and agility.</figcaption>
+    <a routerLink="/routines/275" class="zoom">
+      <img src="/assets/images/venko-special-new.jpg" class="figure-img img-fluid rounded transition">
+      <figcaption class="figure-caption">Improve your equilibrium and agility.</figcaption>
+    </a>
   </figure>
   <figure class="figure">
-    <img src="/assets/images/venko-running-new.jpg" class="figure-img img-fluid rounded">
-    <figcaption class="figure-caption">Specially created for runners.</figcaption>
+    <a routerLink="/routines/275" class="zoom">
+      <img src="/assets/images/venko-running-new.jpg" class="figure-img img-fluid rounded transition">
+      <figcaption class="figure-caption">Specially created for runners.</figcaption>
+    </a>
   </figure>
 </div>
