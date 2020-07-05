@@ -30,7 +30,7 @@ export class PublicRoutesService {
   }
 
   private isPublicRoutine(routineId: string): boolean {
-    const publicRoutines = ['270', '275'];
+    const publicRoutines = ['270', '275', '1429', '1431'];
     return publicRoutines.includes(routineId);
   }
 }
