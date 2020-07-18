@@ -1,0 +1,9 @@
+{
+  "routineComponent": {
+    "easyButton": "Easy",
+    "mediumButton": "Medium",
+    "hardButton": "Hard",
+    "startButton": "Start",
+    "stopButton": "Stop"
+  }
+}

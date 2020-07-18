@@ -17,7 +17,15 @@ export class PublicRoutesService {
   }
 
   public isPublicRouteRequest(req: HttpRequest<any>) {
-    if (req.url === undefined || req.url.indexOf('routines/') === -1) {
+    if (req.url === undefined) {
+      return false;
+    }
+
+    if (req.url.includes('/assets/i18n/')) {
+      return true;
+    }
+
+    if (req.url.indexOf('routines/') === -1) {
       return false;
     }
 

@@ -12,9 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store/app/app.effects';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
@@ -25,6 +23,6 @@ import { effects } from './store/app/app.effects';
     SiteModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
