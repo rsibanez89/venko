@@ -1,9 +1,37 @@
 {
+  "homeComponent": {
+    "welcome": "Welcome to Venko",
+    "slogan": "Digital personalized training",
+    "p1": "Venko training provides personalized routines and exercises that are updated every month.",
+    "p2": "Users have different routines depending on their goals and physical capabilities.",
+    "logInText": "Log in to access your personalized training.",
+    "logInButton": "Log in",
+    "p3": "Or try some of our best targeted routines:",
+    "routineStrong": "Improve your strength week by week.",
+    "routineBurn": "Burn calories, increase your heart rate and improve your resistance.",
+    "routineMobility": "Improve your flexibility and keep healthy joints.",
+    "routineByePunch": "Improve your core strenght and train your abs."
+  },
   "routineComponent": {
     "easyButton": "Easy",
     "mediumButton": "Medium",
     "hardButton": "Hard",
     "startButton": "Start",
     "stopButton": "Stop"
+  },
+  "navigationComponent": {
+    "homeLink": "Home",
+    "routinesLink": "Routines",
+    "logInButton": "Log in",
+    "profileButton": "Profile",
+    "usersButton": "Users",
+    "logOutButton": "Log out"
+  },
+  "profileComponent": {
+    "profile": "Profile",
+    "completeProfile": "Complete your profile",
+    "firstName": "First name",
+    "lastName": "First name",
+    "updateProfileButton": "Update profile"
   }
 }

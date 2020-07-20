@@ -1,26 +1,16 @@
 <div class="container">
   <venko-async-container [isLoading]="routinesIsLoading$ | async">
-    <div class="card" *ngFor="let routine of routines$ | async">
-      <img
-        class="card-img-top"
-        src="{{ environment.host }}/{{ routine.photo }}"
-      />
-      <div class="card-body">
-        <h5 class="card-title">{{ routine.name }}</h5>
-        <a type="button" class="btn btn-primary" routerLink="{{routine.id}}">
-          Go
-        </a>
-        <!-- <button
-          type="button"
-          class="btn btn-primary video-btn"
-          data-toggle="modal"
-          data-src="https://www.youtube.com/embed/{{ routine.youtubeUrl }}"
-          data-target="#myModal"
-        >
-          Video
-        </button> -->
-      </div>
-    </div>
+
+    <figure class="figure" *ngFor="let routine of routines$ | async">
+      <a routerLink="{{ routine.id }}" class="zoom">
+        <img
+          src="{{ environment.host }}/{{ routine.photo }}"
+          class="figure-img img-fluid rounded transition"
+        />
+        <figcaption class="figure-caption">{{ routine.name }}</figcaption>
+      </a>
+    </figure>
+
     <pre *ngIf="!environment.production">
       <code>{{ routines$ | async | json }}</code>
     </pre>

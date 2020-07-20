@@ -1,9 +1,37 @@
 {
+  "homeComponent": {
+    "welcome": "Bienvenido a Venko",
+    "slogan": "Entrenamiento digital personalizado",
+    "p1": "Venko provee rutinas y ejercicios personalizados que son actualizados todos los meses.",
+    "p2": "Los usuarion tienen diferentes rutinas dependiendo de sus metas y habilidades físicas.",
+    "logInText": "Inicia sesión para acceder a tus entrenamientos.",
+    "logInButton": "Iniciar sesión",
+    "p3": "O prueba sin costo algunas de nuestras rutinas personalizadas:",
+    "routineStrong": "Mejora tu fortaleza muscular semana a semana.",
+    "routineBurn": "Quema calorías, incrementa tu ritmo cardíaco, y mejora tu resistencia.",
+    "routineMobility": "Mejora tu flexibilidad y mantiene las articulaciones saludables.",
+    "routineByePunch": "Entrena tus abdominales."
+  },
   "routineComponent": {
     "easyButton": "Fácil",
     "mediumButton": "Medio",
     "hardButton": "Difícil",
     "startButton": "Empezar",
     "stopButton": "Finalizar"
+  },
+  "navigationComponent": {
+    "homeLink": "Inicio",
+    "routinesLink": "Rutinas",
+    "logInButton": "Iniciar sesión",
+    "profileButton": "Perfil",
+    "usersButton": "Usuarios",
+    "logOutButton": "Cerrar sesión"
+  },
+  "profileComponent": {
+    "profile": "Perfil",
+    "completeProfile": "Complete su perfil",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "updateProfileButton": "Actualizar perfil"
   }
 }

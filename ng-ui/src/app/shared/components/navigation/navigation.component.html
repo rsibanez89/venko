@@ -8,11 +8,27 @@
 
   <div class="collapse navbar-collapse" [ngClass]="{ show: isOpen }">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <a class="nav-link" routerLink="/" (click)="isOpen = false">Home</a>
+      <li
+        class="nav-item"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="nav-link" routerLink="/" (click)="isOpen = false">{{
+          'navigationComponent.homeLink' | translate
+        }}</a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <a class="nav-link" routerLink="/routines" *ngIf="usersService.isVenkoUser$ | async" (click)="isOpen = false">Routines</a>
+      <li
+        class="nav-item"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a
+          class="nav-link"
+          routerLink="/routines"
+          *ngIf="usersService.isVenkoUser$ | async"
+          (click)="isOpen = false"
+          >{{ 'navigationComponent.routinesLink' | translate }}</a
+        >
       </li>
     </ul>
 
@@ -48,7 +64,8 @@
             *ngIf="profile"
             (click)="isOpen = false"
           >
-            <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
+            <fa-icon [icon]="faUser" class="mr-3"></fa-icon>
+            {{ 'navigationComponent.profileButton' | translate }}
           </a>
           <a
             [routerLink]="['/users']"
@@ -56,14 +73,16 @@
             *ngIf="usersService.isAdmin$ | async"
             (click)="isOpen = false"
           >
-            <fa-icon [icon]="faUsers" class="mr-3"></fa-icon> Users
+            <fa-icon [icon]="faUsers" class="mr-3"></fa-icon
+            >{{ 'navigationComponent.usersButton' | translate }}
           </a>
           <button
             (click)="auth.logout()"
             class="btn btn-link dropdown-item"
             id="qsLogoutBtn"
           >
-            <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon> Log out
+            <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon
+            >{{ 'navigationComponent.logOutButton' | translate }}
           </button>
         </div>
       </li>
@@ -75,7 +94,7 @@
       (click)="auth.login()"
       *ngIf="!auth.loggedIn"
     >
-      Log In
+      {{ 'navigationComponent.logInButton' | translate }}
     </button>
   </div>
 </nav>

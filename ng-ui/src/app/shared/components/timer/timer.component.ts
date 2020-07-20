@@ -15,8 +15,6 @@ export class TimerComponent implements OnInit {
   private numbers: Observable<number>;
   @Output() timerEnded = new EventEmitter<boolean>();
 
-  constructor() {}
-
   ngOnInit(): void {
     this.resetTimer();
     this.numbers = interval(1000);

@@ -1,46 +1,46 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Welcome to Venko</h1>
-    <p class="lead">Digital personalized training</p>
+    <h1 class="display-4">{{ 'homeComponent.welcome' | translate }}</h1>
+    <p class="lead">{{ 'homeComponent.slogan' | translate }}</p>
   </div>
 </div>
 <div class="container">
-  <p>Venko training provides personalized routines and exercises that are updated every month.</p>
-  <p>Users have different routines depending on their goals and physical capabilities.</p>
+  <p>{{ 'homeComponent.p1' | translate }}</p>
+  <p>{{ 'homeComponent.p2' | translate }}</p>
 </div>
 
 <div class="container">
-  <p>Log in to access your personalized training.</p>
+  <p>{{ 'homeComponent.logInText' | translate }}</p>
   <button
       class="btn btn-outline-success mb-2 login"
       (click)="auth.login()"
       *ngIf="!auth.loggedIn"
     >
-      Log In
+    {{ 'homeComponent.logInText' | translate }}
     </button>
-  <p>Or try some of our best targeted routines:</p>
+  <p>{{ 'homeComponent.p3' | translate }}</p>
   <figure class="figure">
     <a routerLink="/routines/270" class="zoom">
       <img src="/assets/images/venko-strong-new.jpg" class="figure-img img-fluid rounded transition">
-      <figcaption class="figure-caption">Improve your strength week by week.</figcaption>
+      <figcaption class="figure-caption">{{ 'homeComponent.routineStrong' | translate }}</figcaption>
     </a>
   </figure>
   <figure class="figure">
     <a routerLink="/routines/275" class="zoom">
       <img src="/assets/images/venko-burn-new.jpg" class="figure-img img-fluid rounded transition">
-      <figcaption class="figure-caption">Burn calories, increase your heart rate and improve your resistance.</figcaption>
+      <figcaption class="figure-caption">{{ 'homeComponent.routineBurn' | translate }}</figcaption>
     </a>
   </figure>
   <figure class="figure">
     <a routerLink="/routines/1429" class="zoom">
       <img src="/assets/images/venko-mobility-new.jpg" class="figure-img img-fluid rounded transition">
-      <figcaption class="figure-caption">Improve your flexibility and keep healthy joints.</figcaption>
+      <figcaption class="figure-caption">{{ 'homeComponent.routineMobility' | translate }}</figcaption>
     </a>
   </figure>
   <figure class="figure">
     <a routerLink="/routines/1431" class="zoom">
       <img src="/assets/images/venko-bye-bye-paunch-new.jpg" class="figure-img img-fluid rounded transition">
-      <figcaption class="figure-caption">Improve your core strenght and train your abs.</figcaption>
+      <figcaption class="figure-caption">{{ 'homeComponent.routineByePunch' | translate }}</figcaption>
     </a>
   </figure>
 </div>
