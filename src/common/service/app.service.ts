@@ -31,14 +31,28 @@ export class VenkoService {
       });
   }
 
-  async getRoutine(routineId: string): Promise<Routine[]> {
+  async getRoutineMobile(routineId: string): Promise<Routine[]> {
     const response = await this.httpService
       .get(`${this.Host}/getRutinaMobile/?tiporutina=ejercitarse&rutina=${routineId}`, {
         headers: {
           'Content-Type': 'application/json',
         },
       }).toPromise();
+    return this.getRoutine(response);
+  }
 
+  // This endpoint doesn't count when user opens the routine.
+  async getRoutineWeb(routineId: string): Promise<Routine[]> {
+    const response = await this.httpService
+      .get(`${this.Host}/getRutinaWeb/?tiporutina=ejercitarse&rutina=${routineId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).toPromise();
+    return this.getRoutine(response);
+  }
+
+  async getRoutine(response: any): Promise<Routine[]> {
     const routines: Routine[] = [];
     for(let i = 0; i < response.data.length; i++) {
       const routine = response.data[i];

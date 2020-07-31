@@ -36,8 +36,8 @@ describe('RoutinesController', () => {
     ];
 
     jest
-      .spyOn(appService, 'getRoutine')
-      .mockImplementation((routineId: string) => Promise.resolve(routine));
+      .spyOn(appService, 'getRoutineMobile')
+      .mockImplementation(() => Promise.resolve(routine));
   });
 
   describe('root', () => {

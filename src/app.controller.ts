@@ -30,7 +30,7 @@ export class AppController {
     for (let routineId = start; routineId < start + 100; routineId++) {
       if (!KnownMissingRoutines.find(r => r == routineId)) {
         try {
-          await this.appService.getRoutine(routineId.toString());
+          await this.appService.getRoutineWeb(routineId.toString());
         } catch (error) {
           Logger.log(`Routine ${routineId} not found!`);
         }

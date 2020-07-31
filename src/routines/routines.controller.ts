@@ -9,6 +9,6 @@ export class RoutinesController {
   @Get(':routineId')
   GetRoutine(@Param('routineId') routineId: string): Promise<Routine[]> {
     Logger.log(`GET routines/${routineId}`);
-    return this.appService.getRoutine(routineId);
+    return this.appService.getRoutineMobile(routineId);
   }
 }
