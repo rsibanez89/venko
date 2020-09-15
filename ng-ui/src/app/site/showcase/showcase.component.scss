@@ -2,3 +2,14 @@
   margin-top: 10px;
   justify-content: center;
 }
+
+.component-demo {
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin-bottom: 20px;
+
+  &__title {
+    margin-bottom: 20px;
+  }
+}

@@ -9,13 +9,21 @@ import { TimerComponent } from './components/timer/timer.component';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { VideoModalComponent } from './components/video-modal/video-modal.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 export function HttpTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [NavigationComponent, AsyncContainerComponent, TimerComponent],
+  declarations: [
+    NavigationComponent,
+    AsyncContainerComponent,
+    TimerComponent,
+    VideoModalComponent,
+    SafePipe,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -34,6 +42,8 @@ export function HttpTranslateLoader(http: HttpClient) {
     NavigationComponent,
     AsyncContainerComponent,
     TimerComponent,
+    VideoModalComponent,
+    SafePipe,
   ],
 })
 export class SharedModule {}
