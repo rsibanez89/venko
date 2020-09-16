@@ -1,6 +1,15 @@
 .figure {
   margin-top: 20px;
   text-align: center;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+venko-video-modal {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
 }
 
 .zoom {

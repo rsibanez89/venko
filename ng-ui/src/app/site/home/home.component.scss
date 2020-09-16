@@ -5,6 +5,17 @@
 .container {
   text-align: center;
 
+  figure {
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+
+  venko-video-modal {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+  }
 
   @media screen and (min-width: 768px) {
     .login {

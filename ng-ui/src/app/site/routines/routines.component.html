@@ -2,6 +2,7 @@
   <venko-async-container [isLoading]="routinesIsLoading$ | async">
 
     <figure class="figure" *ngFor="let routine of routines$ | async">
+      <venko-video-modal *ngIf="routine.youtubeUrl !== ''" videoCode="{{routine.youtubeUrl}}"></venko-video-modal>
       <a routerLink="{{ routine.id }}" class="zoom">
         <img
           src="{{ environment.host }}/{{ routine.photo }}"
@@ -15,38 +16,4 @@
       <code>{{ routines$ | async | json }}</code>
     </pre>
   </venko-async-container>
-</div>
-
-<div
-  class="modal fade bd-example-modal-lg"
-  id="myModal"
-  tabindex="-1"
-  role="dialog"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe
-            class="embed-responsive-item"
-            src=""
-            id="video"
-            allowscriptaccess="always"
-            allow="autoplay"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
