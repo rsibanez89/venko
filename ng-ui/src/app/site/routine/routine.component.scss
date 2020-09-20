@@ -16,6 +16,12 @@
       }
     }
 
+    venko-video-modal {
+      position: absolute;
+      z-index: 1031;
+      top: 10px;
+    }
+
     venko-timer {
       position: absolute;
       bottom: 0px;
