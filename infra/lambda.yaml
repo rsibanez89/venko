@@ -41,7 +41,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: venko-lambda
-      CodeUri: ./dist
+      CodeUri: ../dist
       Handler: lambda.handler
       MemorySize: 256
       Timeout: 300 # 5 minutes

@@ -14,14 +14,14 @@ run:
 	docker run -d -p 3000:3000 venko:${ImageTag}
 
 # -------- Dynamo Database --------
-_deployDatabase:
+_deployUsersDatabase:
 	@echo "deploying dynamo database"
 	aws cloudformation deploy                                                         \
-		--template-file ddb.yaml                                                        \
-		--stack-name venko-database                                                     \
-		--region ${Region}                                                              \
-		--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM                              \
-		--parameter-overrides DDBTableName=venko-users-registry                         \
+		--template-file infra/users-ddb.yaml                                          \
+		--stack-name venko-database                                                   \
+		--region ${Region}                                                            \
+		--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM                            \
+		--parameter-overrides DDBTableName=venko-users-registry                       \
 		--tags stack="venko-database"
 # -------- -------------- --------
 
@@ -39,8 +39,8 @@ _publish: | build _tagImage _pushImage
 
 _deployECS:
 	@echo "deploying ecs stack..."
-	aws cloudformation deploy                                                         \
-        --template-file ecs.yaml                                                    \
+	aws cloudformation deploy                                                       \
+        --template-file infra/ecs.yaml                                              \
         --stack-name venko-ecs                                                      \
         --capabilities CAPABILITY_NAMED_IAM CAPABILITY_IAM                          \
         --region ${Region}                                                          \
@@ -61,19 +61,19 @@ _buildLocal:
 _package:
 	@echo "packaging serverless stack"
 	aws cloudformation package                                                        \
-	--template lambda.yaml                                                            \
+	--template infra/lambda.yaml                                                      \
 	--s3-bucket ${S3Bucket}                                                           \
 	--s3-prefix deployments                                                           \
-	--output-template packaged-lambda.yaml                                            \
+	--output-template infra/packaged-lambda.yaml                                      \
 	--region ${Region}
 
 _deployServerless:
 	@echo "deploying serverless stack"
 	aws cloudformation deploy                                                         \
-		--template-file packaged-lambda.yaml                                            \
-		--stack-name venko-serverless                                                   \
-		--region ${Region}                                                              \
-		--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM                              \
+		--template-file infra/packaged-lambda.yaml                                    \
+		--stack-name venko-serverless                                                 \
+		--region ${Region}                                                            \
+		--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM                            \
 		--tags stack="venko-serverless"
 
 packageAndDeployServerless: | _buildLocal _package _deployServerless
