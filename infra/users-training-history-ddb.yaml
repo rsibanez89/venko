@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Venko DynamoDB cloudformation. Users Registry.
+Description: Venko DynamoDB cloudformation. Users Training History.
 
 Parameters:
   DDBTableName:
@@ -13,21 +13,9 @@ Resources:
       AttributeDefinitions:
         - AttributeName: email
           AttributeType: S
-        - AttributeName: userId
-          AttributeType: S
       KeySchema:
         - AttributeName: email
           KeyType: HASH
-      GlobalSecondaryIndexes:
-        - IndexName: 'ix_userId'
-          KeySchema:
-            - AttributeName: 'userId'
-              KeyType: 'HASH'
-          Projection:
-            ProjectionType: 'ALL'
-          ProvisionedThroughput:
-            ReadCapacityUnits: 5
-            WriteCapacityUnits: 5
       BillingMode: PROVISIONED
       ProvisionedThroughput:
         ReadCapacityUnits: 5

@@ -9,6 +9,9 @@
       "request": "attach",
       "name": "Node server",
       "port": 9229,
+      "processId": "${command:PickProcess}",
+      "protocol": "inspector",
+      "restart": true,
       "skipFiles": [
         "<node_internals>/**"
       ]

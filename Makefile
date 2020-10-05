@@ -15,13 +15,23 @@ run:
 
 # -------- Dynamo Database --------
 _deployUsersDatabase:
-	@echo "deploying dynamo database"
+	@echo "deploying dynamo users database"
 	aws cloudformation deploy                                                         \
 		--template-file infra/users-ddb.yaml                                          \
 		--stack-name venko-database                                                   \
 		--region ${Region}                                                            \
 		--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM                            \
 		--parameter-overrides DDBTableName=venko-users-registry                       \
+		--tags stack="venko-database"
+
+_deployTrainingHistoryDatabase:
+	@echo "deploying dynamo training history database"
+	aws cloudformation deploy                                                         \
+		--template-file infra/users-training-history-ddb.yaml                         \
+		--stack-name venko-users-training-history-database                            \
+		--region ${Region}                                                            \
+		--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM                            \
+		--parameter-overrides DDBTableName=venko-users-training-history               \
 		--tags stack="venko-database"
 # -------- -------------- --------
 

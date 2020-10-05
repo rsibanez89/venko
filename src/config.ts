@@ -12,6 +12,7 @@ const configSchema = Joi.object({
   AUTH0_AUDIENCE: Joi.string().default('https://api.venko.training/'),
   JWT_SECRET: Joi.string().default('secretKey'),
   DYNAMODB_USERS_TABLE_NAME: Joi.string().default('venko-users-registry'),
+  DYNAMODB_USERS_TRAINING_HISTORY_TABLE_NAME: Joi.string().default('venko-users-training-history'),
 })
   .unknown()
   .required();
@@ -29,5 +30,6 @@ const config = {
   auth0Audience: value.AUTH0_AUDIENCE,
   secretKey: value.JWT_SECRET,
   usersTableName: value.DYNAMODB_USERS_TABLE_NAME,
+  usersTrainingHistoryTableName: value.DYNAMODB_USERS_TRAINING_HISTORY_TABLE_NAME,
 };
 export default config;

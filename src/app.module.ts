@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { RoutinesModule } from './routines/routines.module';
 import { CommonModule } from './common/common.module';
 import { ServiceModule } from './common/service/service.module';
+import { TrainingHistoryModule } from './training-history/training-history.module';
 import config from './config';
 
 @Module({
@@ -19,6 +20,7 @@ import config from './config';
     RoutinesModule,
     CommonModule,
     ServiceModule,
+    TrainingHistoryModule,
   ],
   controllers: [AppController],
   providers: [],
