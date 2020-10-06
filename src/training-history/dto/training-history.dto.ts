@@ -31,5 +31,6 @@ export class TrainingHistoryItem {
 
 export class TrainingHistory {
   email: string; // Key
+  period: string; // Secondary Key
   items: TrainingHistoryItem[];
 }

@@ -20,5 +20,6 @@ export const TrainingHistoryItemRequestSchema = Joi.object({
 
 export const TrainingHistoryRequestSchema = Joi.object({
   email: Joi.string(),
+  period: Joi.string(),
   items: Joi.array().items(TrainingHistoryItemRequestSchema),
 });

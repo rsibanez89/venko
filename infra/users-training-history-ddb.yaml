@@ -13,9 +13,13 @@ Resources:
       AttributeDefinitions:
         - AttributeName: email
           AttributeType: S
+        - AttributeName: period
+          AttributeType: S
       KeySchema:
         - AttributeName: email
           KeyType: HASH
+        - AttributeName: period
+          KeyType: RANGE
       BillingMode: PROVISIONED
       ProvisionedThroughput:
         ReadCapacityUnits: 5

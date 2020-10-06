@@ -9,6 +9,12 @@ export class TrainingHistoryRequest {
   email: string;
 
   @ApiProperty({
+    description: "Period",
+    example: "2020-10-01",
+  })
+  period: string;
+
+  @ApiProperty({
     description: "Items",
   })
   items: TrainingHistoryRequestItem[];
@@ -82,4 +88,30 @@ export class TrainingHistoryByEmailRequest {
     example: "rodrigo@mail.com",
   })
   email: string;
+
+  @ApiProperty({
+    description: "Period",
+    example: "2020-10-01",
+  })
+  period: string;
+}
+
+export class DeleteTrainingHistoryByEmailRequest {
+  @ApiProperty({
+    description: "Email",
+    example: "rodrigo@mail.com",
+  })
+  email: string;
+
+  @ApiProperty({
+    description: "Period",
+    example: "2020-10-01",
+  })
+  period: string;
+
+  @ApiProperty({
+    description: "Index",
+    example: "1",
+  })
+  index: number;
 }
