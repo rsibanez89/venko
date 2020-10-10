@@ -1,0 +1,51 @@
+<div class="container">
+  <venko-async-container [isLoading]="trainingHistoryIsLoading$ | async">
+
+    <ng-container *ngIf="trainingHistory$ | async as trainingHistory">
+      <span class="dates-picker">
+        <button type="button" class="btn btn-link" aria-label="Previous month" title="Previous month" (click)="onLeftMonth(trainingHistory.email)">
+          <fa-icon [icon]="faChevronLeft"></fa-icon>
+        </button>
+        <h2>{{ this.currentMonth.format('YYYY-MM') }}</h2>
+        <button type="button" class="btn btn-link" aria-label="Next month" title="Next month" (click)="onRightMonth(trainingHistory.email)">
+          <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+      </span>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{ 'trainingHistoryComponent.date' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.routineId' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.routineType' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.lapsCount' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.duration' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.dificulty' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.weight' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.mood' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.energyLevel' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of trainingHistory.items; let i = index">
+            <tr>
+              <td>{{ item.date }}</td>
+              <td><a [routerLink]="['/routines/'+item.routineId]">{{item.routineId}}</a></td>
+              <td>{{ item.routineType }}</td>
+              <td>{{ item.lapsCount }}</td>
+              <td>{{ item.duration }}</td>
+              <td>{{ item.dificulty }}</td>
+              <td>{{ item.weight || '-' }}</td>
+              <td class="mood"><venko-mood [mood]="item.mood"></venko-mood></td>
+              <td class="energy"><venko-energy-bar [energy]="item.energyLevel"></venko-energy-bar></td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </ng-container>
+
+    <pre *ngIf="!environment.production">
+      <code>{{ trainingHistory$ | async | json }}</code>
+    </pre>
+  </venko-async-container>
+</div>

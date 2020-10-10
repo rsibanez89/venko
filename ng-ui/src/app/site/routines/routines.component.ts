@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState } from '../../store/app/app.reducer';
-import { getRoutinesForUser } from '../../store/routines/routines.actions';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { AppState } from '../../store/app/app.reducer';
 import {
   getRoutinesIsLoading,
   getRoutines,
 } from '../../store/routines/routines.selector';
+import { getRoutinesForUser } from '../../store/routines/routines.actions';
 import { UsersService } from '../../shared/services/users.service';
 import { environment } from '../../../environments/environment';
 import { RoutineSummary } from '../../store/routines/routines.dto';
@@ -27,7 +28,7 @@ export class RoutinesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usersService.currentUser$.subscribe(profile =>
+    this.usersService.currentUser$.pipe(filter(profile => profile?.email != null)).subscribe(profile =>
       this.store.dispatch(getRoutinesForUser({ userId: profile.userId })),
     );
     // Uncomment for testing

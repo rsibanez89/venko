@@ -11,6 +11,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { VideoModalComponent } from './components/video-modal/video-modal.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { EnergyBarComponent } from './components/energy-bar/energy-bar.component';
+import { MoodComponent } from './components/mood/mood.component';
 
 export function HttpTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -23,6 +25,8 @@ export function HttpTranslateLoader(http: HttpClient) {
     TimerComponent,
     VideoModalComponent,
     SafePipe,
+    EnergyBarComponent,
+    MoodComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +48,8 @@ export function HttpTranslateLoader(http: HttpClient) {
     TimerComponent,
     VideoModalComponent,
     SafePipe,
+    EnergyBarComponent,
+    MoodComponent,
   ],
 })
 export class SharedModule {}

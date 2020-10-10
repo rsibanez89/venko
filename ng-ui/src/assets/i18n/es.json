@@ -22,6 +22,7 @@
   "navigationComponent": {
     "homeLink": "Inicio",
     "routinesLink": "Rutinas",
+    "trainingHistoryLink": "Historial de Entrenamiento",
     "logInButton": "Iniciar sesión",
     "profileButton": "Perfil",
     "usersButton": "Usuarios",
@@ -33,5 +34,16 @@
     "firstName": "Nombre",
     "lastName": "Apellido",
     "updateProfileButton": "Actualizar perfil"
+  },
+  "trainingHistoryComponent": {
+    "date": "Fecha",
+    "routineId": "# Rutina",
+    "routineType": "Tipo de rutina",
+    "lapsCount": "# vueltas",
+    "duration": "Tiempo",
+    "dificulty": "Dificultad",
+    "weight": "Peso",
+    "mood": "Ánimo",
+    "energyLevel": "Nivel de energia"
   }
 }

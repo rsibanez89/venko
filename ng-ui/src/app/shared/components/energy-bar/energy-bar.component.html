@@ -1,0 +1,43 @@
+<ngb-progressbar
+  *ngIf="percentage >= 0 && percentage < 25"
+  type="danger"
+  textType="white"
+  [value]="percentage"
+  [showValue]="true"
+></ngb-progressbar>
+
+<ngb-progressbar
+  *ngIf="percentage >= 25 && percentage < 50"
+  type="warning"
+  textType="dark"
+  [value]="percentage"
+  [showValue]="true"
+></ngb-progressbar>
+
+<ngb-progressbar
+  *ngIf="percentage >= 50 && percentage < 75"
+  type="secondary"
+  textType="white"
+  [value]="percentage"
+  [showValue]="true"
+  height="1rem"
+></ngb-progressbar>
+
+<ngb-progressbar
+  *ngIf="percentage >= 75 && percentage < 100"
+  type="info"
+  textType="white"
+  [value]="percentage"
+  [showValue]="true"
+  height="1rem"
+></ngb-progressbar>
+
+<ngb-progressbar
+  *ngIf="percentage == 100"
+  type="success"
+  textType="white"
+  [value]="percentage"
+  [showValue]="true"
+  height="1rem"
+></ngb-progressbar>
+

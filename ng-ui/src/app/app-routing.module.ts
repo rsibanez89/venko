@@ -11,6 +11,7 @@ import { RoutinesComponent } from './site/routines/routines.component';
 import { RoutineComponent } from './site/routine/routine.component';
 import { UsersComponent } from './site/users/users.component';
 import { ShowcaseComponent } from './site/showcase/showcase.component';
+import { TrainingHistoryComponent } from './site/training-history/training-history.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,11 @@ const routes: Routes = [
     path: 'routines/:routineId',
     component: RoutineComponent,
     canActivate: [AuthGuard, VenkoUserGuard],
+  },
+  {
+    path: 'training-history',
+    component: TrainingHistoryComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: '',

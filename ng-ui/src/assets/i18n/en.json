@@ -22,6 +22,7 @@
   "navigationComponent": {
     "homeLink": "Home",
     "routinesLink": "Routines",
+    "trainingHistoryLink": "Training History",
     "logInButton": "Log in",
     "profileButton": "Profile",
     "usersButton": "Users",
@@ -33,5 +34,16 @@
     "firstName": "First name",
     "lastName": "First name",
     "updateProfileButton": "Update profile"
+  },
+  "trainingHistoryComponent": {
+    "date": "Date",
+    "routineId": "Routine Id",
+    "routineType": "Routine type",
+    "lapsCount": "Laps count",
+    "duration": "Duration",
+    "dificulty": "Dificulty",
+    "weight": "Weight",
+    "mood": "Mood",
+    "energyLevel": "Energy level"
   }
 }
