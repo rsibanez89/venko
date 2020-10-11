@@ -10,13 +10,12 @@ import * as dayjs from 'dayjs';
 import { AppState } from '../../../app/store/app/app.reducer';
 import { environment } from '../../../environments/environment';
 import { UsersService } from '../../../app/shared/services/users.service';
-import { TrainingHistory } from '../../../app/store/training-history/training-history.dto';
+import { TrainingHistory, TrainingHistoryItem } from '../../../app/store/training-history/training-history.dto';
 import { getTrainingHistoryForUser } from '../../../app/store/training-history/training-history.actions';
 import {
   getTrainingHistory,
   getTrainingHistoryIsLoading,
 } from 'src/app/store/training-history/training-history.selector';
-import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
   selector: 'venko-training-history',
@@ -29,14 +28,15 @@ export class TrainingHistoryComponent implements OnInit {
   public faChevronRight = faChevronRight;
   public trainingHistoryIsLoading$: Observable<boolean>;
   public trainingHistory$: Observable<TrainingHistory>;
-  public currentMonth: dayjs.Dayjs;
+  public selectedMonth: dayjs.Dayjs;
+  public selectedItem: TrainingHistoryItem;
+
 
   constructor(
     private usersService: UsersService,
     private store: Store<AppState>,
-    public utilsService: UtilsService,
   ) {
-    this.currentMonth = dayjs().startOf('month');
+    this.selectedMonth = dayjs().startOf('month');
   }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class TrainingHistoryComponent implements OnInit {
         this.store.dispatch(
           getTrainingHistoryForUser({
             email: profile.email,
-            period: this.currentMonth.format('YYYY-MM-DD'),
+            period: this.selectedMonth.format('YYYY-MM-DD'),
           }),
         ),
       );
@@ -57,22 +57,26 @@ export class TrainingHistoryComponent implements OnInit {
     this.trainingHistory$ = this.store.pipe(select(getTrainingHistory));
   }
 
+  public onUpdateItem(item) {
+    this.selectedItem = item;
+  }
+
   public onLeftMonth(email: string) {
-    this.currentMonth = this.currentMonth.add(-1, 'month');
+    this.selectedMonth = this.selectedMonth.add(-1, 'month');
     this.store.dispatch(
       getTrainingHistoryForUser({
         email: email,
-        period: this.currentMonth.format('YYYY-MM-DD'),
+        period: this.selectedMonth.format('YYYY-MM-DD'),
       }),
     );
   }
 
   public onRightMonth(email: string) {
-    this.currentMonth = this.currentMonth.add(1, 'month');
+    this.selectedMonth = this.selectedMonth.add(1, 'month');
     this.store.dispatch(
       getTrainingHistoryForUser({
         email: email,
-        period: this.currentMonth.format('YYYY-MM-DD'),
+        period: this.selectedMonth.format('YYYY-MM-DD'),
       }),
     );
   }

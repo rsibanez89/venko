@@ -1,0 +1,55 @@
+
+<form [formGroup]="form">
+  <div class="form-row">
+
+    <div class="col">
+      <label for="date">{{ 'trainingHistoryComponent.date' | translate }}</label>
+      <!-- <input type="text" class="form-control" id="date" formControlName="date" placeholder="10" autofocus>
+      <div class="invalid" *ngIf="form.get('date').invalid">Please provide a valid date.</div> -->
+
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="datePicker" formControlName="date" ngbDatepicker #datePicker="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="datePicker.toggle()" type="button"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <label for="routineId">{{ 'trainingHistoryComponent.routineId' | translate }}</label>
+      <input type="text" class="form-control" id="routineId" formControlName="routineId" placeholder="10" autofocus>
+      <div class="invalid" *ngIf="form.get('routineId').invalid">Please provide a valid routineId.</div>
+    </div>
+
+    <div class="col">
+      <label for="routineId">{{ 'trainingHistoryComponent.routineType' | translate }}</label>
+      <select class="form-control" id="routineId" formControlName="routineType">
+        <option [ngValue]="'Fire'">Fire</option>
+        <option [ngValue]="'Burn'">Burn</option>
+        <option [ngValue]="'Powerfull'">Powerfull</option>
+        <option [ngValue]="'Strong'">Strong</option>
+        <option [ngValue]="'ByeByePaunch'">ByeByePaunch</option>
+        <option [ngValue]="'Mobility'">Mobility</option>
+        <option [ngValue]="'Flexibility'">Flexibility</option>
+      </select>
+    </div>
+    <div class="col">
+      <label for="lapsCount">{{ 'trainingHistoryComponent.lapsCount' | translate }}</label>
+      <input type="text" class="form-control" id="lapsCount" formControlName="lapsCount" placeholder="1" autofocus>
+      <div class="invalid" *ngIf="form.get('lapsCount').invalid">Please provide a valid lapsCount.</div>
+    </div>
+  </div>
+
+
+  <button
+    type="button"
+    class="btn btn-primary float-right"
+    (click)="onOkSaveTrainingHistory()"
+    [disabled]="!form.valid">
+    {{ 'profileComponent.updateProfileButton' | translate }}
+  </button>
+</form>
+
+<pre *ngIf="!environment.production" >
+  <code>{{ form.getRawValue() | json }}</code>
+</pre>

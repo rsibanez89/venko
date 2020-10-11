@@ -36,6 +36,7 @@
     "updateProfileButton": "Update profile"
   },
   "trainingHistoryComponent": {
+    "edit": "Edit",
     "date": "Date",
     "routineId": "Routine Id",
     "routineType": "Routine type",

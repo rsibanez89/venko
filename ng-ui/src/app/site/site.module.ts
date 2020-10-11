@@ -13,6 +13,7 @@ import { RoutineComponent } from './routine/routine.component';
 import { UsersComponent } from './users/users.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { TrainingHistoryComponent } from './training-history/training-history.component';
+import { TrainingHistoryEditComponent } from './training-history-edit/training-history-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TrainingHistoryComponent } from './training-history/training-history.co
     UsersComponent,
     ShowcaseComponent,
     TrainingHistoryComponent,
+    TrainingHistoryEditComponent,
   ],
   imports: [
     NgbModule,

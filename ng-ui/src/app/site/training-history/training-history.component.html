@@ -6,7 +6,7 @@
         <button type="button" class="btn btn-link" aria-label="Previous month" title="Previous month" (click)="onLeftMonth(trainingHistory.email)">
           <fa-icon [icon]="faChevronLeft"></fa-icon>
         </button>
-        <h2>{{ this.currentMonth.format('YYYY-MM') }}</h2>
+        <h2>{{ this.selectedMonth.format('YYYY-MM') }}</h2>
         <button type="button" class="btn btn-link" aria-label="Next month" title="Next month" (click)="onRightMonth(trainingHistory.email)">
           <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
@@ -24,6 +24,7 @@
             <th scope="col">{{ 'trainingHistoryComponent.weight' | translate }}</th>
             <th scope="col">{{ 'trainingHistoryComponent.mood' | translate }}</th>
             <th scope="col">{{ 'trainingHistoryComponent.energyLevel' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.edit' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -38,10 +39,17 @@
               <td>{{ item.weight || '-' }}</td>
               <td class="mood"><venko-mood [mood]="item.mood"></venko-mood></td>
               <td class="energy"><venko-energy-bar [energy]="item.energyLevel"></venko-energy-bar></td>
+              <td>
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="onUpdateItem(item)">
+                  {{ 'trainingHistoryComponent.edit' | translate }}
+                </button>
+              </td>
             </tr>
           </ng-container>
         </tbody>
       </table>
+
+      <venko-training-history-edit [trainingHistory]="trainingHistory" [item]="selectedItem"></venko-training-history-edit>
     </ng-container>
 
     <pre *ngIf="!environment.production">
