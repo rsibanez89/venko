@@ -1,4 +1,9 @@
 {
+  "global": {
+    "edit": "Modificar",
+    "delete": "Eliminar",
+    "saveChanges": "Guardar cambios"
+  },
   "homeComponent": {
     "welcome": "Bienvenido a Venko",
     "slogan": "Entrenamiento digital personalizado",
@@ -36,8 +41,8 @@
     "updateProfileButton": "Actualizar perfil"
   },
   "trainingHistoryComponent": {
-    "edit": "Modificar",
     "date": "Fecha",
+    "time": "Hora",
     "routineId": "# Rutina",
     "routineType": "Tipo de rutina",
     "lapsCount": "# vueltas",

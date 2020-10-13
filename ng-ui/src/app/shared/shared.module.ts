@@ -13,6 +13,8 @@ import { VideoModalComponent } from './components/video-modal/video-modal.compon
 import { SafePipe } from './pipes/safe.pipe';
 import { EnergyBarComponent } from './components/energy-bar/energy-bar.component';
 import { MoodComponent } from './components/mood/mood.component';
+import { MinDateValidatorDirective } from './directives/min-date-validator/min-date-validator.directive';
+import { MaxDateValidatorDirective } from './directives/max-date-validator/max-date-validator.directive';
 
 export function HttpTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,6 +29,8 @@ export function HttpTranslateLoader(http: HttpClient) {
     SafePipe,
     EnergyBarComponent,
     MoodComponent,
+    MinDateValidatorDirective,
+    MaxDateValidatorDirective,
   ],
   imports: [
     CommonModule,

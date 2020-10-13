@@ -3,6 +3,8 @@ import {
   getTrainingHistoryForUser,
   getTrainingHistorySucceded,
   getTrainingHistoryFailed,
+  addTrainingHistoryItem,
+  deleteTrainingHistoryItem,
 } from './training-history.actions';
 import { TrainingHistory } from './training-history.dto';
 
@@ -22,11 +24,26 @@ const _trainingHistoryReducer = createReducer(
     return { ...state, trainingHistory: null, isLoading: true };
   }),
   on(getTrainingHistorySucceded, (state, action) => {
-    console.log(action.data);
     return { ...state, trainingHistory: action.data, isLoading: false };
   }),
   on(getTrainingHistoryFailed, state => {
     return { ...state, isLoading: false };
+  }),
+  on(addTrainingHistoryItem, (state, action) => {
+    const newTH = {
+      ...state.trainingHistory,
+      items: [...state.trainingHistory.items, action.item],
+    };
+    console.log(action.item);
+    return { ...state, trainingHistory: newTH, isLoading: false };
+  }),
+  on(deleteTrainingHistoryItem, (state, action) => {
+    const newTH = {
+      ...state.trainingHistory,
+      items: [...state.trainingHistory.items],
+    };
+    newTH.items.splice(action.index, 1);
+    return { ...state, trainingHistory: newTH, isLoading: false };
   }),
 );
 

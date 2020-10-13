@@ -2,28 +2,41 @@
 <form [formGroup]="form">
   <div class="form-row">
 
-    <div class="col">
+    <div class="form-group col">
       <label for="date">{{ 'trainingHistoryComponent.date' | translate }}</label>
-      <!-- <input type="text" class="form-control" id="date" formControlName="date" placeholder="10" autofocus>
-      <div class="invalid" *ngIf="form.get('date').invalid">Please provide a valid date.</div> -->
-
       <div class="input-group">
-        <input class="form-control" placeholder="yyyy-mm-dd" name="datePicker" formControlName="date" ngbDatepicker #datePicker="ngbDatepicker">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="datePicker"
+          formControlName="date"
+          ngbDatepicker
+          #datePicker="ngbDatepicker"
+          [navigation]="'none'"
+          [outsideDays]="'hidden'"
+          [readonly]="true">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" (click)="datePicker.toggle()" type="button"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
         </div>
       </div>
+      <div class="invalid" *ngIf="form.get('date').invalid">Please provide a valid date.</div>
     </div>
 
-    <div class="col">
+    <div class="form-group col">
+      <label for="time">{{ 'trainingHistoryComponent.time' | translate }}</label>
+      <ngb-timepicker id="time" formControlName="time" [spinners]="false" [seconds]="true"></ngb-timepicker>
+      <div class="invalid" *ngIf="form.get('time').invalid">Please provide a valid time.</div>
+    </div>
+
+    <div class="form-group col">
       <label for="routineId">{{ 'trainingHistoryComponent.routineId' | translate }}</label>
-      <input type="text" class="form-control" id="routineId" formControlName="routineId" placeholder="10" autofocus>
-      <div class="invalid" *ngIf="form.get('routineId').invalid">Please provide a valid routineId.</div>
+      <input type="number" min="1" class="form-control" id="routineId" formControlName="routineId" placeholder="10" autofocus>
+      <div class="invalid" *ngIf="routineId.invalid && (routineId.dirty || routineId.touched)">Please provide a valid routineId.</div>
     </div>
 
-    <div class="col">
-      <label for="routineId">{{ 'trainingHistoryComponent.routineType' | translate }}</label>
-      <select class="form-control" id="routineId" formControlName="routineType">
+    <div class="form-group col">
+      <label for="routineType">{{ 'trainingHistoryComponent.routineType' | translate }}</label>
+      <select class="form-control" id="routineType" formControlName="routineType">
         <option [ngValue]="'Fire'">Fire</option>
         <option [ngValue]="'Burn'">Burn</option>
         <option [ngValue]="'Powerfull'">Powerfull</option>
@@ -33,20 +46,66 @@
         <option [ngValue]="'Flexibility'">Flexibility</option>
       </select>
     </div>
-    <div class="col">
+
+    <div class="form-group col">
       <label for="lapsCount">{{ 'trainingHistoryComponent.lapsCount' | translate }}</label>
-      <input type="text" class="form-control" id="lapsCount" formControlName="lapsCount" placeholder="1" autofocus>
+      <input type="number" min="0" class="form-control" id="lapsCount" formControlName="lapsCount" placeholder="1" autofocus>
       <div class="invalid" *ngIf="form.get('lapsCount').invalid">Please provide a valid lapsCount.</div>
     </div>
   </div>
 
+  <div class="form-row">
+
+    <div class="form-group col">
+      <label for="duration">{{ 'trainingHistoryComponent.duration' | translate }}</label>
+      <ngb-timepicker id="time" formControlName="duration" [spinners]="false" [seconds]="true"></ngb-timepicker>
+      <div class="invalid" *ngIf="form.get('duration').invalid">Please provide a valid duration.</div>
+    </div>
+
+    <div class="form-group col">
+      <label for="weight">{{ 'trainingHistoryComponent.weight' | translate }}</label>
+      <input type="text" class="form-control" id="weight" formControlName="weight" placeholder="-" autofocus>
+      <div class="invalid" *ngIf="form.get('weight').invalid">Please provide a valid weight.</div>
+    </div>
+
+    <div class="form-group col">
+      <label for="dificulty">{{ 'trainingHistoryComponent.dificulty' | translate }}</label>
+      <select class="form-control" id="dificulty" formControlName="dificulty">
+        <option [ngValue]="'Easy'">Easy</option>
+        <option [ngValue]="'Medium'">Medium</option>
+        <option [ngValue]="'Hard'">Hard</option>
+      </select>
+    </div>
+
+    <div class="form-group col">
+      <label for="energyLevel">{{ 'trainingHistoryComponent.energyLevel' | translate }}</label>
+      <select class="form-control" id="energyLevel" formControlName="energyLevel">
+        <option [ngValue]="1">20%</option>
+        <option [ngValue]="2">40%</option>
+        <option [ngValue]="3">60%</option>
+        <option [ngValue]="4">80%</option>
+        <option [ngValue]="5">100%</option>
+      </select>
+    </div>
+
+    <div class="form-group col">
+      <label for="mood">{{ 'trainingHistoryComponent.mood' | translate }}</label>
+      <select class="form-control" id="mood" formControlName="mood">
+        <option [ngValue]="'Bad'">Bad</option>
+        <option [ngValue]="'NoSoGood'">Not so good</option>
+        <option [ngValue]="'Okay'">Okay</option>
+        <option [ngValue]="'Great'">Great</option>
+        <option [ngValue]="'Awesome'">Awesome</option>
+      </select>
+    </div>
+  </div>
 
   <button
     type="button"
     class="btn btn-primary float-right"
     (click)="onOkSaveTrainingHistory()"
     [disabled]="!form.valid">
-    {{ 'profileComponent.updateProfileButton' | translate }}
+    {{ 'global.saveChanges' | translate }}
   </button>
 </form>
 

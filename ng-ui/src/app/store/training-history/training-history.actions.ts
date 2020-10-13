@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { TrainingHistory } from './training-history.dto';
+import { TrainingHistory, TrainingHistoryItem } from './training-history.dto';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export const getTrainingHistoryForUser = createAction(
@@ -14,3 +14,13 @@ export const getTrainingHistoryFailed = createAction(
   '[TrainingHistory] Get training history failed',
   props<{ error: HttpErrorResponse }>(),
 );
+
+export const addTrainingHistoryItem = createAction(
+  '[TrainingHistory] Add training history item',
+  props<{ item: TrainingHistoryItem }>(),
+);
+export const deleteTrainingHistoryItem = createAction(
+  '[TrainingHistory] Delete training history succeded',
+  props<{ index: number }>(),
+);
+

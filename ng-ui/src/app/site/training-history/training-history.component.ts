@@ -10,8 +10,14 @@ import * as dayjs from 'dayjs';
 import { AppState } from '../../../app/store/app/app.reducer';
 import { environment } from '../../../environments/environment';
 import { UsersService } from '../../../app/shared/services/users.service';
-import { TrainingHistory, TrainingHistoryItem } from '../../../app/store/training-history/training-history.dto';
-import { getTrainingHistoryForUser } from '../../../app/store/training-history/training-history.actions';
+import {
+  TrainingHistory,
+  TrainingHistoryItem,
+} from '../../../app/store/training-history/training-history.dto';
+import {
+  deleteTrainingHistoryItem,
+  getTrainingHistoryForUser,
+} from '../../../app/store/training-history/training-history.actions';
 import {
   getTrainingHistory,
   getTrainingHistoryIsLoading,
@@ -30,7 +36,6 @@ export class TrainingHistoryComponent implements OnInit {
   public trainingHistory$: Observable<TrainingHistory>;
   public selectedMonth: dayjs.Dayjs;
   public selectedItem: TrainingHistoryItem;
-
 
   constructor(
     private usersService: UsersService,
@@ -57,8 +62,8 @@ export class TrainingHistoryComponent implements OnInit {
     this.trainingHistory$ = this.store.pipe(select(getTrainingHistory));
   }
 
-  public onUpdateItem(item) {
-    this.selectedItem = item;
+  public formatDate(date: string): string {
+    return dayjs(date).format('YYYY-MM-DD');
   }
 
   public onLeftMonth(email: string) {
@@ -79,5 +84,13 @@ export class TrainingHistoryComponent implements OnInit {
         period: this.selectedMonth.format('YYYY-MM-DD'),
       }),
     );
+  }
+
+  public onUpdateItem(item) {
+    this.selectedItem = item;
+  }
+
+  public onDeleteItem(index: number) {
+    this.store.dispatch(deleteTrainingHistoryItem({ index }));
   }
 }

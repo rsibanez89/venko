@@ -24,13 +24,14 @@
             <th scope="col">{{ 'trainingHistoryComponent.weight' | translate }}</th>
             <th scope="col">{{ 'trainingHistoryComponent.mood' | translate }}</th>
             <th scope="col">{{ 'trainingHistoryComponent.energyLevel' | translate }}</th>
-            <th scope="col">{{ 'trainingHistoryComponent.edit' | translate }}</th>
+            <th scope="col">{{ 'global.edit' | translate }}</th>
+            <th scope="col">{{ 'global.delete' | translate }}</th>
           </tr>
         </thead>
         <tbody>
           <ng-container *ngFor="let item of trainingHistory.items; let i = index">
             <tr>
-              <td>{{ item.date }}</td>
+              <td>{{ formatDate(item.date) }}</td>
               <td><a [routerLink]="['/routines/'+item.routineId]">{{item.routineId}}</a></td>
               <td>{{ item.routineType }}</td>
               <td>{{ item.lapsCount }}</td>
@@ -41,7 +42,12 @@
               <td class="energy"><venko-energy-bar [energy]="item.energyLevel"></venko-energy-bar></td>
               <td>
                 <button type="button" class="btn btn-outline-info btn-sm" (click)="onUpdateItem(item)">
-                  {{ 'trainingHistoryComponent.edit' | translate }}
+                  {{ 'global.edit' | translate }}
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDeleteItem(i)">
+                  {{ 'global.delete' | translate }}
                 </button>
               </td>
             </tr>
