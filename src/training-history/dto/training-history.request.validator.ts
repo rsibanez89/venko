@@ -12,8 +12,8 @@ export const TrainingHistoryItemRequestSchema = Joi.object({
   lapsCount: Joi.number(),
   dificulty: Joi.string(),
   duration: Joi.string(),
-  weight: Joi.string(),
-  comments: Joi.string(),
+  weight: Joi.string().optional().allow(null),
+  comments: Joi.string().optional().allow(null),
   energyLevel: Joi.number(),
   mood: Joi.valid(...Object.values(Mood)).required(),
 });
@@ -22,4 +22,4 @@ export const TrainingHistoryRequestSchema = Joi.object({
   email: Joi.string(),
   period: Joi.string(),
   items: Joi.array().items(TrainingHistoryItemRequestSchema),
-});
+}).options({ allowUnknown: true });

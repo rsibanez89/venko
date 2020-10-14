@@ -4,9 +4,9 @@ import {
   getTrainingHistorySucceded,
   getTrainingHistoryFailed,
   addTrainingHistoryItem,
-  deleteTrainingHistoryItem,
+  deleteTrainingHistoryItem, editTrainingHistoryItem
 } from './training-history.actions';
-import { TrainingHistory } from './training-history.dto';
+import { TrainingHistory, TrainingHistoryItem } from './training-history.dto';
 
 export interface TrainingHistoryState {
   trainingHistory: TrainingHistory;
@@ -18,10 +18,18 @@ export const initialState: TrainingHistoryState = {
   isLoading: false,
 };
 
+function emptyTrainingHistory(action): TrainingHistory {
+  return {
+    email: action.email,
+    period: action.period,
+    items: []
+  } as TrainingHistory
+}
+
 const _trainingHistoryReducer = createReducer(
   initialState,
-  on(getTrainingHistoryForUser, state => {
-    return { ...state, trainingHistory: null, isLoading: true };
+  on(getTrainingHistoryForUser, (state, action) => {
+    return { ...state, trainingHistory: emptyTrainingHistory(action), isLoading: true };
   }),
   on(getTrainingHistorySucceded, (state, action) => {
     return { ...state, trainingHistory: action.data, isLoading: false };
@@ -43,6 +51,15 @@ const _trainingHistoryReducer = createReducer(
       items: [...state.trainingHistory.items],
     };
     newTH.items.splice(action.index, 1);
+    return { ...state, trainingHistory: newTH, isLoading: false };
+  }),
+  on(editTrainingHistoryItem, (state, action) => {
+    const newTH = {
+      ...state.trainingHistory,
+      items: [...state.trainingHistory.items],
+    };
+    newTH.items.splice(action.index, 1);
+    newTH.items.splice(action.index, 0, action.item);
     return { ...state, trainingHistory: newTH, isLoading: false };
   }),
 );

@@ -1,17 +1,18 @@
 <div class="container">
+
+  <span class="dates-picker">
+    <button type="button" class="btn btn-link" aria-label="Previous month" title="Previous month" (click)="onLeftMonth()">
+      <fa-icon [icon]="faChevronLeft"></fa-icon>
+    </button>
+    <h2>{{ this.selectedMonth.format('YYYY-MM') }}</h2>
+    <button type="button" class="btn btn-link" aria-label="Next month" title="Next month" (click)="onRightMonth()">
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+    </button>
+  </span>
+
   <venko-async-container [isLoading]="trainingHistoryIsLoading$ | async">
 
     <ng-container *ngIf="trainingHistory$ | async as trainingHistory">
-      <span class="dates-picker">
-        <button type="button" class="btn btn-link" aria-label="Previous month" title="Previous month" (click)="onLeftMonth(trainingHistory.email)">
-          <fa-icon [icon]="faChevronLeft"></fa-icon>
-        </button>
-        <h2>{{ this.selectedMonth.format('YYYY-MM') }}</h2>
-        <button type="button" class="btn btn-link" aria-label="Next month" title="Next month" (click)="onRightMonth(trainingHistory.email)">
-          <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
-      </span>
-
       <table class="table table-striped">
         <thead>
           <tr>
@@ -41,7 +42,7 @@
               <td class="mood"><venko-mood [mood]="item.mood"></venko-mood></td>
               <td class="energy"><venko-energy-bar [energy]="item.energyLevel"></venko-energy-bar></td>
               <td>
-                <button type="button" class="btn btn-outline-info btn-sm" (click)="onUpdateItem(item)">
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="onUpdateItem(modalContent, item, i)">
                   {{ 'global.edit' | translate }}
                 </button>
               </td>
@@ -55,7 +56,36 @@
         </tbody>
       </table>
 
-      <venko-training-history-edit [trainingHistory]="trainingHistory" [item]="selectedItem"></venko-training-history-edit>
+      <div class="no-training" *ngIf="trainingHistory.items.length == 0">
+        {{ 'trainingHistoryComponent.noTraining' | translate }}
+      </div>
+    </ng-container>
+
+      <button
+        type="button"
+        class="btn btn-primary float-right mt-20"
+        (click)="onAddItem(modalContent)">
+        {{ 'global.add' | translate }}
+      </button>
+
+      <ng-template #modalContent let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="selectedItem == null" id="modal-basic-title">{{ 'global.add' | translate }}</h4>
+          <h4 class="modal-title" *ngIf="selectedItem != null" id="modal-basic-title">{{ 'global.edit' | translate }}</h4>
+        </div>
+        <div class="modal-body">
+          <venko-training-history-edit
+            [trainingHistory]="trainingHistory$ | async"
+            [selectedMonth]="selectedMonth"
+            [item]="selectedItem"
+            [editIndex]="selectedItemIndex"
+            (saved)="onCloseModal()">
+          </venko-training-history-edit>
+        </div>
+      </ng-template>
+
+    <ng-container *ngIf="trainingHistory$ | async as trainingHistory">
+
     </ng-container>
 
     <pre *ngIf="!environment.production">

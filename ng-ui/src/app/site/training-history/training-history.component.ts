@@ -6,6 +6,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as dayjs from 'dayjs';
 import { AppState } from '../../../app/store/app/app.reducer';
 import { environment } from '../../../environments/environment';
@@ -36,10 +37,13 @@ export class TrainingHistoryComponent implements OnInit {
   public trainingHistory$: Observable<TrainingHistory>;
   public selectedMonth: dayjs.Dayjs;
   public selectedItem: TrainingHistoryItem;
+  public selectedItemIndex: number;
+  private userEmail: string;
 
   constructor(
     private usersService: UsersService,
     private store: Store<AppState>,
+    private modalService: NgbModal,
   ) {
     this.selectedMonth = dayjs().startOf('month');
   }
@@ -48,12 +52,14 @@ export class TrainingHistoryComponent implements OnInit {
     this.usersService.currentUser$
       .pipe(filter(profile => profile?.email != null))
       .subscribe(profile =>
-        this.store.dispatch(
-          getTrainingHistoryForUser({
-            email: profile.email,
-            period: this.selectedMonth.format('YYYY-MM-DD'),
-          }),
-        ),
+        {
+          this.userEmail = profile.email;
+          this.store.dispatch(
+            getTrainingHistoryForUser({
+              email: profile.email,
+              period: this.selectedMonth.format('YYYY-MM-DD'),
+            }));
+        },
       );
 
     this.trainingHistoryIsLoading$ = this.store.pipe(
@@ -66,28 +72,49 @@ export class TrainingHistoryComponent implements OnInit {
     return dayjs(date).format('YYYY-MM-DD');
   }
 
-  public onLeftMonth(email: string) {
+  public onLeftMonth() {
     this.selectedMonth = this.selectedMonth.add(-1, 'month');
     this.store.dispatch(
       getTrainingHistoryForUser({
-        email: email,
+        email: this.userEmail,
         period: this.selectedMonth.format('YYYY-MM-DD'),
       }),
     );
   }
 
-  public onRightMonth(email: string) {
+  public onRightMonth() {
     this.selectedMonth = this.selectedMonth.add(1, 'month');
     this.store.dispatch(
       getTrainingHistoryForUser({
-        email: email,
+        email: this.userEmail,
         period: this.selectedMonth.format('YYYY-MM-DD'),
       }),
     );
   }
 
-  public onUpdateItem(item) {
+  public onCloseModal() {
+    this.modalService.dismissAll();
+  }
+
+  public onUpdateItem(modalContent, item: TrainingHistoryItem, index: number) {
     this.selectedItem = item;
+    this.selectedItemIndex = index;
+
+    this.modalService.open(modalContent, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+  }
+
+  public onAddItem(modalContent) {
+    this.selectedItem = null;
+    this.selectedItemIndex = -1;
+    console.log(this.selectedMonth);
+
+    this.modalService.open(modalContent, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
   }
 
   public onDeleteItem(index: number) {

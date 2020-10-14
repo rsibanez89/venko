@@ -23,4 +23,8 @@ export const deleteTrainingHistoryItem = createAction(
   '[TrainingHistory] Delete training history succeded',
   props<{ index: number }>(),
 );
+export const editTrainingHistoryItem = createAction(
+  '[TrainingHistory] Edit training history item',
+  props<{ item: TrainingHistoryItem, index: number }>(),
+);
 

@@ -33,6 +33,9 @@
       <input type="number" min="1" class="form-control" id="routineId" formControlName="routineId" placeholder="10" autofocus>
       <div class="invalid" *ngIf="routineId.invalid && (routineId.dirty || routineId.touched)">Please provide a valid routineId.</div>
     </div>
+  </div>
+
+  <div class="form-row">
 
     <div class="form-group col">
       <label for="routineType">{{ 'trainingHistoryComponent.routineType' | translate }}</label>
@@ -48,23 +51,24 @@
     </div>
 
     <div class="form-group col">
-      <label for="lapsCount">{{ 'trainingHistoryComponent.lapsCount' | translate }}</label>
-      <input type="number" min="0" class="form-control" id="lapsCount" formControlName="lapsCount" placeholder="1" autofocus>
-      <div class="invalid" *ngIf="form.get('lapsCount').invalid">Please provide a valid lapsCount.</div>
-    </div>
-  </div>
-
-  <div class="form-row">
-
-    <div class="form-group col">
       <label for="duration">{{ 'trainingHistoryComponent.duration' | translate }}</label>
       <ngb-timepicker id="time" formControlName="duration" [spinners]="false" [seconds]="true"></ngb-timepicker>
       <div class="invalid" *ngIf="form.get('duration').invalid">Please provide a valid duration.</div>
     </div>
 
     <div class="form-group col">
+      <label for="lapsCount">{{ 'trainingHistoryComponent.lapsCount' | translate }}</label>
+      <input type="number" min="0" class="form-control" id="lapsCount" formControlName="lapsCount" placeholder="1">
+      <div class="invalid" *ngIf="form.get('lapsCount').invalid">Please provide a valid lapsCount.</div>
+    </div>
+
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group col">
       <label for="weight">{{ 'trainingHistoryComponent.weight' | translate }}</label>
-      <input type="text" class="form-control" id="weight" formControlName="weight" placeholder="-" autofocus>
+      <input type="text" class="form-control" id="weight" formControlName="weight" placeholder="-">
       <div class="invalid" *ngIf="form.get('weight').invalid">Please provide a valid weight.</div>
     </div>
 
@@ -97,6 +101,13 @@
         <option [ngValue]="'Great'">Great</option>
         <option [ngValue]="'Awesome'">Awesome</option>
       </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col">
+      <label for="comments">{{ 'trainingHistoryComponent.comments' | translate }}</label>
+      <textarea class="form-control" id="comments" formControlName="comments"></textarea>
     </div>
   </div>
 

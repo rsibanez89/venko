@@ -1,5 +1,6 @@
 {
   "global": {
+    "add": "Agregar",
     "edit": "Modificar",
     "delete": "Eliminar",
     "saveChanges": "Guardar cambios"
@@ -50,6 +51,8 @@
     "dificulty": "Dificultad",
     "weight": "Peso",
     "mood": "Ánimo",
-    "energyLevel": "Nivel de energia"
+    "energyLevel": "Nivel de energia",
+    "comments": "Notas",
+    "noTraining": "No hay entrenamientos registrados para este mes"
   }
 }

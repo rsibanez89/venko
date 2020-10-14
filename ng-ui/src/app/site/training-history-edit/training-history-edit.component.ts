@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
@@ -6,12 +6,14 @@ import * as dayjs from 'dayjs';
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../../app/store/app/app.reducer';
 import {
-  Mood,
   TrainingHistory,
   TrainingHistoryItem,
   TrainingType,
 } from '../../../app/store/training-history/training-history.dto';
-import { addTrainingHistoryItem } from 'src/app/store/training-history/training-history.actions';
+import {
+  addTrainingHistoryItem,
+  editTrainingHistoryItem,
+} from '../../../app/store/training-history/training-history.actions';
 
 @Component({
   selector: 'venko-training-history-edit',
@@ -32,6 +34,9 @@ export class TrainingHistoryEditComponent implements OnInit {
   editIndex = -1;
 
   @Input()
+  selectedMonth: dayjs.Dayjs;
+
+  @Input()
   set item(item: TrainingHistoryItem) {
     if (item == null) {
       item = new TrainingHistoryItem();
@@ -41,6 +46,9 @@ export class TrainingHistoryEditComponent implements OnInit {
   get item() {
     return this._item;
   }
+
+  @Output()
+  saved = new EventEmitter();
 
   get dateTime(): Date {
     const year = this.form.get('date').value?.year;
@@ -62,7 +70,10 @@ export class TrainingHistoryEditComponent implements OnInit {
     return `${hours}:${minutes}:${seconds}`;
   }
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+  ) {
     this.form = this.fb.group({
       date: ['', [Validators.required]],
       time: ['', [Validators.required]],
@@ -82,7 +93,7 @@ export class TrainingHistoryEditComponent implements OnInit {
 
   public setItem(item: TrainingHistoryItem) {
     this._item = item;
-    const date = item.date != null ? new Date(item.date) : new Date();
+    const date = item.date != null ? new Date(item.date) : new Date(this.selectedMonth.format('YYYY-MM-DD'));
     const duration = item.duration || '00:20:00';
     this.form.setValue({
       date: {
@@ -97,8 +108,8 @@ export class TrainingHistoryEditComponent implements OnInit {
       },
       routineId: item.routineId || '',
       routineType: item.routineType || 'Fire',
-      lapsCount: item.lapsCount || 0,
-      dificulty: item.dificulty || 'Easy',
+      lapsCount: item.lapsCount || 4,
+      dificulty: item.dificulty || 'Medium',
       duration: {
         hour: +duration.slice(0, 2),
         minute: +duration.slice(3, 5),
@@ -119,14 +130,24 @@ export class TrainingHistoryEditComponent implements OnInit {
       lapsCount: this.form.get('lapsCount').value,
       dificulty: this.form.get('dificulty').value,
       duration: this.duration,
-      weight: this.form.get('weight').value,
-      comments: this.form.get('comments').value,
+      weight: this.form.get('weight').value === '' ? null : this.form.get('weight').value,
+      comments: this.form.get('comments').value === '' ? null : this.form.get('comments').value,
       energyLevel: this.form.get('energyLevel').value,
       mood: this.form.get('mood').value,
     };
   }
 
   onOkSaveTrainingHistory() {
-    this.store.dispatch(addTrainingHistoryItem({ item: this.getItem() }));
+    if (this.editIndex !== -1) {
+      this.store.dispatch(
+        editTrainingHistoryItem({
+          item: this.getItem(),
+          index: this.editIndex,
+        }),
+      );
+    } else {
+      this.store.dispatch(addTrainingHistoryItem({ item: this.getItem() }));
+    }
+    this.saved.emit(true);
   }
 }
