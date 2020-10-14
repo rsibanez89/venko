@@ -47,7 +47,6 @@ const _trainingHistoryReducer = createReducer(
       ...state.trainingHistory,
       items: [...state.trainingHistory.items, action.item],
     };
-    console.log(action.item);
     return { ...state, trainingHistory: newTH, isLoading: false };
   }),
   on(deleteTrainingHistoryItem, (state, action) => {

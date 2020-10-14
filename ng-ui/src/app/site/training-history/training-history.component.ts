@@ -57,7 +57,6 @@ export class TrainingHistoryComponent implements OnInit {
         filter(profile => profile?.email != null),
         withLatestFrom(this.store.select(getSelectedUser)),
         exhaustMap(([profile, selectedUser]) => {
-          console.log(selectUser);
           this.showWarning = selectedUser != null;
           this.userEmail = selectedUser?.email || profile.email;
           this.store.dispatch(
@@ -118,7 +117,6 @@ export class TrainingHistoryComponent implements OnInit {
   public onAddItem(modalContent) {
     this.selectedItem = null;
     this.selectedItemIndex = -1;
-    console.log(this.selectedMonth);
 
     this.modalService.open(modalContent, {
       ariaLabelledBy: 'modal-basic-title',

@@ -32,7 +32,6 @@ export class TrainingHistoryEffects {
           })
           .pipe(
             map((data: TrainingHistory) => {
-              console.log(data);
               return getTrainingHistorySucceded({ data });
             }),
             catchError(err => {
@@ -52,7 +51,6 @@ export class TrainingHistoryEffects {
           .post(`${environment.api}/training-history`, state)
           .pipe(
             map((data: TrainingHistory) => {
-              console.log(data);
               return getTrainingHistorySucceded({ data });
             }),
             catchError(err => {

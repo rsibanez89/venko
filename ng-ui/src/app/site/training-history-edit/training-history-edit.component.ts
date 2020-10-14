@@ -57,7 +57,6 @@ export class TrainingHistoryEditComponent {
     const hours = this.form.get('time').value?.hour;
     const minutes = this.form.get('time').value?.minute;
     const seconds = this.form.get('time').value?.second;
-    console.log(year, month, day, hours, minutes, seconds, 0);
     return new Date(`${year}-${month}-${day} ${hours}:${minutes}:${seconds}`);
   }
   get routineId() {

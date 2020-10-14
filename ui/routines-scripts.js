@@ -94,7 +94,6 @@ function prepareModal() {
   $('.video-btn').click(function() {
       $videoSrc = $(this).data( "src" );
   });
-  console.log($videoSrc);
   
   // when the modal is opened autoplay it  
   $('#myModal').on('shown.bs.modal', function (e) {

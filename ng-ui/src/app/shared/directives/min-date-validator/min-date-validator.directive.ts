@@ -19,8 +19,6 @@ export function minDateValueValidator(
     const v = dayjs(control.value);
     const min = dayjs(minValue);
 
-    console.log(control.value + ' - ' + minValue);
-
     const isValid = v >= min;
     return isValid ? null : { venkoMinDateValue: { value: control.value } };
   };
