@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -10,10 +11,12 @@ import {
   getAllUsers,
   deleteUser,
   updateUser,
+  selectUser,
 } from '../../store/profile/users.actions';
 import {
   getUsersIsLoading,
   getUsers,
+  getSelectedUser,
 } from '../../store/profile/users.selector';
 
 @Component({
@@ -28,7 +31,11 @@ export class UsersComponent implements OnInit {
   public tableForm: FormGroup;
   public usersListForm: FormArray;
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -43,6 +50,13 @@ export class UsersComponent implements OnInit {
         this.usersListForm.push(this.getuserFormGroup(user));
       });
     });
+
+    this.store
+      .pipe(select(getSelectedUser))
+      .pipe(filter(user => user != null))
+      .subscribe(_ => {
+        this.router.navigate(['training-history']);
+      });
   }
 
   initializeForm() {
@@ -73,5 +87,10 @@ export class UsersComponent implements OnInit {
   updateUser(index: number) {
     const user = this.usersListForm.controls[index].value;
     this.store.dispatch(updateUser({ data: user }));
+  }
+
+  viewTrainingHistoryUser(index: number) {
+    const user = this.usersListForm.controls[index].value;
+    this.store.dispatch(selectUser({ data: user }));
   }
 }

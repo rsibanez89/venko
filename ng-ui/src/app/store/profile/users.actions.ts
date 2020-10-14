@@ -12,3 +12,5 @@ export const deleteUserFailed = createAction('[Users] Delete user failed', props
 export const updateUser = createAction('[Users] Update user', props<{ data: Profile }>());
 export const updateUserSucceded = createAction('[Users] Update user succeded', props<{ data: Profile }>());
 export const updateUserFailed = createAction('[Users] Update user failed', props<{ error: Error }>());
+
+export const selectUser = createAction('[Users] Select user', props<{ data: Profile }>());

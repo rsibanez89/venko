@@ -38,7 +38,7 @@
         <a
           class="nav-link"
           routerLink="/training-history"
-          *ngIf="usersService.isVenkoUser$ | async"
+          *ngIf="usersService.isAdmin$ | async"
           (click)="isOpen = false"
           >{{ 'navigationComponent.trainingHistoryLink' | translate }}</a
         >

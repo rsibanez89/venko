@@ -4,7 +4,8 @@ import {
   getTrainingHistorySucceded,
   getTrainingHistoryFailed,
   addTrainingHistoryItem,
-  deleteTrainingHistoryItem, editTrainingHistoryItem
+  deleteTrainingHistoryItem,
+  editTrainingHistoryItem,
 } from './training-history.actions';
 import { TrainingHistory, TrainingHistoryItem } from './training-history.dto';
 
@@ -22,14 +23,18 @@ function emptyTrainingHistory(action): TrainingHistory {
   return {
     email: action.email,
     period: action.period,
-    items: []
-  } as TrainingHistory
+    items: [],
+  } as TrainingHistory;
 }
 
 const _trainingHistoryReducer = createReducer(
   initialState,
   on(getTrainingHistoryForUser, (state, action) => {
-    return { ...state, trainingHistory: emptyTrainingHistory(action), isLoading: true };
+    return {
+      ...state,
+      trainingHistory: emptyTrainingHistory(action),
+      isLoading: true,
+    };
   }),
   on(getTrainingHistorySucceded, (state, action) => {
     return { ...state, trainingHistory: action.data, isLoading: false };

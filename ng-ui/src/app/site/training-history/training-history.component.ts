@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { exhaustMap, filter, withLatestFrom } from 'rxjs/operators';
 import {
   faChevronLeft,
   faChevronRight,
@@ -22,7 +22,9 @@ import {
 import {
   getTrainingHistory,
   getTrainingHistoryIsLoading,
-} from 'src/app/store/training-history/training-history.selector';
+} from '../../../app/store/training-history/training-history.selector';
+import { getSelectedUser } from '../../../app/store/profile/users.selector';
+import { selectUser } from '../../../app/store/profile/users.actions';
 
 @Component({
   selector: 'venko-training-history',
@@ -39,6 +41,7 @@ export class TrainingHistoryComponent implements OnInit {
   public selectedItem: TrainingHistoryItem;
   public selectedItemIndex: number;
   private userEmail: string;
+  public showWarning: boolean;
 
   constructor(
     private usersService: UsersService,
@@ -50,17 +53,23 @@ export class TrainingHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.currentUser$
-      .pipe(filter(profile => profile?.email != null))
-      .subscribe(profile =>
-        {
-          this.userEmail = profile.email;
+      .pipe(
+        filter(profile => profile?.email != null),
+        withLatestFrom(this.store.select(getSelectedUser)),
+        exhaustMap(([profile, selectedUser]) => {
+          console.log(selectUser);
+          this.showWarning = selectedUser != null;
+          this.userEmail = selectedUser?.email || profile.email;
           this.store.dispatch(
             getTrainingHistoryForUser({
-              email: profile.email,
+              email: this.userEmail,
               period: this.selectedMonth.format('YYYY-MM-DD'),
-            }));
-        },
-      );
+            }),
+          );
+          return of(null);
+        }),
+      )
+      .subscribe();
 
     this.trainingHistoryIsLoading$ = this.store.pipe(
       select(getTrainingHistoryIsLoading),

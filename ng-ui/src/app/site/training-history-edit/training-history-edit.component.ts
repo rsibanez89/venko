@@ -20,7 +20,7 @@ import {
   templateUrl: './training-history-edit.component.html',
   styleUrls: ['./training-history-edit.component.scss'],
 })
-export class TrainingHistoryEditComponent implements OnInit {
+export class TrainingHistoryEditComponent {
   public faCalendarAlt = faCalendarAlt;
   public environment = environment;
   public TrainingType = TrainingType;
@@ -88,8 +88,6 @@ export class TrainingHistoryEditComponent implements OnInit {
       mood: ['', [Validators.required]],
     });
   }
-
-  ngOnInit(): void {}
 
   public setItem(item: TrainingHistoryItem) {
     this._item = item;

@@ -9,15 +9,18 @@ import {
   updateUser,
   updateUserSucceded,
   updateUserFailed,
+  selectUser,
 } from './users.actions';
-import { Users } from './profile.dto';
+import { Users, Profile } from './profile.dto';
 
 export interface UsersState extends Users {
+  selectedUser: Profile;
   isLoading: boolean;
 }
 
 export const initialState: UsersState = {
   users: null,
+  selectedUser: null,
   isLoading: false,
 };
 
@@ -27,7 +30,7 @@ const _usersReducer = createReducer(
     return { ...state, isLoading: true };
   }),
   on(getAllUsersSucceded, (state, action) => {
-    return { users: action.data, isLoading: false };
+    return { ...state, users: action.data, isLoading: false };
   }),
   on(getAllUsersFailed, state => {
     return { ...state, isLoading: false };
@@ -38,6 +41,7 @@ const _usersReducer = createReducer(
   }),
   on(deleteUserSucceded, (state, action) => {
     return {
+      ...state,
       users: state.users.filter(u => u.email !== action.data.email),
       isLoading: false,
     };
@@ -51,6 +55,7 @@ const _usersReducer = createReducer(
   }),
   on(updateUserSucceded, (state, action) => {
     return {
+      ...state,
       users: state.users
         .filter(u => u.email !== action.data.email)
         .concat(action.data),
@@ -59,6 +64,9 @@ const _usersReducer = createReducer(
   }),
   on(updateUserFailed, state => {
     return { ...state, isLoading: false };
+  }),
+  on(selectUser, (state, action) => {
+    return { ...state, selectedUser: action.data, isLoading: false };
   }),
 );
 

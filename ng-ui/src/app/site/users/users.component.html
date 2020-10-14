@@ -8,6 +8,7 @@
             <th scope="col">Full Name</th>
             <th scope="col">Email</th>
             <th scope="col">User Type</th>
+            <th scope="col">Training History</th>
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
           </tr>
@@ -28,6 +29,11 @@
               <td>{{ userControl.get('fullName').value }}</td>
               <td>{{ userControl.get('email').value }}</td>
               <td>{{ userControl.get('userType').value }}</td>
+              <td>
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="viewTrainingHistoryUser(i)">
+                  View
+                </button>
+              </td>
               <td>
                 <button type="button" class="btn btn-outline-info btn-sm" (click)="updateUser(i)">
                   Update
