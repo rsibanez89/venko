@@ -90,7 +90,11 @@ export class TrainingHistoryEditComponent {
 
   public setItem(item: TrainingHistoryItem) {
     this._item = item;
-    const date = item.date != null ? new Date(item.date) : new Date(this.selectedMonth.format('YYYY-MM-DD'));
+    let newDate = new Date();
+    if (this.selectedMonth.month() !== newDate.getMonth()) {
+      newDate = new Date(this.selectedMonth.format('YYYY-MM-DD'));
+    }
+    const date = item.date != null ? new Date(item.date) : newDate;
     const time = item.date != null ? new Date(item.date) : new Date();
     const duration = item.duration || '00:20:00';
     this.form.setValue({

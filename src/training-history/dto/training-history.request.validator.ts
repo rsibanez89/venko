@@ -12,7 +12,7 @@ export const TrainingHistoryItemRequestSchema = Joi.object({
   lapsCount: Joi.number(),
   dificulty: Joi.string(),
   duration: Joi.string(),
-  weight: Joi.string().optional().allow(null),
+  weight: Joi.number().optional().allow(null),
   comments: Joi.string().optional().allow(null),
   energyLevel: Joi.number(),
   mood: Joi.valid(...Object.values(Mood)).required(),

@@ -11,6 +11,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { VideoModalComponent } from './components/video-modal/video-modal.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { DurationPipe } from './pipes/duration.pipe';
 import { EnergyBarComponent } from './components/energy-bar/energy-bar.component';
 import { MoodComponent } from './components/mood/mood.component';
 import { MinDateValidatorDirective } from './directives/min-date-validator/min-date-validator.directive';
@@ -27,6 +28,7 @@ export function HttpTranslateLoader(http: HttpClient) {
     TimerComponent,
     VideoModalComponent,
     SafePipe,
+    DurationPipe,
     EnergyBarComponent,
     MoodComponent,
     MinDateValidatorDirective,
@@ -52,6 +54,7 @@ export function HttpTranslateLoader(http: HttpClient) {
     TimerComponent,
     VideoModalComponent,
     SafePipe,
+    DurationPipe,
     EnergyBarComponent,
     MoodComponent,
   ],

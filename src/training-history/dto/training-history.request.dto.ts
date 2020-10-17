@@ -58,10 +58,10 @@ export class TrainingHistoryRequestItem {
   duration: string;
 
   @ApiProperty({
-    description: "Weight",
-    example: "2kg",
+    description: "Weight in kilograms",
+    example: "2",
   })
-  weight: string;
+  weight: number;
 
   @ApiProperty({
     description: "Comments",

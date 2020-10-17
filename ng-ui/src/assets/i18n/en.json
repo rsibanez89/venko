@@ -3,7 +3,8 @@
     "add": "Add",
     "edit": "Edit",
     "delete": "Delete",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "warning": "Warning"
   },
   "homeComponent": {
     "welcome": "Welcome to Venko",
@@ -58,6 +59,8 @@
     "moodNoSoGood": "No so good",
     "moodOkay": "Okay",
     "moodGreat": "Great",
-    "moodAwesome": "Awesome"
+    "moodAwesome": "Awesome",
+    "warningMessage": "You are checking training history for",
+    "invalidRoutineId": "Please provide a valid routineId"
   }
 }

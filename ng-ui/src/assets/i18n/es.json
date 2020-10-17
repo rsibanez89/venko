@@ -3,7 +3,8 @@
     "add": "Agregar",
     "edit": "Modificar",
     "delete": "Eliminar",
-    "saveChanges": "Guardar cambios"
+    "saveChanges": "Guardar cambios",
+    "warning": "Atención"
   },
   "homeComponent": {
     "welcome": "Bienvenido a Venko",
@@ -58,6 +59,8 @@
     "moodNoSoGood": "Cansado",
     "moodOkay": "Bien",
     "moodGreat": "Muy Bien",
-    "moodAwesome": "Excelente"
+    "moodAwesome": "Excelente",
+    "warningMessage": "Estas mirando el hisotrial de entrenamiento de",
+    "invalidRoutineId": "El número de rutina no es válido"
   }
 }

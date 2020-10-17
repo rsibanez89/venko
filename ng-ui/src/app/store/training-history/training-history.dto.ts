@@ -23,7 +23,7 @@ export class TrainingHistoryItem {
   lapsCount: number;
   dificulty: string;
   duration: string;
-  weight: string;
+  weight: number;
   comments: string;
   energyLevel: number;
   mood: Mood;
