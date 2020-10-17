@@ -40,7 +40,7 @@ export class TrainingHistoryComponent implements OnInit {
   public selectedMonth: dayjs.Dayjs;
   public selectedItem: TrainingHistoryItem;
   public selectedItemIndex: number;
-  private userEmail: string;
+  public userEmail: string;
   public showWarning: boolean;
 
   constructor(

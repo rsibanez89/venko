@@ -53,6 +53,11 @@
     "mood": "Ánimo",
     "energyLevel": "Nivel de energia",
     "comments": "Notas",
-    "noTraining": "No hay entrenamientos registrados para este mes"
+    "noTraining": "No hay entrenamientos registrados para este mes",
+    "moodBad": "Exhausto",
+    "moodNoSoGood": "Cansado",
+    "moodOkay": "Bien",
+    "moodGreat": "Muy Bien",
+    "moodAwesome": "Excelente"
   }
 }

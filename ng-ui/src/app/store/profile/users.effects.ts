@@ -42,14 +42,16 @@ export class UsersEffects {
     this.action$.pipe(
       ofType(deleteUser),
       exhaustMap(action =>
-        this.http.delete(`${environment.api}/users/${action.data.userId}`).pipe(
-          map((data: Profile) => {
-            return deleteUserSucceded({ data });
-          }),
-          catchError(err => {
-            return of(deleteUserFailed({ error: err }));
-          }),
-        ),
+        this.http
+          .request('delete', `${environment.api}/users`, { body: action.data })
+          .pipe(
+            map(() => {
+              return deleteUserSucceded({ data: action.data });
+            }),
+            catchError(err => {
+              return of(deleteUserFailed({ error: err }));
+            }),
+          ),
       ),
     ),
   );
@@ -59,7 +61,7 @@ export class UsersEffects {
       ofType(updateUser),
       exhaustMap(action =>
         this.http
-          .put(`${environment.api}/users/${action.data.userId}`, action.data, {
+          .put(`${environment.api}/users`, action.data, {
             headers: { 'Content-Type': 'application/json' },
           })
           .pipe(

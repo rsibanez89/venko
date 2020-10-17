@@ -91,6 +91,7 @@ export class TrainingHistoryEditComponent {
   public setItem(item: TrainingHistoryItem) {
     this._item = item;
     const date = item.date != null ? new Date(item.date) : new Date(this.selectedMonth.format('YYYY-MM-DD'));
+    const time = item.date != null ? new Date(item.date) : new Date();
     const duration = item.duration || '00:20:00';
     this.form.setValue({
       date: {
@@ -99,9 +100,9 @@ export class TrainingHistoryEditComponent {
         day: date.getDate(),
       },
       time: {
-        hour: date.getHours(),
-        minute: date.getMinutes(),
-        second: date.getSeconds(),
+        hour: time.getHours(),
+        minute: time.getMinutes(),
+        second: time.getSeconds(),
       },
       routineId: item.routineId || '',
       routineType: item.routineType || 'Fire',

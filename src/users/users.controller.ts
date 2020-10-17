@@ -3,7 +3,6 @@ import {
   Post,
   Body,
   Get,
-  Param,
   NotFoundException,
   Delete,
   Put,
@@ -67,21 +66,16 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard, VenkoAuthGuard)
-  @Put(':userId')
+  @Put('')
   @Permissions('edit:users')
   async updateUser(@Body() request: UserRequest): Promise<User> {
     return this.usersService.addUser(request);
   }
 
   @UseGuards(JwtAuthGuard, VenkoAuthGuard)
-  @Delete(':userId')
+  @Delete('')
   @Permissions('delete:users')
-  async deleteUser(@Param('userId') userId: string): Promise<User> {
-    const user = await this.usersService.getUserByUserId(userId);
-    if (user == null) {
-      throw new NotFoundException();
-    }
-    await this.usersService.deleteUser(user.email);
-    return user;
+  async deleteUser(@Body() request: UserRequest): Promise<boolean> {
+    return await this.usersService.deleteUser(request.email);
   }
 }

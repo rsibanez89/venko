@@ -1,5 +1,5 @@
 <ngb-alert *ngIf="showWarning" [dismissible]="false">
-  <strong>Warning!</strong> You are checking training history for: Rodrigo Ibanez
+  <strong>Warning!</strong> You are checking training history for: {{this.userEmail}}
 </ngb-alert>
 
 <div class="container">
@@ -23,12 +23,12 @@
             <th scope="col">{{ 'trainingHistoryComponent.date' | translate }}</th>
             <th scope="col">{{ 'trainingHistoryComponent.routineId' | translate }}</th>
             <th scope="col">{{ 'trainingHistoryComponent.routineType' | translate }}</th>
-            <th scope="col">{{ 'trainingHistoryComponent.lapsCount' | translate }}</th>
+            <th scope="col" class="d-none d-md-table-cell">{{ 'trainingHistoryComponent.lapsCount' | translate }}</th>
             <th scope="col">{{ 'trainingHistoryComponent.duration' | translate }}</th>
-            <th scope="col">{{ 'trainingHistoryComponent.dificulty' | translate }}</th>
-            <th scope="col">{{ 'trainingHistoryComponent.weight' | translate }}</th>
+            <th scope="col" class="d-none d-xl-table-cell">{{ 'trainingHistoryComponent.dificulty' | translate }}</th>
+            <th scope="col" class="d-none d-xl-table-cell">{{ 'trainingHistoryComponent.weight' | translate }}</th>
             <th scope="col">{{ 'trainingHistoryComponent.mood' | translate }}</th>
-            <th scope="col">{{ 'trainingHistoryComponent.energyLevel' | translate }}</th>
+            <th scope="col" class="d-none d-md-table-cell">{{ 'trainingHistoryComponent.energyLevel' | translate }}</th>
             <th scope="col">{{ 'global.edit' | translate }}</th>
             <th scope="col">{{ 'global.delete' | translate }}</th>
           </tr>
@@ -39,12 +39,12 @@
               <td>{{ formatDate(item.date) }}</td>
               <td><a [routerLink]="['/routines/'+item.routineId]">{{item.routineId}}</a></td>
               <td>{{ item.routineType }}</td>
-              <td>{{ item.lapsCount }}</td>
+              <td class="d-none d-md-table-cell">{{ item.lapsCount }}</td>
               <td>{{ item.duration }}</td>
-              <td>{{ item.dificulty }}</td>
-              <td>{{ item.weight || '-' }}</td>
+              <td class="d-none d-xl-table-cell">{{ item.dificulty }}</td>
+              <td class="d-none d-xl-table-cell">{{ item.weight || '-' }}</td>
               <td class="mood"><venko-mood [mood]="item.mood"></venko-mood></td>
-              <td class="energy"><venko-energy-bar [energy]="item.energyLevel"></venko-energy-bar></td>
+              <td class="d-none d-md-table-cell energy"><venko-energy-bar [energy]="item.energyLevel"></venko-energy-bar></td>
               <td>
                 <button type="button" class="btn btn-outline-info btn-sm" (click)="onUpdateItem(modalContent, item, i)">
                   {{ 'global.edit' | translate }}

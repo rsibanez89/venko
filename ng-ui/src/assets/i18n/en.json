@@ -53,6 +53,11 @@
     "mood": "Mood",
     "energyLevel": "Energy level",
     "comments": "Comments",
-    "noTraining": "No trainings registered this month"
+    "noTraining": "No trainings registered this month",
+    "moodBad": "Bad",
+    "moodNoSoGood": "No so good",
+    "moodOkay": "Okay",
+    "moodGreat": "Great",
+    "moodAwesome": "Awesome"
   }
 }

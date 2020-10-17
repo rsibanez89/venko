@@ -25,6 +25,7 @@ Resources:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
         # Allow read and write on dynamo
         - !ImportValue venko-database-read-write-policy
+        - !ImportValue venko-users-training-history-database-read-write-policy
       Policies:
         - PolicyName: AllowLambdaToReadWriteOnS3
           PolicyDocument:

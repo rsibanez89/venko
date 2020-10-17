@@ -4,8 +4,10 @@ import {
   Delete,
   NotFoundException,
   Post,
+  UseGuards,
 
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../common/auth/jwt-auth.guard';
 
 import { JoiValidationPipe } from '../common/pipes/joi-validation.pipe';
 import { TrainingHistory } from './dto/training-history.dto';
@@ -34,7 +36,7 @@ export class TrainingHistoryController {
     return this.trainingHistoryService.addTrainingHistory(request);
   }
 
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('email')
   async getByEmail(
     @Body() request: TrainingHistoryByEmailRequest,
@@ -46,6 +48,7 @@ export class TrainingHistoryController {
     return trainingHistory;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('email')
   async deleteByEmail(
     @Body() request: DeleteTrainingHistoryByEmailRequest,

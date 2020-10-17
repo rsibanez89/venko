@@ -1,7 +1,6 @@
 
 <form [formGroup]="form">
   <div class="form-row">
-
     <div class="form-group col">
       <label for="date">{{ 'trainingHistoryComponent.date' | translate }}</label>
       <div class="input-group">
@@ -27,15 +26,14 @@
       <ngb-timepicker id="time" formControlName="time" [spinners]="false" [seconds]="true"></ngb-timepicker>
       <div class="invalid" *ngIf="form.get('time').invalid">Please provide a valid time.</div>
     </div>
+  </div>
 
+  <div class="form-row">
     <div class="form-group col">
       <label for="routineId">{{ 'trainingHistoryComponent.routineId' | translate }}</label>
       <input type="number" min="1" class="form-control" id="routineId" formControlName="routineId" placeholder="10" autofocus>
       <div class="invalid" *ngIf="routineId.invalid && (routineId.dirty || routineId.touched)">Please provide a valid routineId.</div>
     </div>
-  </div>
-
-  <div class="form-row">
 
     <div class="form-group col">
       <label for="routineType">{{ 'trainingHistoryComponent.routineType' | translate }}</label>
@@ -49,7 +47,9 @@
         <option [ngValue]="'Flexibility'">Flexibility</option>
       </select>
     </div>
+  </div>
 
+  <div class="form-row">
     <div class="form-group col">
       <label for="duration">{{ 'trainingHistoryComponent.duration' | translate }}</label>
       <ngb-timepicker id="time" formControlName="duration" [spinners]="false" [seconds]="true"></ngb-timepicker>
@@ -61,11 +61,9 @@
       <input type="number" min="0" class="form-control" id="lapsCount" formControlName="lapsCount" placeholder="1">
       <div class="invalid" *ngIf="form.get('lapsCount').invalid">Please provide a valid lapsCount.</div>
     </div>
-
   </div>
 
   <div class="form-row">
-
     <div class="form-group col">
       <label for="weight">{{ 'trainingHistoryComponent.weight' | translate }}</label>
       <input type="text" class="form-control" id="weight" formControlName="weight" placeholder="-">
@@ -80,7 +78,9 @@
         <option [ngValue]="'Hard'">Hard</option>
       </select>
     </div>
+  </div>
 
+  <div class="form-row">
     <div class="form-group col">
       <label for="energyLevel">{{ 'trainingHistoryComponent.energyLevel' | translate }}</label>
       <select class="form-control" id="energyLevel" formControlName="energyLevel">
@@ -95,11 +95,11 @@
     <div class="form-group col">
       <label for="mood">{{ 'trainingHistoryComponent.mood' | translate }}</label>
       <select class="form-control" id="mood" formControlName="mood">
-        <option [ngValue]="'Bad'">Bad</option>
-        <option [ngValue]="'NoSoGood'">Not so good</option>
-        <option [ngValue]="'Okay'">Okay</option>
-        <option [ngValue]="'Great'">Great</option>
-        <option [ngValue]="'Awesome'">Awesome</option>
+        <option [ngValue]="'Bad'">{{ 'trainingHistoryComponent.moodBad' | translate }}</option>
+        <option [ngValue]="'NoSoGood'">{{ 'trainingHistoryComponent.moodNoSoGood' | translate }}</option>
+        <option [ngValue]="'Okay'">{{ 'trainingHistoryComponent.moodOkay' | translate }}</option>
+        <option [ngValue]="'Great'">{{ 'trainingHistoryComponent.moodGreat' | translate }}</option>
+        <option [ngValue]="'Awesome'">{{ 'trainingHistoryComponent.moodAwesome' | translate }}</option>
       </select>
     </div>
   </div>
