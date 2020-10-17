@@ -40,6 +40,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.store.dispatch(getAllUsers());
+    this.store.dispatch(selectUser({ data: null }));
     this.usersIsLoading$ = this.store.pipe(select(getUsersIsLoading));
     this.users$ = this.store.pipe(select(getUsers));
     this.users$.pipe(filter(users => users != null)).subscribe(users => {

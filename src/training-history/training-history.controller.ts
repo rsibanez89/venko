@@ -5,8 +5,8 @@ import {
   NotFoundException,
   Post,
   UseGuards,
-
 } from '@nestjs/common';
+import { VenkoAuthGuard } from 'src/common/auth/venko-auth.guard';
 import { JwtAuthGuard } from '../common/auth/jwt-auth.guard';
 
 import { JoiValidationPipe } from '../common/pipes/joi-validation.pipe';
@@ -25,18 +25,19 @@ export class TrainingHistoryController {
     private readonly trainingHistoryService: TrainingHistoryService,
   ) {}
 
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, VenkoAuthGuard)
   @Post('')
   async create(@Body(new JoiValidationPipe(TrainingHistoryRequestSchema)) request: TrainingHistoryRequest): Promise<TrainingHistory> {
     return this.trainingHistoryService.createTrainingHistory(request);
   }
 
+  @UseGuards(JwtAuthGuard, VenkoAuthGuard)
   @Post('add')
   async add(@Body(new JoiValidationPipe(TrainingHistoryRequestSchema)) request: TrainingHistoryRequest): Promise<TrainingHistory> {
     return this.trainingHistoryService.addTrainingHistory(request);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, VenkoAuthGuard)
   @Post('email')
   async getByEmail(
     @Body() request: TrainingHistoryByEmailRequest,
@@ -48,7 +49,7 @@ export class TrainingHistoryController {
     return trainingHistory;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, VenkoAuthGuard)
   @Delete('email')
   async deleteByEmail(
     @Body() request: DeleteTrainingHistoryByEmailRequest,
