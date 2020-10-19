@@ -24,7 +24,6 @@ import {
   getTrainingHistoryIsLoading,
 } from '../../../app/store/training-history/training-history.selector';
 import { getSelectedUser } from '../../../app/store/profile/users.selector';
-import { selectUser } from '../../../app/store/profile/users.actions';
 
 @Component({
   selector: 'venko-training-history',

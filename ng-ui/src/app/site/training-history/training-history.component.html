@@ -65,32 +65,28 @@
       </div>
     </ng-container>
 
-      <button
-        type="button"
-        class="btn btn-primary float-right mt-20"
-        (click)="onAddItem(modalContent)">
-        {{ 'global.add' | translate }}
-      </button>
+    <button
+      type="button"
+      class="btn btn-primary float-right mt-20"
+      (click)="onAddItem(modalContent)">
+      {{ 'global.add' | translate }}
+    </button>
 
-      <ng-template #modalContent let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" *ngIf="selectedItem == null" id="modal-basic-title">{{ 'global.add' | translate }}</h4>
-          <h4 class="modal-title" *ngIf="selectedItem != null" id="modal-basic-title">{{ 'global.edit' | translate }}</h4>
-        </div>
-        <div class="modal-body">
-          <venko-training-history-edit
-            [trainingHistory]="trainingHistory$ | async"
-            [selectedMonth]="selectedMonth"
-            [item]="selectedItem"
-            [editIndex]="selectedItemIndex"
-            (saved)="onCloseModal()">
-          </venko-training-history-edit>
-        </div>
-      </ng-template>
-
-    <ng-container *ngIf="trainingHistory$ | async as trainingHistory">
-
-    </ng-container>
+    <ng-template #modalContent let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="selectedItem == null" id="modal-basic-title">{{ 'global.add' | translate }}</h4>
+        <h4 class="modal-title" *ngIf="selectedItem != null" id="modal-basic-title">{{ 'global.edit' | translate }}</h4>
+      </div>
+      <div class="modal-body">
+        <venko-training-history-edit
+          [trainingHistory]="trainingHistory$ | async"
+          [selectedMonth]="selectedMonth"
+          [item]="selectedItem"
+          [editIndex]="selectedItemIndex"
+          (saved)="onCloseModal()">
+        </venko-training-history-edit>
+      </div>
+    </ng-template>
 
     <pre *ngIf="!environment.production">
       <code>{{ trainingHistory$ | async | json }}</code>

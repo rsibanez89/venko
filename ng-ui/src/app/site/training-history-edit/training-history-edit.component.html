@@ -31,7 +31,7 @@
   <div class="form-row">
     <div class="form-group col">
       <label for="routineId">{{ 'trainingHistoryComponent.routineId' | translate }}</label>
-      <input type="number" min="1" class="form-control" id="routineId" formControlName="routineId" placeholder="10" autofocus>
+      <input type="number" min="1" class="form-control" id="routineId" formControlName="routineId" autofocus>
       <div class="invalid" *ngIf="routineId.invalid && (routineId.dirty || routineId.touched)">{{ 'trainingHistoryComponent.invalidRoutineId' | translate }}</div>
     </div>
 

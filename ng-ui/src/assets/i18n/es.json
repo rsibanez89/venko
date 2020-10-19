@@ -45,7 +45,7 @@
   "trainingHistoryComponent": {
     "date": "Fecha",
     "time": "Hora",
-    "routineId": "# Rutina",
+    "routineId": "Id Rutina",
     "routineType": "Tipo de rutina",
     "lapsCount": "# vueltas",
     "duration": "Tiempo",

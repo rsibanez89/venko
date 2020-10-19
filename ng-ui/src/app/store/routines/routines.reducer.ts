@@ -26,10 +26,10 @@ export const initialState: RoutinesState = {
 const _routinesReducer = createReducer(
   initialState,
   on(getRoutinesForUser, state => {
-    return { ...state, isLoading: true };
+    return { ...state, selected: null, exercises: [], isLoading: true };
   }),
   on(getRoutinesSucceded, (state, action) => {
-    return { ...state, routines: action.data, selected: null, exercises: [], isLoading: false };
+    return { ...state, routines: action.data, isLoading: false };
   }),
   on(getRoutinesFailed, state => {
     return { ...state, isLoading: false };
