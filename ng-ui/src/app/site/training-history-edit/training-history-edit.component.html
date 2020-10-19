@@ -1,6 +1,6 @@
 
 <form [formGroup]="form">
-  <div class="form-row">
+  <div *ngIf="showAutoData" class="form-row">
     <div class="form-group col">
       <label for="date">{{ 'trainingHistoryComponent.date' | translate }}</label>
       <div class="input-group">
@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <div class="form-row">
+  <div *ngIf="showAutoData" class="form-row">
     <div class="form-group col">
       <label for="routineId">{{ 'trainingHistoryComponent.routineId' | translate }}</label>
       <input type="number" min="1" class="form-control" id="routineId" formControlName="routineId" autofocus>
@@ -49,7 +49,7 @@
     </div>
   </div>
 
-  <div class="form-row">
+  <div *ngIf="showAutoData" class="form-row">
     <div class="form-group col">
       <label for="duration">{{ 'trainingHistoryComponent.duration' | translate }}</label>
       <ngb-timepicker id="time" formControlName="duration" [spinners]="false" [seconds]="true"></ngb-timepicker>
@@ -64,18 +64,18 @@
   </div>
 
   <div class="form-row">
-    <div class="form-group col">
+    <div class="form-group col-6">
       <label for="weight">{{ 'trainingHistoryComponent.weight' | translate }}</label>
       <input type="number" min="0" class="form-control" id="weight" formControlName="weight" placeholder="-">
       <div class="invalid" *ngIf="form.get('weight').invalid">Please provide a valid weight.</div>
     </div>
 
-    <div class="form-group col">
+    <div *ngIf="showAutoData" class="form-group col-6">
       <label for="dificulty">{{ 'trainingHistoryComponent.dificulty' | translate }}</label>
       <select class="form-control" id="dificulty" formControlName="dificulty">
-        <option [ngValue]="'Easy'">Easy</option>
-        <option [ngValue]="'Medium'">Medium</option>
-        <option [ngValue]="'Hard'">Hard</option>
+        <option [ngValue]="'Easy'">{{ 'global.easy' | translate }}</option>
+        <option [ngValue]="'Medium'">{{ 'global.medium' | translate }}</option>
+        <option [ngValue]="'Hard'">{{ 'global.hard' | translate }}</option>
       </select>
     </div>
   </div>

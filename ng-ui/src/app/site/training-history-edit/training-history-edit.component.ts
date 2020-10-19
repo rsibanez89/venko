@@ -37,6 +37,9 @@ export class TrainingHistoryEditComponent {
   selectedMonth: dayjs.Dayjs;
 
   @Input()
+  showAutoData = true;
+
+  @Input()
   set item(item: TrainingHistoryItem) {
     if (item == null) {
       item = new TrainingHistoryItem();

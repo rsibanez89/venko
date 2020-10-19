@@ -4,7 +4,12 @@
     "edit": "Edit",
     "delete": "Delete",
     "saveChanges": "Save changes",
-    "warning": "Warning"
+    "warning": "Warning",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "start": "Start",
+    "stop": "Stop"
   },
   "homeComponent": {
     "welcome": "Welcome to Venko",
