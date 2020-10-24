@@ -16,6 +16,14 @@ export class ShowcaseComponent {
     this.timer.startTimer(10);
   }
 
+  public stopTimer() {
+    this.timer.stopTimer();
+  }
+
+  public pauseOrResumeTimer() {
+    this.timer.pauseOrResumeTimer();
+  }
+
   public whenTimerEnded() {
     this.isResting = !this.isResting;
     if (this.isResting) {

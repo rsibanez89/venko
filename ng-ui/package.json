@@ -8,7 +8,7 @@
     "test": "ng test",
     "sed": "sed -i 's/type=\"module\"/type=\"text/javascript\"/g' dist/ng-ui/index.html",
     "deploy": "aws s3 cp ./dist/ng-ui s3://venko --recursive",
-    "refresh-ui": "aws cloudfront create-invalidation --distribution-id E22YZ4R6C72E8K --paths \"/*\"",
+    "refresh-ui": "aws cloudfront create-invalidation --distribution-id E22YZ4R6C72E8K --paths \"/index.html\"",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

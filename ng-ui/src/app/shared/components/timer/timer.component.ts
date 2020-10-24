@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { interval, Observable, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'venko-timer',
@@ -13,6 +13,8 @@ export class TimerComponent implements OnInit {
   public isDark = true;
   public time: string;
   private numbers: Observable<number>;
+  public paused = false;
+  private stopped = true;
   @Output() timerEnded = new EventEmitter<boolean>();
 
   ngOnInit(): void {
@@ -25,19 +27,30 @@ export class TimerComponent implements OnInit {
   }
 
   public startTimer(limit: number) {
-    this.resetTimer();
-    this.subscription = this.numbers.pipe(take(limit)).subscribe(x => {
-      this.addSecond();
-      this.formatTimer();
-      if (x === limit - 1) {
-        this.timerEnded.emit(true);
+    this.stopTimer();
+    this.paused = false;
+    this.stopped = false;
+    let elapsedTime = 0;
+    this.subscription = this.numbers.pipe(takeWhile(() => !this.stopped)).subscribe(_ => {
+      if (!this.paused) {
+        elapsedTime++;
+        this.addSecond();
+        this.formatTimer();
+        if (elapsedTime === limit) {
+          this.timerEnded.emit(true);
+        }
       }
     });
   }
 
   public stopTimer() {
-    this.subscription.unsubscribe();
+    this.stopped = true;
+    this.subscription?.unsubscribe();
     this.resetTimer();
+  }
+
+  public pauseOrResumeTimer() {
+    this.paused = !this.paused;
   }
 
   public addSecond() {

@@ -28,8 +28,10 @@
         [disabled]="isTimerVisible"
         >
       </div>
-      <button *ngIf="!isTimerVisible" (click)="initTimer()" class="btn btn-primary ml-sm-2 mb-2">{{ 'routineComponent.startButton' | translate }}</button>
-      <button *ngIf="isTimerVisible" (click)="stopTimer(modalContent)" class="btn btn-dark ml-sm-2 mb-2">{{ 'routineComponent.stopButton' | translate }}</button>
+      <button *ngIf="!isTimerVisible" (click)="initTimer()" class="btn btn-primary ml-sm-2 mb-2">{{ 'global.start' | translate }}</button>
+      <button *ngIf="isTimerVisible && timer.paused" (click)="pauseOrResumeTimer()" class="btn btn-info ml-sm-2 mb-2">{{ 'global.resume' | translate }}</button>
+      <button *ngIf="isTimerVisible && !timer.paused" (click)="pauseOrResumeTimer()" class="btn btn-info ml-sm-2 mb-2">{{ 'global.pause' | translate }}</button>
+      <button *ngIf="isTimerVisible" (click)="stopTimer(modalContent)" class="btn btn-dark ml-sm-2 mb-2">{{ 'global.stop' | translate }}</button>
     </div>
 
     <ng-template #modalContent let-modal>

@@ -9,6 +9,8 @@
     "medium": "Medium",
     "hard": "Hard",
     "start": "Start",
+    "pause": "Pause",
+    "resume": "Resume",
     "stop": "Stop"
   },
   "homeComponent": {

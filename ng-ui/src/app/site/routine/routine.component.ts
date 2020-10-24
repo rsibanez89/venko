@@ -113,6 +113,10 @@ export class RoutineComponent implements OnInit, AfterViewInit {
     this.exerciseCount = 1;
   }
 
+  public pauseOrResumeTimer() {
+    this.timer.pauseOrResumeTimer();
+  }
+
   public stopTimer(modalContent) {
     this.isTimerVisible = false;
     this.timer.stopTimer();
