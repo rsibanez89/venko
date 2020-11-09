@@ -11,7 +11,13 @@
       </ngb-carousel>
       <venko-timer [style.display]="isTimerVisible ? 'block' : 'none'" (timerEnded)="whenTimerEnded()"></venko-timer>
       <button *ngIf="!isfullscreen" (click)="openfullscreen()" class="btn btn-outline-light maximize"><fa-icon [icon]="faWindowMaximize"></fa-icon></button>
-      <button *ngIf="isfullscreen" (click)="closefullscreen()" class="btn btn-outline-light maximize"><fa-icon [icon]="faWindowRestore"></fa-icon></button>
+      <ng-container *ngIf="isfullscreen">
+        <button (click)="closefullscreen()" class="btn btn-outline-light maximize"><fa-icon [icon]="faWindowRestore"></fa-icon></button>
+        <button *ngIf="!isTimerVisible" (click)="initTimer()" class="btn btn-primary ml-sm-2 mb-2 start">{{ 'global.start' | translate }}</button>
+        <button *ngIf="isTimerVisible && timer.paused" (click)="pauseOrResumeTimer()" class="btn btn-info ml-sm-2 mb-2 pause">{{ 'global.resume' | translate }}</button>
+        <button *ngIf="isTimerVisible && !timer.paused" (click)="pauseOrResumeTimer()" class="btn btn-info ml-sm-2 mb-2 pause">{{ 'global.pause' | translate }}</button>
+        <button *ngIf="isTimerVisible" (click)="stopTimer(modalContent)" class="btn btn-dark ml-sm-2 mb-2 stop">{{ 'global.stop' | translate }}</button>
+      </ng-container>
     </div>
 
     <div class="form-inline">
