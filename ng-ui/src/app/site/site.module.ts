@@ -14,6 +14,7 @@ import { UsersComponent } from './users/users.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { TrainingHistoryComponent } from './training-history/training-history.component';
 import { TrainingHistoryEditComponent } from './training-history-edit/training-history-edit.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { TrainingHistoryEditComponent } from './training-history-edit/training-h
     ShowcaseComponent,
     TrainingHistoryComponent,
     TrainingHistoryEditComponent,
+    TermsAndConditionsComponent,
   ],
   imports: [
     NgbModule,

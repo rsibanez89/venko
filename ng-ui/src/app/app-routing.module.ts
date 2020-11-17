@@ -12,11 +12,16 @@ import { RoutineComponent } from './site/routine/routine.component';
 import { UsersComponent } from './site/users/users.component';
 import { ShowcaseComponent } from './site/showcase/showcase.component';
 import { TrainingHistoryComponent } from './site/training-history/training-history.component';
+import { TermsAndConditionsComponent } from './site/terms-and-conditions/terms-and-conditions.component';
 
 const routes: Routes = [
   {
     path: 'showcase',
     component: ShowcaseComponent,
+  },
+  {
+    path: 'terms-and-conditions',
+    component: TermsAndConditionsComponent,
   },
   {
     path: 'profile',
