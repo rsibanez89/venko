@@ -25,6 +25,10 @@ export class PublicRoutesService {
       return true;
     }
 
+    if (req.url.includes('/.well-known/')) {
+      return true;
+    }
+
     if (req.url.indexOf('routines/') === -1) {
       return false;
     }
