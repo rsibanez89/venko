@@ -13,6 +13,7 @@ import { UsersComponent } from './site/users/users.component';
 import { ShowcaseComponent } from './site/showcase/showcase.component';
 import { TrainingHistoryComponent } from './site/training-history/training-history.component';
 import { TermsAndConditionsComponent } from './site/terms-and-conditions/terms-and-conditions.component';
+import { PrivacyPolicyComponent } from './site/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'terms-and-conditions',
     component: TermsAndConditionsComponent,
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
   },
   {
     path: 'profile',

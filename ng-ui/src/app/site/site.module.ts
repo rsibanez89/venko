@@ -15,6 +15,7 @@ import { ShowcaseComponent } from './showcase/showcase.component';
 import { TrainingHistoryComponent } from './training-history/training-history.component';
 import { TrainingHistoryEditComponent } from './training-history-edit/training-history-edit.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
     TrainingHistoryComponent,
     TrainingHistoryEditComponent,
     TermsAndConditionsComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     NgbModule,
