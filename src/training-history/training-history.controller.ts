@@ -2,15 +2,20 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   NotFoundException,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { VenkoAuthGuard } from 'src/common/auth/venko-auth.guard';
 import { JwtAuthGuard } from '../common/auth/jwt-auth.guard';
 
 import { JoiValidationPipe } from '../common/pipes/joi-validation.pipe';
-import { TrainingHistory } from './dto/training-history.dto';
+import {
+  TrainingHistory,
+  TrainingHistoryForPeriod,
+} from './dto/training-history.dto';
 import {
   DeleteTrainingHistoryByEmailRequest,
   TrainingHistoryByEmailRequest,
@@ -27,13 +32,19 @@ export class TrainingHistoryController {
 
   @UseGuards(JwtAuthGuard, VenkoAuthGuard)
   @Post('')
-  async create(@Body(new JoiValidationPipe(TrainingHistoryRequestSchema)) request: TrainingHistoryRequest): Promise<TrainingHistory> {
+  async create(
+    @Body(new JoiValidationPipe(TrainingHistoryRequestSchema))
+    request: TrainingHistoryRequest,
+  ): Promise<TrainingHistory> {
     return this.trainingHistoryService.createTrainingHistory(request);
   }
 
   @UseGuards(JwtAuthGuard, VenkoAuthGuard)
   @Post('add')
-  async add(@Body(new JoiValidationPipe(TrainingHistoryRequestSchema)) request: TrainingHistoryRequest): Promise<TrainingHistory> {
+  async add(
+    @Body(new JoiValidationPipe(TrainingHistoryRequestSchema))
+    request: TrainingHistoryRequest,
+  ): Promise<TrainingHistory> {
     return this.trainingHistoryService.addTrainingHistory(request);
   }
 
@@ -42,7 +53,21 @@ export class TrainingHistoryController {
   async getByEmail(
     @Body() request: TrainingHistoryByEmailRequest,
   ): Promise<TrainingHistory> {
-    const trainingHistory = await this.trainingHistoryService.getTrainingHistoryByEmail(request);
+    const trainingHistory = await this.trainingHistoryService.getTrainingHistoryByEmail(
+      request,
+    );
+    if (trainingHistory == null) {
+      throw new NotFoundException();
+    }
+    return trainingHistory;
+  }
+
+  @UseGuards(JwtAuthGuard, VenkoAuthGuard)
+  @Get()
+  async getForPeriod(@Query() query): Promise<TrainingHistoryForPeriod> {
+    const trainingHistory = await this.trainingHistoryService.getTrainingHistoryForPeriod(
+      query.period,
+    );
     if (trainingHistory == null) {
       throw new NotFoundException();
     }
@@ -54,7 +79,9 @@ export class TrainingHistoryController {
   async deleteByEmail(
     @Body() request: DeleteTrainingHistoryByEmailRequest,
   ): Promise<TrainingHistory> {
-    const trainingHistory = await this.trainingHistoryService.deleteTrainingHistory(request);
+    const trainingHistory = await this.trainingHistoryService.deleteTrainingHistory(
+      request,
+    );
     if (trainingHistory == null) {
       throw new NotFoundException();
     }

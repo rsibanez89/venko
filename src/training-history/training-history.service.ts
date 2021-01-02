@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import config from '../config';
 import DynamoDB from 'aws-sdk/clients/dynamodb';
-import { TrainingHistory } from './dto/training-history.dto';
+import {
+  TrainingHistory,
+  TrainingHistoryForPeriod,
+  TrainingHistoryForPeriodItem,
+} from './dto/training-history.dto';
 import { UtilsService } from '../common/service/utils.service';
-import { DeleteTrainingHistoryByEmailRequest, TrainingHistoryByEmailRequest, TrainingHistoryRequest } from './dto/training-history.request.dto';
+import {
+  DeleteTrainingHistoryByEmailRequest,
+  TrainingHistoryByEmailRequest,
+  TrainingHistoryRequest,
+} from './dto/training-history.request.dto';
 
 @Injectable()
 export class TrainingHistoryService {
@@ -20,7 +28,7 @@ export class TrainingHistoryService {
   }
 
   async getTrainingHistoryByEmail(
-    request: TrainingHistoryByEmailRequest
+    request: TrainingHistoryByEmailRequest,
   ): Promise<TrainingHistory | null> {
     const response = await this.dynamodbClient
       .get({
@@ -33,6 +41,57 @@ export class TrainingHistoryService {
       .promise();
 
     return response.Item as TrainingHistory;
+  }
+
+  async getTrainingHistoryForPeriod(
+    period: string,
+  ): Promise<TrainingHistoryForPeriod | null> {
+    const response = await this.dynamodbClient
+      .scan({
+        TableName: this.tableName,
+        FilterExpression: '#period = :p',
+        ExpressionAttributeNames: { '#period': 'period' },
+        ExpressionAttributeValues: { ':p': period },
+      })
+      .promise();
+
+    if (!response.Items || response.Items.length == 0) {
+      return null;
+    }
+
+    const allGroupsByDate = response.Items.map(item =>
+      this.toTrainingHistorySlice(item),
+    );
+
+    const flatGroups = allGroupsByDate.reduce(
+      (flat, next) => flat.concat(next),
+      [],
+    );
+
+    return {
+      period: period,
+      items: flatGroups.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      ),
+    };
+  }
+
+  private toTrainingHistorySlice(item): TrainingHistoryForPeriodItem[] {
+    const itemValue = item as TrainingHistory;
+
+    return itemValue.items.map(item => ({
+      email: itemValue.email,
+      date: item.date,
+      routineId: item.routineId,
+      routineType: item.routineType,
+      lapsCount: item.lapsCount,
+      dificulty: item.dificulty,
+      duration: item.duration,
+      weight: item.weight,
+      comments: item.comments,
+      energyLevel: item.energyLevel,
+      mood: item.mood,
+    }));
   }
 
   async createTrainingHistory(
@@ -66,7 +125,7 @@ export class TrainingHistoryService {
       ExpressionAttributeValues: {
         ':i': trainingHistory.items,
       },
-      ExpressionAttributeNames: { "#items" : "items" },
+      ExpressionAttributeNames: { '#items': 'items' },
       ReturnValues: 'UPDATED_NEW',
     };
 
@@ -85,7 +144,7 @@ export class TrainingHistoryService {
         period: deleteTrainingHistory.period,
       },
       UpdateExpression: `REMOVE #items[${deleteTrainingHistory.index}]`,
-      ExpressionAttributeNames: { "#items" : "items" },
+      ExpressionAttributeNames: { '#items': 'items' },
       ReturnValues: 'ALL_NEW',
     };
 
