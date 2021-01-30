@@ -89,6 +89,15 @@
             <fa-icon [icon]="faUsers" class="mr-3"></fa-icon
             >{{ 'navigationComponent.usersButton' | translate }}
           </a>
+          <a
+            [routerLink]="['/training-history-everyone']"
+            class="dropdown-item dropdown-profile"
+            *ngIf="usersService.isAdmin$ | async"
+            (click)="isOpen = false"
+          >
+            <fa-icon [icon]="faHistory" class="mr-3"></fa-icon
+            >{{ 'navigationComponent.trainingHistoryButton' | translate }}
+          </a>
           <button
             (click)="auth.logout()"
             class="btn btn-link dropdown-item"

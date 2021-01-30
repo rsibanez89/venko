@@ -14,3 +14,8 @@ export const getTrainingHistory = createSelector(
   getTrainingHistoryState,
   (state: TrainingHistoryState) => state.trainingHistory,
 );
+
+export const getTrainingHistoryForPeriod = createSelector(
+  getTrainingHistoryState,
+  (state: TrainingHistoryState) => state.trainingHistoryForPeriod,
+);

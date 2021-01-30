@@ -9,10 +9,13 @@ import {
   deleteTrainingHistoryItem,
   editTrainingHistoryItem,
   getTrainingHistoryFailed,
+  getTrainingHistoryForPeriod,
+  getTrainingHistoryForPeriodFailed,
+  getTrainingHistoryForPeriodSucceded,
   getTrainingHistoryForUser,
   getTrainingHistorySucceded,
 } from './training-history.actions';
-import { TrainingHistory } from './training-history.dto';
+import { TrainingHistory, TrainingHistoryForPeriod } from './training-history.dto';
 import { environment } from '../../../environments/environment';
 import { AppState } from '../app/app.reducer';
 import { getTrainingHistory } from './training-history.selector';
@@ -55,6 +58,24 @@ export class TrainingHistoryEffects {
             }),
             catchError(err => {
               return of(getTrainingHistoryFailed({ error: err }));
+            }),
+          ),
+      ),
+    ),
+  );
+
+  getTrainingHistoryForPeriod$: Observable<Action> = createEffect(() =>
+    this.action$.pipe(
+      ofType(getTrainingHistoryForPeriod),
+      exhaustMap(param =>
+        this.http
+          .get(`${environment.api}/training-history?period=${param.period}`)
+          .pipe(
+            map((data: TrainingHistoryForPeriod) => {
+              return getTrainingHistoryForPeriodSucceded({ data });
+            }),
+            catchError(err => {
+              return of(getTrainingHistoryForPeriodFailed({ error: err }));
             }),
           ),
       ),

@@ -14,6 +14,7 @@ import { ShowcaseComponent } from './site/showcase/showcase.component';
 import { TrainingHistoryComponent } from './site/training-history/training-history.component';
 import { TermsAndConditionsComponent } from './site/terms-and-conditions/terms-and-conditions.component';
 import { PrivacyPolicyComponent } from './site/privacy-policy/privacy-policy.component';
+import { TrainingHistoryEveryoneComponent } from './site/training-history-everyone/training-history-everyone.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,11 @@ const routes: Routes = [
   {
     path: 'training-history',
     component: TrainingHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'training-history-everyone',
+    component: TrainingHistoryEveryoneComponent,
     canActivate: [AuthGuard],
   },
   {

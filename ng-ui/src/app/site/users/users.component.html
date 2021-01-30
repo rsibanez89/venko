@@ -1,5 +1,11 @@
 <div class="container">
   <venko-async-container [isLoading]="usersIsLoading$ | async">
+    <form class="search">
+      <div class="form-group form-inline">
+        {{ 'trainingHistoryComponent.search' | translate }}: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+      </div>
+    </form>
+
     <form [formGroup]="tableForm">
       <table class="table table-striped">
         <thead>
@@ -26,8 +32,8 @@
                   formControlName="userId"
                 />
               </td>
-              <td>{{ userControl.get('fullName').value }}</td>
-              <td>{{ userControl.get('email').value }}</td>
+              <td><ngb-highlight [result]="userControl.get('fullName').value" [term]="filter.value"></ngb-highlight></td>
+              <td><ngb-highlight [result]="userControl.get('email').value" [term]="filter.value"></ngb-highlight></td>
               <td>{{ userControl.get('userType').value }}</td>
               <td>
                 <button type="button" class="btn btn-outline-info btn-sm" (click)="viewTrainingHistoryUser(i)">

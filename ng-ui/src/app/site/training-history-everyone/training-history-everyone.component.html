@@ -1,0 +1,64 @@
+<div class="container">
+
+  <span class="dates-picker">
+    <button type="button" class="btn btn-link" aria-label="Previous month" title="Previous month" (click)="onLeftMonth()">
+      <fa-icon [icon]="faChevronLeft"></fa-icon>
+    </button>
+    <h2>{{ this.selectedMonth.format('YYYY-MM') }}</h2>
+    <button type="button" class="btn btn-link" aria-label="Next month" title="Next month" (click)="onRightMonth()">
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+    </button>
+  </span>
+
+  <venko-async-container [isLoading]="trainingHistoryIsLoading$ | async">
+
+    <ng-container *ngIf="filteredTrainingHistory$ | async as trainingHistory">
+      <form>
+        <div class="form-group form-inline">
+          {{ 'trainingHistoryComponent.search' | translate }}: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+        </div>
+      </form>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{ 'trainingHistoryComponent.date' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.user' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.routineId' | translate }}</th>
+            <th scope="col" class="d-none d-md-table-cell">{{ 'trainingHistoryComponent.routineType' | translate }}</th>
+            <th scope="col" class="d-none d-md-table-cell">{{ 'trainingHistoryComponent.lapsCount' | translate }}</th>
+            <th scope="col" class="d-none d-md-table-cell">{{ 'trainingHistoryComponent.duration' | translate }}</th>
+            <th scope="col" class="d-none d-xl-table-cell">{{ 'trainingHistoryComponent.dificulty' | translate }}</th>
+            <th scope="col" class="d-none d-xl-table-cell">{{ 'trainingHistoryComponent.weight' | translate }}</th>
+            <th scope="col">{{ 'trainingHistoryComponent.mood' | translate }}</th>
+            <th scope="col" class="d-none d-md-table-cell">{{ 'trainingHistoryComponent.energyLevel' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of trainingHistory.items; let i = index">
+            <tr>
+              <td>{{ formatDate(item.date) }}</td>
+              <td><ngb-highlight [result]="item.email" [term]="filter.value"></ngb-highlight></td>
+              <td><a [routerLink]="['/routines/'+item.routineId]">{{item.routineId}}</a></td>
+              <td class="d-none d-md-table-cell">{{ item.routineType }}</td>
+              <td class="d-none d-md-table-cell">{{ item.lapsCount }}</td>
+              <td class="d-none d-md-table-cell">{{ item.duration | duration }}</td>
+              <td class="d-none d-xl-table-cell">{{ item.dificulty }}</td>
+              <td class="d-none d-xl-table-cell">{{ item.weight || '-' }}</td>
+              <td class="mood"><venko-mood [mood]="item.mood"></venko-mood></td>
+              <td class="d-none d-md-table-cell energy"><venko-energy-bar [energy]="item.energyLevel"></venko-energy-bar></td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+
+      <div class="no-training" *ngIf="trainingHistory.items.length == 0">
+        {{ 'trainingHistoryComponent.noTraining' | translate }}
+      </div>
+    </ng-container>
+
+    <pre *ngIf="!environment.production">
+      <code>{{ trainingHistory$ | async | json }}</code>
+    </pre>
+  </venko-async-container>
+</div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faUser, faPowerOff, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPowerOff, faUsers, faHistory } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 import { UsersService } from '../../services/users.service';
 
@@ -13,6 +13,7 @@ export class NavigationComponent {
   public isOpen = false;
   public faUser = faUser;
   public faUsers = faUsers;
+  public faHistory = faHistory;
   public faPowerOff = faPowerOff;
 
   constructor(

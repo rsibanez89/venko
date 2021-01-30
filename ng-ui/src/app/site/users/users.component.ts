@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, startWith, withLatestFrom } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../store/app/app.reducer';
 import { Profile } from '../../store/profile/profile.dto';
@@ -18,6 +18,7 @@ import {
   getUsers,
   getSelectedUser,
 } from '../../store/profile/users.selector';
+import { text } from 'express';
 
 @Component({
   selector: 'venko-users',
@@ -30,6 +31,8 @@ export class UsersComponent implements OnInit {
   public users$: Observable<Profile[]>;
   public tableForm: FormGroup;
   public usersListForm: FormArray;
+  public filter = new FormControl('');
+  public filteredUsers$: Observable<Profile[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +46,26 @@ export class UsersComponent implements OnInit {
     this.store.dispatch(selectUser({ data: null }));
     this.usersIsLoading$ = this.store.pipe(select(getUsersIsLoading));
     this.users$ = this.store.pipe(select(getUsers));
-    this.users$.pipe(filter(users => users != null)).subscribe(users => {
+
+    const searchString$ = this.filter.valueChanges.pipe(
+      startWith(''), // start it off
+      debounceTime(150), // debounce the user input
+      distinctUntilChanged(),
+    );
+
+    this.filteredUsers$ = combineLatest([
+      this.users$.pipe(filter(users => users != null)),
+      searchString$,
+    ]).pipe(
+      map(([users, searchString]) => {
+        if (searchString) {
+          return this.search(users, searchString)
+        }
+        return users;
+      }),
+    );
+
+    this.filteredUsers$.pipe(filter(users => users != null)).subscribe(users => {
       // If the user list change, refresh the form
       this.initializeForm();
 
@@ -57,6 +79,19 @@ export class UsersComponent implements OnInit {
       .pipe(filter(user => user != null))
       .subscribe(_ => {
         this.router.navigate(['training-history']);
+      });
+  }
+
+  search(
+    users: Profile[],
+    text: string,
+  ): Profile[] {
+      return users.filter(user => {
+        const search = text.toLowerCase();
+        return user.email.toLowerCase().includes(search)
+        || user.firstName.toLowerCase().includes(search)
+        || user.lastName.toLowerCase().includes(search)
+        || user.userId.toLowerCase().includes(search);
       });
   }
 

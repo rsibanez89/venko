@@ -34,3 +34,22 @@ export class TrainingHistory {
   period: string; // Secondary Key
   items: TrainingHistoryItem[];
 }
+
+export class TrainingHistoryForPeriodItem {
+  email: string;
+  date: Date;
+  routineId: number;
+  routineType: TrainingType;
+  lapsCount: number;
+  dificulty: string;
+  duration: string;
+  weight: number;
+  comments: string;
+  energyLevel: number;
+  mood: Mood;
+}
+
+export class TrainingHistoryForPeriod {
+  period: string; // Secondary Key
+  items: TrainingHistoryForPeriodItem[];
+}

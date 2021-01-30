@@ -40,6 +40,7 @@
     "logInButton": "Iniciar sesión",
     "profileButton": "Perfil",
     "usersButton": "Usuarios",
+    "trainingHistoryButton": "Historial de Entrenamiento (combinado)",
     "logOutButton": "Cerrar sesión"
   },
   "profileComponent": {
@@ -50,7 +51,9 @@
     "updateProfileButton": "Actualizar perfil"
   },
   "trainingHistoryComponent": {
+    "search": "Buscar usuario",
     "date": "Fecha",
+    "user": "Usuario",
     "time": "Hora",
     "routineId": "Id Rutina",
     "routineType": "Tipo de rutina",
